@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<!-- Begin Page Content -->
+
+	<!-- DataTales Example -->
+	<div class="card shadow mb-3">
+		<div class="card-header py-3">
+			<h5 class="m-1 font-weight-bold text-dark">회원정보</h5>
+		</div>
+		<div class="card-body">
+			<div class="table-responsive">
+				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+					<thead>
+						<tr>
+							<th></th>
+							<th>회원번호</th>
+							<th>아이디</th>
+							<th>비밀번호</th>
+							<th>이름</th>
+							<th>이메일</th>
+							<th>전화번호</th>
+							<th>회원등급</th>
+							<th>현재상태</th>
+							<th>가입일</th>
+							<th>탈퇴일</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="member:${member}">
+							<th><input type="checkbox" name="delete"></input></th>
+							<th th:text="${member.member_index}"></th>
+							<th th:text="${member.member_id}"></th>
+							<th th:text="${member.member_pw}"></th>
+							<th th:text="${member.member_name}"></th>
+							<th th:text="${member.member_email}"></th>
+							<th th:text="${member.member_tel}"></th>
+							<th th:text="${member.member_rank}"></th>
+							<th th:text="${member.member_status}"></th>
+							<th th:text="${member.member_joindate}"></th>
+							<th th:text="${member.member_dropdate}"></th>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+    </html>

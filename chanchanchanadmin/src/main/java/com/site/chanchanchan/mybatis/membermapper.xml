@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.site.chanchanchan.mapper.MemberMapper">
+	<select id="select" parameterType="Integer" resultType="Member">
+		SELECT * FROM member WHERE member_index=#{member_index}
+	</select>
+	<select id="selectall" resultType="Member">
+		SELECT * FROM member
+	</select>
+	<insert id="insert" parameterType="Member">
+		INSERT INTO member VALUES (member_index,#{member_id},#{member_pwd},#{member_name},#{member_email},#{member_tel},#{member_rank},#{member_status},#{member_joindate},#{member_dropdate})
+	</insert>
+	<update id="update" parameterType="Member">
+		UPDATE member SET member_id=#{member_id},member_pwd=#{member_pwd},member_name=#{member_name},member_email=#{member_email},member_tel=#{member_tel},member_rank=#{member_rank},member_status=#{member_status},member_joindate=#{member_joindate},member_dropdate=#{member_dropdate}
+		WHERE member_index=#{member_index}
+	</update>
+	<delete id="delete" parameterType="Member">
+		DELETE FROM member WHERE member_index=#{member_index}
+	</delete>
+	<select id="search" parameterType="String" resultType="Member">
+		SELECT * FROM member WHERE member_id=#{id}
+	</select>
+</mapper>
