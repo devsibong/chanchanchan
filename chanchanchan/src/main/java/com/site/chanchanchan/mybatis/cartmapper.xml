@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.site.chanchanchan.mapper.CartMapper">
+	<select id="select" parameterType="String" resultType="Cart">
+		SELECT * FROM cart WHERE cart_id = #{cart_id}
+	</select>
+	<select id="selectall" resultType="Cart">
+		SELECT * FROM cart
+	</select>
+	<insert id="insert" parameterType="Cart" useGeneratedKeys="true" keyProperty="cart_id">
+		INSERT INTO cart VALUES (cart_id,#{member_index},#{product_id},#{product_count})
+	</insert>
+	<update id="update" parameterType="Cart">
+		UPDATE cart SET #{cart_id},#{member_index},#{product_id},#{product_count}
+		WHERE cart-id = #{cart_id}
+	</update>
+	<delete id="delete" parameterType="String">
+		DELETE FROM cart WHERE cart-id = #{cart_id}
+	</delete>	
+</mapper>

@@ -8,6 +8,6 @@ import com.site.chanchanchan.frame.MyMapper;
 
 @Repository
 @Mapper
-public interface CartMapper extends MyMapper<Integer, Cart>{
+public interface CartMapper extends MyMapper<String, Cart>{
 
 }
