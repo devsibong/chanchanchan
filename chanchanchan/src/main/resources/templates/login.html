@@ -1,0 +1,15 @@
+<script>
+$(document).ready(function(){
+	$('#loginbtn').click(function(){
+		if($('#member_id').val() == '' || $('#member_pwd').val( )== ''){
+			alert("아이디 또는 비밀번호를 입력해주세요.");
+			return;
+		}
+		$('#loginform').attr({
+			method:'post',
+			action:'[[@{/loginimpl}]]'});
+		$('#loginform').submit();
+	});
+	
+});
+</script>
