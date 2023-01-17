@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>MyPage</title>
+</head>
+<style>
+section{
+	width: 100%;
+	height: 700px;
+	background: white;
+	margin: 0 auto;
+	overflow: hidden;
+}
+section > aside{
+	float:left;
+}
+section > #left_aside{
+	width: 30%;
+	height: 698px;
+	background: white;
+	border: 1px solid red;
+}
+section > #center_aside{
+	width: 65%;
+	height: 698px;
+	background: white; 
+	border: 1px solid blue;
+}
+</style>
+<script>
+
+</script>
+<body>
+	<header>
+		<h1 style="text-align: center">HEADER ZONE</h1>
+	</header>
+	<section>
+		<aside id="left_aside" th:include="${left} ? ${left} : mypageleft"></aside>
+		<aside id="center_aside" th:include="${center} ? ${center} : mypagecenter"></aside>
+	</section>
+	<footer>
+		<h1 style="text-align: center">FOOTER ZONE</h1>
+	</footer>
+</body>
+</html>
