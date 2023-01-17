@@ -1,0 +1,40 @@
+<!doctype html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmls:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="ko">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" type="text/css" th:href="@{/bootstrap.css}">
+<title>chanchanchan</title>
+</head>
+<body>
+	<table class="table">
+		<thead class="table-dark">
+			<tr>
+				<th>상품 목록</th>
+				<th>수량</th>
+				<th>주문 금액</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="question, loop : ${paging}">
+				<td
+					th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}"></td>
+				<td><a th:href="@{|/question/read?id=${question.id}|}"
+					th:text="${question.title}"></a> <span
+					class="text-danger small ms-2"
+					th:if="${#lists.size(question.answerList) > 0}"
+					th:text="${#lists.size(question.answerList)}"> </span></td>
+				<td
+					th:text="${#temporals.format(question.regDate, 'yyyy-MM-dd HH:mm')}"></td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+<!-- Bootstrap JS -->
+<script th:src="@{/bootstrap.js}"></script>
+</html>
