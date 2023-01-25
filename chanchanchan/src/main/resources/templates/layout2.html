@@ -49,7 +49,9 @@
 			</div>
 		</div>
 	</nav>
-	<th:block layout:fragment="content"></th:block>
+	<!-- Center -->
+	<div th:insert="${center} ? ${center} : main2">
+	</div>
 	<!-- Footer-->
 	<footer class="py-5 bg-dark">
 		<div class="container">
