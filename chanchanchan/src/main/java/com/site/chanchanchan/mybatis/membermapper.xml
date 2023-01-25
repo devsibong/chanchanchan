@@ -5,18 +5,17 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 <mapper namespace="com.site.chanchanchan.mapper.MemberMapper">
 	
 	<select id="select" parameterType="String" resultType="Member">
-		SELECT * FROM member WHERE member_id=#{member_id}
+		SELECT * FROM member WHERE member_id=#{member_id} OR member_email=#{member_email}
 	</select>
 	<select id="selectall" resultType="Member">
 		SELECT * FROM member
 	</select>
 	<insert id="insert" parameterType="Member">
-		INSERT INTO member VALUES (#{member_index},#{member_id},#{member_pw},#{member_name},#{member_email},
-		#{member_tel},#{member_rank},#{member_status},#{member_joindate},#{member_dropdate})
+		INSERT INTO member VALUES (member_index,#{member_id},#{member_pw},#{member_name},#{member_email},
+		#{member_tel},#{member_rank},#{member_status},NOW(),NULL)
 	</insert>
 	<update id="update" parameterType="Member">
-		UPDATE member SET #{member_id},#{member_pw},#{member_name},#{member_email},
-		#{member_tel},#{member_rank},#{member_status},#{member_joindate},#{member_dropdate}
+		UPDATE member SET member_pw=#{member_pw},member_name=#{member_name},member_email=#{member_email},member_tel=#{member_tel},member_rank=#{member_rank},member_status=#{member_status}
 		WHERE member_id=#{member_id}
 	</update>
 	<delete id="delete" parameterType="String">

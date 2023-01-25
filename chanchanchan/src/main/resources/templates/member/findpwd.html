@@ -1,0 +1,37 @@
+<script>
+$(document).ready(function() {
+	$('#findpwdbtn').click(function() {
+		var member_id = $('#member_id').val();
+		var member_email = $('#member_email').val();
+		$.ajax({
+			url : '[[@{/checkfindpwd}]]',
+			data : {
+				"member_id":member_id,
+				"member_email":member_email
+			},
+		 	success : function(data){
+		 		if(data == 0){
+			 		alert("일치하는 회원정보가 없습니다.")
+			 	}else {	
+			 		alert("임시 비밀번호가 발송되었습니다.");
+			 		$('#findpwd_form').attr({
+			 			'method' : 'post',
+						'action' : '[[@{/sendmail}]]'
+				 	});
+				 	$('#findpwd_form').submit();
+			 	}
+			}
+		});
+	});
+});
+
+</script>
+
+
+
+<form id="findpwd_form">
+	아이디<input id="member_id" type="text" name="member_id"><br>
+	이메일<input id="member_email" type="text" name="member_email"><br>
+	<button id="findpwdbtn" class="btn btn-primary" type="button">비번찾기</button>
+</form>
+
