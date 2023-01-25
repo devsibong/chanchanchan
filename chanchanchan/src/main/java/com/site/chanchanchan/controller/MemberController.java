@@ -26,9 +26,9 @@ public class MemberController {
 	
 	
 	@RequestMapping("/login")
-	public String login(Model model) {
-		model.addAttribute("center", dir + "login");
-		return "layout";
+	public String login() {
+		
+		return dir+"/login";
 	}
 
 	@RequestMapping("/loginimpl")
