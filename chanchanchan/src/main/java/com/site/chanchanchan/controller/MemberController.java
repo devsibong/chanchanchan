@@ -33,19 +33,19 @@ public class MemberController {
 
 	@RequestMapping("/loginimpl")
 	public String loginimpl(HttpSession session, String member_id, String member_pw) {
-		String mav = null;
+		String str = null;
 		try {
 			Member mem = memservice.get(member_id);
 			if(!member_pw.equals(mem.getMember_pw())) {
-				mav = "redirect:loginfail";
+				str = "redirect:loginfail";
 			}else {
 				session.setAttribute("loginmem", mem);
-				mav = "redirect:/";
+				str = "redirect:/";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return mav;
+		return str;
 	}
 
 	@RequestMapping("/logout")

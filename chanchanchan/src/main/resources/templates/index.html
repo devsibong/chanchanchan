@@ -94,8 +94,8 @@
                             </div>
                             <ul class="user-login">
                                 <li>
-                                    <a th:href="@{login}" th:if="${session.logincust == null}">Login</a>
-									<a th:href="@{logout}" th:if="${session.logincust != null}">Logout</a>
+                                    <a th:href="@{/login}" th:if="${session.loginmem == null}">Login</a>
+									<a th:href="@{/logout}" th:if="${session.loginmem != null}">Logout</a>
                                 </li>
                                 <li>
                                     <a href="register.html">Register</a>
