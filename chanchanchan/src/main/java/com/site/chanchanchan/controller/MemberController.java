@@ -28,7 +28,7 @@ public class MemberController {
 	@RequestMapping("/login")
 	public String login(Model model) {
 		model.addAttribute("center", dir + "login");
-		return "layout2";
+		return "layout";
 	}
 
 	@RequestMapping("/loginimpl")
@@ -59,13 +59,13 @@ public class MemberController {
 	@RequestMapping("/loginfail")
 	public String loginfail(Model model) {
 		model.addAttribute("center", dir + "loginfail");
-		return "layout2";
+		return "layout";
 	}
 	
 	@RequestMapping("/register")
 	public String register(Model model) {
 		model.addAttribute("center", dir + "register");
-		return "layout2";
+		return "layout";
 	}
 	
 	@RequestMapping("/registerimpl")
@@ -77,13 +77,13 @@ public class MemberController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "layout2";
+		return "layout";
 	}
 	
 	@RequestMapping("/findid")
 	public String findid(Model model) {
 		model.addAttribute("center", dir + "findid");
-		return "layout2";
+		return "layout";
 	}
 	
 	@RequestMapping("/findidimpl")
@@ -95,13 +95,13 @@ public class MemberController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "layout2";
+		return "layout";
 	}
 	
 	@RequestMapping("/findpwd")
 	public String findpwd(Model model) {
 		model.addAttribute("center", dir + "findpwd");
-		return "layout2";
+		return "layout";
 	}
 	
 	@RequestMapping("/sendmail")
