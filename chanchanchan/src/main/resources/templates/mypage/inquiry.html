@@ -1,1 +1,46 @@
-inquiry
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<style>
+	*{
+		margin:0 auto;
+		padding:0 auto;
+		overflow:hidden;
+	}
+	td{
+		text-align: center;
+	}
+</style>
+<script>
+
+</script>
+<body>
+	<h1>1:1 문의</h1><br>
+	<div>
+		<p>1:1문의를 남겨주시면 빠른 시일내 답변드리겠습니다! :)<a th:href="@{/mypage/inquiryQuestion}">문의하기</a></p>
+	</div>
+	<div>
+		<table width="500" cellpadding="0" cellspacing="0" border="1">
+			<thead>
+				<tr>
+					<th>글번호</th>
+					<th>아이디</th>
+					<th>제목</th>
+					<th>글내용</th>
+					<th>등록일</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="li:${list}">
+					<td th:text="${li.post_id}"></td>
+					<td th:text="${li.member_index}"></td>
+					<td th:text="${li.post_subject}"></td>
+					<td>
+						<a th:text="${li.post_content}" th:href="@{/mypage/inquiryview}"></a>
+					</td>
+					<td th:text="${#dates.format(li.register_date, 'yyyy-MM-dd')}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	
+</body>

@@ -1,0 +1,23 @@
+<style>
+	.layout{
+		width:500px;
+		margin:0 auto;
+		margin-top:40px;
+	}
+	.layout input{
+		width:100%;
+		box-sizing:border-box;
+	}
+	.layout textarea{
+		width:100%;
+		margin-top:10px;
+		min-height:300px;
+	}
+</style>
+<div class="layout">
+	<form action="/mypage/inquiryQuestion" method="post">
+		제목<input name="post_subject" type="text"><br><br>
+		글내용<textarea name="post_content"></textarea>
+		<button type="submit">작성</button>
+	</form>
+</div>
