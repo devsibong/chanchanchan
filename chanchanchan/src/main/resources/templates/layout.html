@@ -9,6 +9,8 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.css}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
 <title>chanchanchan</title>
 </head>
 <body>
@@ -36,8 +38,13 @@
 							<li><a class="dropdown-item" href="#!">Popular Items</a></li>
 							<li><a class="dropdown-item" href="#!">New Arrivals</a></li>
 						</ul></li>
-					<li class="nav-item"><a class="nav-link" th:href="@{/mypage}">MyPage</a></li>
+
+					<li class="nav-item"><a class="nav-link" th:href="@{/mypage}" th:if="${session.loginmem != null}">MyPage</a></li>
 					
+
+					<a th:href="@{/login}" th:if="${session.loginmem == null}" class="nav-link">Login</a>
+					<a th:href="@{/logout}" th:if="${session.loginmem != null}" class="nav-link">Logout</a>
+
 				</ul>
 				<form class="d-flex">
 					<a class="btn btn-outline-dark" th:href="@{/cart}" role="button"><i
@@ -47,7 +54,9 @@
 			</div>
 		</div>
 	</nav>
-	<th:block layout:fragment="content"></th:block>
+	<!-- Center -->
+	<div th:insert="${center} ? ${center} : main">
+	</div>
 	<!-- Footer-->
 	<footer class="py-5 bg-dark">
 		<div class="container">

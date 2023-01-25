@@ -1,0 +1,32 @@
+<script>
+$(document).ready(function() {
+	$('#findidbtn').click(function() {
+		var member_email = $('#member_email').val();  
+		$.ajax({
+			url : '[[@{/checkmail}]]',
+			data : {"member_email":member_email},
+		 	success : function(data){
+		 		if(data == 0){
+					alert("일치하는 회원정보가 없습니다.");
+			 	}else {
+			 		$('#findid_form').attr({
+			 			'method' : 'post',
+						'action' : '[[@{/findidimpl}]]'
+				 	});
+				 	$('#findid_form').submit();
+			 	}
+			}
+		});
+	});
+});
+
+</script>
+
+
+
+<form id="findid_form">
+	이름<input id="member_name" type="text" name="member_name"><br>
+	이메일<input id="member_email" type="text" name="member_email"><br>
+	<button id="findidbtn" class="btn btn-primary" type="button">아이디찾기</button>
+</form>
+
