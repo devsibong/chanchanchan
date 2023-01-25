@@ -26,21 +26,21 @@ public class MemberController {
 	
 	
 	@RequestMapping("/login")
-	public String login() {
-		
-		return dir+"/login";
+	public String login(Model model) {
+		model.addAttribute("center", dir + "login");
+		return "index";
 	}
 
 	@RequestMapping("/loginimpl")
-	public ModelAndView loginimpl(HttpSession session, String member_id, String member_pw) {
-		ModelAndView mav = new ModelAndView();
+	public String loginimpl(HttpSession session, String member_id, String member_pw) {
+		String mav = null;
 		try {
 			Member mem = memservice.get(member_id);
 			if(!member_pw.equals(mem.getMember_pw())) {
-				mav.setViewName("redirect:loginfail");
+				mav = "redirect:loginfail";
 			}else {
 				session.setAttribute("loginmem", mem);
-				mav.setViewName("redirect:/");
+				mav = "redirect:/";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -59,7 +59,7 @@ public class MemberController {
 	@RequestMapping("/loginfail")
 	public String loginfail(Model model) {
 		model.addAttribute("center", dir + "loginfail");
-		return "layout";
+		return "index";
 	}
 	
 	@RequestMapping("/register")

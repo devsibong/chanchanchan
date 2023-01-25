@@ -8,6 +8,7 @@
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="shortcut icon" type="image/x-icon" href="images/favicon.svg" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
     <!-- ========================= CSS here ========================= -->
     <link rel="stylesheet" href="css/bootstrap.min.css" />
@@ -15,7 +16,7 @@
     <link rel="stylesheet" href="css/tiny-slider.css" />
     <link rel="stylesheet" href="css/glightbox.min.css" />
     <link rel="stylesheet" href="css/main.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    
 
 </head>
 
@@ -93,7 +94,8 @@
                             </div>
                             <ul class="user-login">
                                 <li>
-                                    <a th:href="@{/login}">Sign In</a>
+                                    <a th:href="@{login}" th:if="${session.logincust == null}">Login</a>
+									<a th:href="@{logout}" th:if="${session.logincust != null}">Logout</a>
                                 </li>
                                 <li>
                                     <a href="register.html">Register</a>
@@ -340,7 +342,7 @@
         <!-- End Header Bottom -->
     </header>
     <!-- End Header Area -->
-    <th:block layout:fragment="main"></th:block>
+    <div th:insert="${center} ? ${center} : main"></div>
     
     <!-- Start Footer Area -->
     <footer class="footer">
