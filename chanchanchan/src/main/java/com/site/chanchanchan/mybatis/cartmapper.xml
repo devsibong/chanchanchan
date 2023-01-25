@@ -3,33 +3,12 @@
 PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.site.chanchanchan.mapper.CartMapper">
-	<resultMap type="Cart" id="Cart">
-		<result column="cart_id" property="cart_id" />
-		<result column="member_index" property="member_index"/>
-		<result column="product_id" property="product_id" />
-		<result column="product_count" property="product_count"/>
-	</resultMap>
-	<resultMap type="Product" id="Product">
-		<result column="id" property="id" />
-		<result column="name" property="name" />
-		<result column="age" property="age" />
-		<collection property="car" resultMap="Car" />
-	</resultMap>
 	<select id="select" parameterType="String" resultType="Cart">
 		SELECT *
 		FROM cart WHERE cart_id = #{cart_id}
 	</select>
 	<select id="selectall" resultType="Cart">
 		SELECT * FROM cart
-	</select>
-	<select id="selectPersonById" parameterType="int"
-		resultMap="Person">
-		SELECT p.id, p.name, p.age
-		c.owner_id, c.model_no, c.color
-		FROM person p
-		JOIN car c
-		ON p.id = c.owner_id
-		WHERE p.id = #{id}
 	</select>
 	<insert id="insert" parameterType="Cart" useGeneratedKeys="true"
 		keyProperty="cart_id">
