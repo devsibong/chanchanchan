@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.site.chanchanchan.dto.Member;
 import com.site.chanchanchan.service.MemberService;
@@ -65,7 +64,7 @@ public class MemberController {
 	@RequestMapping("/register")
 	public String register(Model model) {
 		model.addAttribute("center", dir + "register");
-		return "layout";
+		return "index";
 	}
 	
 	@RequestMapping("/registerimpl")
@@ -77,13 +76,13 @@ public class MemberController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "layout";
+		return "index";
 	}
 	
 	@RequestMapping("/findid")
 	public String findid(Model model) {
 		model.addAttribute("center", dir + "findid");
-		return "layout";
+		return "index";
 	}
 	
 	@RequestMapping("/findidimpl")
@@ -95,13 +94,13 @@ public class MemberController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "layout";
+		return "index";
 	}
 	
 	@RequestMapping("/findpwd")
-	public String findpwd(Model model) {
+	public String findPwd(Model model) {
 		model.addAttribute("center", dir + "findpwd");
-		return "layout";
+		return "index";
 	}
 	
 	@RequestMapping("/sendmail")
@@ -123,7 +122,7 @@ public class MemberController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		mailservice.sendmail(mem, member_email);
+		mailservice.sendPwdMail(mem, member_email);
 		model.addAttribute("center", dir + "login");
 		return "redirect:login";
 	}

@@ -22,11 +22,33 @@ $(document).ready(function() {
 
 </script>
 
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12 col-md-7 col-lg-4 mx-auto">
+			<div class="card border-2 rounded-3 my-5">
+				<div class="card-body p-4 p-sm-5">
+					<h5 class="card-title text-center mb-5 fw-bold fs-5">아이디 찾기</h5>
+					<form id="findid_form">
+						<div class="form-floating mb-3">
+							<input type="text" class="form-control" id="member_name"
+								name="member_name" placeholder="이름"> <label
+								for="floatingInput">이름</label>
+						</div>
+						<div class="form-floating mb-5">
+							<input type="text" class="form-control" id="member_email"
+								name="member_email" placeholder="이메일"> <label
+								for="floatingPassword">이메일</label>
+						</div>
 
-
-<form id="findid_form">
-	이름<input id="member_name" type="text" name="member_name"><br>
-	이메일<input id="member_email" type="text" name="member_email"><br>
-	<button id="findidbtn" class="btn btn-primary" type="button">아이디찾기</button>
-</form>
-
+						<hr class="my-4">
+						<div class="d-grid">
+							<button id="findidbtn"
+								class="btn btn-dark btn-lg text-uppercase fw-bold"
+								type="button">아이디 찾기</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

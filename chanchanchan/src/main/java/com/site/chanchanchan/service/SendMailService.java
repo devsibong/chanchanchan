@@ -16,7 +16,7 @@ public class SendMailService {
 	@Autowired
 	MailSender sender;
 	
-	public void sendmail(Member mem, String member_email) {
+	public void sendPwdMail(Member mem, String member_email) {
 	SimpleMailMessage message = new SimpleMailMessage();
 	message.setTo(member_email);  	
 	message.setSubject("찬찬찬 임시 비밀번호입니다.");
