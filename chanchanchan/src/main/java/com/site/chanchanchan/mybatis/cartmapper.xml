@@ -3,12 +3,39 @@
 PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.site.chanchanchan.mapper.CartMapper">
-	<select id="select" parameterType="String" resultType="Cart">
+	<resultMap type="Cart" id="Cart">
+		<result column="cart_id" property="cart_id"/>
+		<result column="member_index" property="member_index"/>
+		<result column="product_id" property="product_id"/>
+		<result column="product_count" property="product_count"/>
+		<collection property="product" resultMap="Product"/>
+	</resultMap>
+	
+	<resultMap type="Product" id="Product">
+		<result column="product_id" property="product_id"/>
+		<result column="category_id" property="category_id"/>
+		<result column="product_name" property="product_name"/>
+		<result column="product_description" property="product_description"/>
+		<result column="product_thumbnail_imgpath" property="product_thumbnail_imgpath"/>
+		<result column="product_detail_imgpath" property="product_detail_imgpath"/>
+		<result column="product_price" property="product_price"/>
+		<result column="product_essential" property="product_essential"/>
+	</resultMap>
+	
+	<select id="select" parameterType="String" resultMap="Cart">
 		SELECT *
 		FROM cart WHERE cart_id = #{cart_id}
 	</select>
-	<select id="selectall" resultType="Cart">
-		SELECT * FROM cart
+	<select id="selectall" resultMap="Cart">
+		SELECT *
+		FROM cart
+		LEFT JOIN product ON cart.product_id = product.product_id;
+	</select>
+	<select id="selectByMember" parameterType="String" resultMap="Cart">
+		SELECT *
+		FROM cart 
+		LEFT JOIN product ON cart.product_id = product.product_id
+		WHERE member_index = #{member_index};
 	</select>
 	<insert id="insert" parameterType="Cart" useGeneratedKeys="true"
 		keyProperty="cart_id">
@@ -24,5 +51,9 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<delete id="delete" parameterType="String">
 		DELETE FROM cart WHERE cart-id
 		= #{cart_id}
-	</delete>
+	</delete>	
 </mapper>
+
+
+
+
