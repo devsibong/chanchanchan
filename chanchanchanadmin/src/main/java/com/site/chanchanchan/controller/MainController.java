@@ -17,16 +17,7 @@ public class MainController {
 	AdminService admservice;
 	
 	@RequestMapping("/main")
-	public String main(HttpSession session) {
-		String status =null;
-		try {
-			status = (String) session.getAttribute("login_status");
-			if(status!="Y" || status==null){
-				return "redirect:/login";
-			}
-		} catch (Exception e) {
-			//e.printStackTrace();
-		}
+	public String main() {
 		return "main";
 	}
 	
@@ -54,7 +45,6 @@ public class MainController {
 						return "login/loginadmfail";
 					}	
 					session.setAttribute("loginadm", adm);
-					session.setAttribute("login_status", "Y");
 
 					return "redirect:/main";
 				}
@@ -75,7 +65,6 @@ public class MainController {
 		try {
 			admservice.register(adm);
 		} catch (Exception e) {
-			//e.printStackTrace();
 			return "login/registerfail";
 		}
 		return "login/registerok";

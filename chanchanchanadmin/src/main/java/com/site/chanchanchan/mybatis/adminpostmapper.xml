@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.site.chanchanchan.mapper.AdminpostMapper">
+	<select id="select" parameterType="Integer" resultType="AdminPost">
+		SELECT * FROM admin_post WHERE adminpost_id=#{adminpost_id}
+	</select>
+	<select id="selectall" resultType="AdminPost">
+		SELECT * FROM admin_post
+	</select>
+	<insert id="insert" parameterType="AdminPost">
+		INSERT INTO admin_post VALUES (adminpost_id,#{admin_index},#{post_type},#{post_subject},#{post_content},
+		#{post_attach1},#{post_attach2},NOW())
+	</insert>
+	<update id="update" parameterType="AdminPost">
+		UPDATE admin_post SET admin_index=#{admin_index},post_type=#{post_type},
+		post_subject=#{post_subject},post_content=#{post_content},post_attach1=#{post_attach1},post_attach2=#{post_attach2},
+		register_date=#{register_date} 
+		WHERE adminpost_id=#{adminpost_id}
+	</update>
+	<delete id="delete" parameterType="Integer">
+		DELETE FROM admin_post WHERE adminpost_id=#{adminpost_id}
+	</delete>
+	<select id="getTotal" parameterType="Criteria" resultType="Integer">
+		SELECT COUNT(*) FROM admin_post
+		<if test='!isSearchOk'>
+ 		WHERE ${option} LIKE '%${searchVal}%'
+		</if>
+	</select>
+	<select id="getListByPaging" parameterType="Criteria" resultType="AdminPost">
+		SELECT * FROM 
+		<choose> 
+			<when test="isSearchOk">admin_post</when>
+			<otherwise>
+			(SELECT * FROM admin_post 
+			WHERE ${option} LIKE '%${searchVal}%')search_post 
+			</otherwise>
+		</choose>
+			ORDER BY adminpost_id DESC LIMIT #{pageStartNum},#{amount}
+	</select>
+</mapper>

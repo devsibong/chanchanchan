@@ -21,7 +21,7 @@
 
 <!-- Custom styles for this template-->
 <link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <!-- Bootstrap core JavaScript-->
 <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
 <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
@@ -46,11 +46,31 @@
 			<!-- Sidebar - Brand -->
 			<!-- Divider -->
 			<hr class="sidebar-divider">
-			<a class="btn btn-outline-white font-weight-bold text-light" th:href="@{/main}">찬찬찬 관리자</a>
+			<a class="btn btn-outline-white font-weight-bold text-warning" th:href="@{/main}">찬찬찬 관리자</a>
 
 			<!-- Divider -->
 			<hr class="sidebar-divider">
+	
+			<!-- Heading -->
+			<div class="sidebar-heading" style="font-size: 1em;">관리자</div>
 
+			<!-- Nav Item - Pages Collapse Menu -->
+			<li class="nav-item"><a class="nav-link collapsed" href="#"
+				data-toggle="collapse" data-target="#collapseAdmin"
+				aria-expanded="true" aria-controls="collapseAdmin"> 
+				<i class="fas fa-fw fa-cog"></i><span>관리자 기능</span>
+			</a>
+				<div id="collapseAdmin" class="collapse" aria-labelledby="headingTwo"
+					data-parent="#accordionSidebar">
+					<div class="bg-white py-2 collapse-inner rounded">
+						<a class="collapse-item" th:href="@{/admin/list}">관리자 조회/승인/삭제</a> 						
+						<a class="collapse-item" href="#">상단배너/하단공지 등록</a> 
+						<a class="collapse-item" href="#">홈페이지광고등록</a>
+					</div>
+				</div></li>
+			<!-- Divider -->
+			<hr class="sidebar-divider">
+			
 			<!-- Heading -->
 			<div class="sidebar-heading" style="font-size: 1em;">회원관리</div>
 
@@ -63,8 +83,9 @@
 				<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
 					data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" th:href="@{/member/list}">회원정보관리</a> 						
-						<a class="collapse-item" href="#">등급관리</a>
+						<a class="collapse-item" th:href="@{/member/list}">회원정보 조회</a> 						
+						<a class="collapse-item" href="#">탈퇴회원 처리</a> 						
+						<a class="collapse-item" href="#">회원등급 관리</a>
 					</div>
 				</div></li>
 			<!-- Divider -->
@@ -80,32 +101,12 @@
 				<div id="collapseUtilities" class="collapse"
 					aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" href="#">카테고리등록</a> 
-						<a class="collapse-item" th:href="@{/item/get}">상품등록</a>
-						<a class="collapse-item" th:href="@{/item/get}">상품정보변경/할인</a>
-						<a class="collapse-item" th:href="@{/item/get}">거래처관리</a>
+						<a class="collapse-item" th:href="@{/category/list}">카테고리 관리</a> 
+						<a class="collapse-item" th:href="@{/product/list}">상품 관리/ 할인</a>
+						<a class="collapse-item" href="#">거래처관리</a>
 					</div>
 				</div></li>
-
-			<!-- Divider -->
-			<hr class="sidebar-divider">
-			<!-- Heading -->
-			<div class="sidebar-heading" style="font-size: 1em;">홈페이지</div>
-			<!-- Nav Item - Utilities Collapse Menu -->
-			<li class="nav-item"><a class="nav-link collapsed" href="#"
-				data-toggle="collapse" data-target="#collapseHomepage"
-				aria-expanded="true" aria-controls="collapseUtilities"> 
-				<i class="fas fa-fw fa-cog"></i> <span>홈페이지관리</span>
-			</a>
-				<div id="collapseHomepage" class="collapse"
-					aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" href="#">상단배너등록</a> <a
-							class="collapse-item" th:href="@{/item/get}">홈페이지광고등록</a>
-					</div>
-				</div></li>
-				
-				
+			
 			<!-- Divider -->
 			<hr class="sidebar-divider">
 			<!-- Heading -->
@@ -119,8 +120,8 @@
 				<div id="collapseCoupon" class="collapse"
 					aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" href="#">쿠폰등록</a> 
-						<a class="collapse-item" th:href="@{/item/get}">이벤트등록</a>
+						<a class="collapse-item" th:href="@{/coupon/list}">쿠폰등록</a> 
+						<a class="collapse-item" href="#">이벤트등록</a>
 					</div>
 				</div></li>
 
@@ -131,17 +132,16 @@
 			<!-- Nav Item - Utilities Collapse Menu -->
 			<li class="nav-item"><a class="nav-link collapsed" href="#"
 				data-toggle="collapse" data-target="#collapseOrder"
-				aria-expanded="true" aria-controls="collapseOrder"> <i
-					class="fas fa-fw fa-cog"></i> <span>주문/배송</span>
+				aria-expanded="true" aria-controls="collapseOrder"> 
+				<i class="fas fa-fw fa-cog" ></i> <span>주문/배송</span>
 			</a>
 				<div id="collapseOrder" class="collapse"
 					aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" href="utilities-color.html">주문조회</a> <a
-							class="collapse-item" href="#">배송상태변경</a> <a
-							class="collapse-item" th:href="@{/item/get}">배송가능지역/배송비설정</a> <a
-							class="collapse-item" th:href="@{/item/get}">반송/환불</a> <a
-							class="collapse-item" th:href="@{/item/get}">배송사관리</a> 
+						<a class="collapse-item" th:href="@{/orderlist/list}">주문조회 /배송상태 변경</a> 
+						<a class="collapse-item" href="#">정기배송주문 관리</a> 
+						<a class="collapse-item" href="#">배송가능지역/배송비설정</a> 
+						<a class="collapse-item" href="#">배송사관리</a> 
 					</div>
 				</div></li>
 
@@ -152,16 +152,15 @@
 			<!-- Nav Item - Utilities Collapse Menu -->
 			<li class="nav-item"><a class="nav-link collapsed" href="#"
 				data-toggle="collapse" data-target="#collapsePost"
-				aria-expanded="true" aria-controls="collapsePost"> <i
-					class="fas fa-fw fa-cog"></i> <span>게시글 관리</span>
+				aria-expanded="true" aria-controls="collapsePost"> 
+				<i class="fas fa-fw fa-cog"></i> <span>게시글 관리</span>
 			</a>
 				<div id="collapsePost" class="collapse"
 					aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" href="#">공지사항등록</a> <a
-							class="collapse-item" href="#">많이묻는질문(Q&A)</a>
+						<a class="collapse-item" th:href="@{/adminpost/list}">공지사항/Q&A</a>
 						<a class="collapse-item" href="#">1대1 문의</a> <a
-							class="collapse-item" th:href="@{/item/get}">리뷰관리</a>
+							class="collapse-item" href="#">리뷰관리</a>
 					</div>
 				</div></li>
 			<!-- Divider -->
@@ -173,13 +172,13 @@
 			<!-- Nav Item - Pages Collapse Menu -->
 			<li class="nav-item"><a class="nav-link collapsed" href="#"
 				data-toggle="collapse" data-target="#collapseOne"
-				aria-expanded="true" aria-controls="collapseOne"> <i
-					class="fas fa-fw fa-cog"></i> <span>통계</span>
+				aria-expanded="true" aria-controls="collapseOne"> 
+				<i class="fas fa-fw fa-cog"></i> <span>통계</span>
 			</a>
 				<div id="collapseOne" class="collapse" aria-labelledby="headingOne"
 					data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" th:href="@{/cust/get}">매출정보</a> 
+						<a class="collapse-item" href="#">매출정보</a> 
 						<a class="collapse-item" href="#">상품정보</a> 
 						<a class="collapse-item" href="#">사이트정보</a>
 					</div>
@@ -197,7 +196,7 @@
 			 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
                     <!-- Topbar Navbar -->
-                    <div class="h4 mt-2 ml-4 text-gray-800">찬찬찬-관리자페이지</div>
+                    <div class="h4 mt-2 ml-4 font-weight-bold text-gray-900">찬찬찬-관리자페이지</div>
                     <ul class="navbar-nav ml-auto">
 
                         <div class="topbar-divider d-none d-sm-block"></div>
@@ -206,9 +205,9 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-900" th:text="${session.loginadm.admin_name}"></span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-900 font-weight-bold" th:text="${session.loginadm.admin_name}"></span>
                                 <span class="mr-4 d-none d-lg-inline text-gray-900" th:text="${session.loginadm.admin_class} + ' 님 환영합니다' "></span>                                  
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                <svg xmlns:th="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
 								  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
 								  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
 								</svg>
@@ -218,11 +217,7 @@
                                 aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    관리자정보
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    환경설정
+                                    내 정보
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
@@ -238,6 +233,7 @@
 
 				<!-- Begin Page Content -->
 				<div class="container-fluid" th:include="${center} ? ${center} : center"></div>
+				<div class="container-fluid" th:include="${center2} ? ${center2} : center2"></div>
 				<!-- /.container-fluid -->
 
 			</div>
@@ -261,15 +257,13 @@
 	<!-- End of Page Wrapper -->
 
 	<!-- Scroll to Top Button-->
-	<a class="scroll-to-top rounded" href="#page-top"> <i
-		class="fas fa-angle-up"></i>
+	<a class="scroll-to-top rounded" href="#page-top"> <i class="fas fa-angle-up"></i>
 	</a>
 
 
 
 	<!-- Logout Modal-->
-	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -292,11 +286,11 @@
 
 
 	<!-- Page level plugins -->
-	<script src="vendor/chart.js/Chart.min.js"></script>
+	<script th:src="@{vendor/chart.js/Chart.min.js}"></script>
 
 	<!-- Page level custom scripts -->
-	<script src="js/demo/chart-area-demo.js"></script>
-	<script src="js/demo/chart-pie-demo.js"></script>
+	<script th:src="@{js/demo/chart-area-demo.js}"></script>
+	<script th:src="@{js/demo/chart-pie-demo.js}"></script>
 
 </body>
 

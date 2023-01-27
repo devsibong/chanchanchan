@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>
+function checked_delete(chk){
+	$.ajax({
+		url:'[[@{/admin/delete}]]',
+		data:{"del":chk},
+		success:function(){
+			location.reload();
+		},
+		error:function(){
+			alert('데이터 삭제실패');
+			return false;
+		}
+	});
+};
+
+	
+function checked_approval(apr){
+	$.ajax({
+		url:'[[@{/admin/approval}]]',
+		data:{"apr":apr},
+		success:function(){
+			location.reload();
+		},
+		error:function(){
+			alert('승인프로세스 실패');
+			return false;
+		}
+	});
+};
+
+function formSubmit(){
+	var formData={
+		option:$('select[name=option]').val(),
+		searchVal:$('#keyword').val()
+	};
+	
+	$.ajax({
+		url:'[[@{/admin/searchlist}]]',
+		type:'get',
+		data:formData,
+		success:function(){
+			location.reload();
+		},
+		error:function(){
+			alert('데이터전송 실패');
+			return false;
+		}
+	});
+};
+
+function waitaccount(){
+	$.ajax({
+		url:'[[@{/admin/searchlist}]]',
+		type:'get',
+		data:{"option":"admin_status",
+			"searchVal":"N"},
+		success:function(){
+			location.reload();
+		},
+		error:function(){
+			alert('데이터전송 실패');
+			return false;
+		}
+	});
+};
+
+$(document).ready(function(){
+	$('#selectall').click(function(){
+		$("input[name='checkbox']").prop("checked", true);
+	});
+	
+	$('#cancelall').click(function(){
+		$("input[name='checkbox']").prop("checked", false);
+	});
+	
+	$('#delete').click(function(){
+		var result = confirm("정말 삭제하시겠습니까?");
+		if(result){
+		$("input[name='checkbox']:checked").each(function(){
+			var chk =$(this).closest("th").next().text();
+	  	    checked_delete(chk);	
+		});
+			alert('삭제완료!');
+		}else{ 
+			alert('취소!');
+		}
+	});
+	
+	$('#approval').click(function(){
+		var result = confirm("사이트 관리자로 승인하시겠습니까?");
+		if(result){
+		$("input[name='checkbox']:checked").each(function(){
+			var chk =$(this).closest("th").next().text();
+	  	    checked_approval(chk);	
+		});
+			alert('승인완료!');
+		}else{ 
+			alert('취소!');
+		}
+	});
+	
+	$('#waitaccount').click(function(){
+		waitaccount();
+	});
+
+});
+
+</script>
+</head>
+<body>
+	<div class="card shadow mb-3" style="width:80%;">
+		<div class="card-header py-3">
+			<h4 class="m-1 font-weight-bold text-dark d-inline">관리자 계정</h4>
+		<div class="search_box float-right">
+		    <form id="searchForm">
+		        <div class="sch_group fl">
+		            <select id="searchOption" name="option" title="검색 유형 선택">
+		                <option value="admin_id">아이디</option>
+		                <option value="admin_name">이름</option>
+		                <option value="admin_class">직책</option>
+		                <option value="admin_status">승인상태</option>
+		            </select>
+		            <input type="text" name="searchVal" id="keyword" placeholder="키워드를 선택하세요." title="키워드 입력"  autocomplete="off" />
+		            <button type="button" id="submit" class="bt_search" onclick="return formSubmit()"><i class="fas fa-search"></i><span class="skip_info">검색</span></button>
+		        </div>
+		    </form>
+		</div>
+		</div>
+		<div class="card-body">
+			<div class="table-responsive">
+				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+					<thead>
+						<tr>
+							<th></th>
+							<th>고유번호</th>
+							<th>아이디</th>
+							<th>비밀번호</th>
+							<th>이름</th>
+							<th>직책</th>
+							<th>승인상태</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="admin:${admin}">
+							<th><input type="checkbox" name="checkbox"></th>
+							<th th:text="${admin.admin_index}"></th>
+							<th th:text="${admin.admin_id}"></th>
+							<th th:text="${admin.admin_pwd}"></th>
+							<th th:text="${admin.admin_name}"></th>
+							<th th:text="${admin.admin_class}"></th>
+							<th th:text="${admin.admin_status}"></th>
+						</tr>
+					</tbody>
+					<tfoot>
+					</tfoot>
+				</table>
+			</div>
+			<nav aria-label="Page navigation example">
+			  <ul class="pagination justify-content-center">
+			  <th:block th:if="${pageMaker.endPage!=0}">
+				   <th:block th:if="${pageMaker.prev}">
+				    	<li class="page-item previous"><a class="page-link" 
+				    	th:href="@{/admin/list(pageNum=${pageMaker.startPage-1},amount=${pageMaker.cri.amount},option=${pageMaker.cri.option},searchVal=${pageMaker.cri.searchVal})}">이전</a></li>
+				   </th:block>	
+				   <th:block th:each="num : ${#numbers.sequence(pageMaker.startPage,pageMaker.endPage)}">
+				    	<li class="page-item"><a class="page-link num" 
+				    	th:href="@{/admin/list(pageNum=${num},amount=${pageMaker.cri.amount},option=${pageMaker.cri.option},searchVal=${pageMaker.cri.searchVal})}" th:text="${num}"></a></li>
+				   </th:block>
+			   	   <th:block th:if="${pageMaker.next}">
+				  		<li class="page-item next"><a class="page-link" 
+				   		th:href="@{/admin/list(pageNum=${pageMaker.endPage+1},amount=${pageMaker.cri.amount},option=${pageMaker.cri.option},searchVal=${pageMaker.cri.searchVal})}">다음</a></li>
+			   		</th:block>
+			  </th:block>
+			  </ul>
+			</nav>
+			
+			<div class="d-grid gap-3 d-md-flex justify-content-md-end">
+				<button type="button" id="selectall" class="btn btn-secondary btn-sm ml-3">전체선택</button>
+				<button type="button" id="cancelall" class="btn btn-secondary btn-sm ml-3 mr-auto">전체해제</button>
+				<button type="button" id="waitaccount" class="btn btn-primary btn-sm float-right mr-3">승인대기 계정목록</button>
+			</div>
+			<div class="d-grid gap-3 d-md-flex justify-content-md-end mt-3">
+				<button type="button" id="approval" class="btn btn-success btn-sm float-right mr-3">승인</button>
+				<button type="button" id="delete" class="btn btn-danger btn-sm mr-3">삭제</button>
+			</div>
+		</div>
+	</div>
+	</body>
+</html>

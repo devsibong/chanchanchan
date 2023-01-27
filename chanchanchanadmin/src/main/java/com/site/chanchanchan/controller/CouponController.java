@@ -12,17 +12,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.site.chanchanchan.dto.Admin;
+import com.site.chanchanchan.dto.Coupon;
 import com.site.chanchanchan.dto.Criteria;
 import com.site.chanchanchan.dto.Page;
-import com.site.chanchanchan.service.AdminService;
+import com.site.chanchanchan.service.CouponService;
 
-@RequestMapping("/admin")
+@RequestMapping("/coupon")
 @Controller
-public class AdminController {
+public class CouponController {
 	
 	@Autowired
-	AdminService admservice;
+	CouponService couponservice;
 	
 	String dir ="list/";
 	
@@ -48,24 +48,23 @@ public class AdminController {
 		Criteria cri = new Criteria(pageNum,amount,option,searchVal,isSearchOk);
 		
 		int total=0;
-		List<Admin> adms=null;
+		List<Coupon> coupons=null;
 		
 		try {
-			adms= admservice.getListByPaging(cri);
-			total = admservice.getTotal(cri);
+			coupons= couponservice.getListByPaging(cri);
+			total = couponservice.getTotal(cri);
 			
 		} catch (Exception e) {
 		}
 		
 		Page page = new Page(cri,total);
 		
-		model.addAttribute("admin",adms);
+		model.addAttribute("coupon",coupons);
 		model.addAttribute("pageMaker", page);
-		
 		session.removeAttribute("option");
 		session.removeAttribute("searchVal");
 		
-		model.addAttribute("center",dir+"admin");
+		model.addAttribute("center",dir+"coupon");
 		
 		return "main";
 	}
@@ -74,11 +73,10 @@ public class AdminController {
 	@ResponseBody
 	@RequestMapping("/searchlist")
 	public String searchlist(String option, String searchVal,Model model, HttpSession session) {
-		
 		session.setAttribute("option",option);
 		session.setAttribute("searchVal",searchVal);
 		
-		return "rediret:/admin/list";
+		return "rediret:/coupon/list";
 	}
 	
 	//삭제버튼
@@ -86,7 +84,7 @@ public class AdminController {
 	@RequestMapping("/delete")
 	public String delete(int del) {
 		try {
-			admservice.remove(del);
+			couponservice.remove(del);
 		} catch (Exception e) {
 //			e.printStackTrace();
 		}
@@ -95,10 +93,10 @@ public class AdminController {
 	
 	//승인버튼
 	@ResponseBody
-	@RequestMapping("/approval")
-	public String approval(int apr) {
+	@RequestMapping("/restore")
+	public String restore(int res) {
 		try {
-			admservice.changeStatus(apr);
+			couponservice.changeStatus(res);
 		} catch (Exception e) {
 //			e.printStackTrace();
 		}
@@ -106,4 +104,3 @@ public class AdminController {
 	}
 	
 }
-

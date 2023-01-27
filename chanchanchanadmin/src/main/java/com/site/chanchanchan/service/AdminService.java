@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.site.chanchanchan.dto.Admin;
+import com.site.chanchanchan.dto.Criteria;
 import com.site.chanchanchan.frame.MyService;
 import com.site.chanchanchan.mapper.AdminMapper;
 
@@ -44,4 +45,20 @@ public class AdminService implements MyService<Integer, Admin>{
 	public Admin search(String id) throws Exception{
 		return admmapper.search(id);
 	}
+	
+	//Paging
+	public List<Admin> getListByPaging(Criteria cri) throws Exception{
+		return admmapper.getListByPaging(cri);
+	};
+	
+	//COUNT
+	public int getTotal(Criteria cri) throws Exception{
+		return admmapper.getTotal(cri);
+	}
+	
+	//changeStatus
+	public void changeStatus(int apr) throws Exception{
+		admmapper.changeStatus(apr);
+	}
+	
 }

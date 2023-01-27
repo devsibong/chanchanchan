@@ -12,17 +12,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.site.chanchanchan.dto.Admin;
 import com.site.chanchanchan.dto.Criteria;
+import com.site.chanchanchan.dto.OrderList;
 import com.site.chanchanchan.dto.Page;
-import com.site.chanchanchan.service.AdminService;
+import com.site.chanchanchan.service.OrderListService;
 
-@RequestMapping("/admin")
+@RequestMapping("/orderlist")
 @Controller
-public class AdminController {
+public class OrderLiistController {
 	
 	@Autowired
-	AdminService admservice;
+	OrderListService olservice;
 	
 	String dir ="list/";
 	
@@ -48,24 +48,23 @@ public class AdminController {
 		Criteria cri = new Criteria(pageNum,amount,option,searchVal,isSearchOk);
 		
 		int total=0;
-		List<Admin> adms=null;
+		List<OrderList> ols=null;
 		
 		try {
-			adms= admservice.getListByPaging(cri);
-			total = admservice.getTotal(cri);
+			ols= olservice.getListByPaging(cri);
+			total = olservice.getTotal(cri);
 			
 		} catch (Exception e) {
 		}
 		
 		Page page = new Page(cri,total);
 		
-		model.addAttribute("admin",adms);
+		model.addAttribute("orderlist",ols);
 		model.addAttribute("pageMaker", page);
-		
 		session.removeAttribute("option");
 		session.removeAttribute("searchVal");
 		
-		model.addAttribute("center",dir+"admin");
+		model.addAttribute("center",dir+"orderlist");
 		
 		return "main";
 	}
@@ -74,11 +73,10 @@ public class AdminController {
 	@ResponseBody
 	@RequestMapping("/searchlist")
 	public String searchlist(String option, String searchVal,Model model, HttpSession session) {
-		
 		session.setAttribute("option",option);
 		session.setAttribute("searchVal",searchVal);
 		
-		return "rediret:/admin/list";
+		return "rediret:/orderlist/list";
 	}
 	
 	//삭제버튼
@@ -86,24 +84,21 @@ public class AdminController {
 	@RequestMapping("/delete")
 	public String delete(int del) {
 		try {
-			admservice.remove(del);
+			olservice.remove(del);
 		} catch (Exception e) {
 //			e.printStackTrace();
 		}
 		return "main";
 	}
 	
-	//승인버튼
 	@ResponseBody
-	@RequestMapping("/approval")
-	public String approval(int apr) {
+	@RequestMapping("/changestate")
+	public String changeState(int order_id, String order_state) {
 		try {
-			admservice.changeStatus(apr);
+			olservice.changeState(new OrderList(order_id,order_state));
 		} catch (Exception e) {
 //			e.printStackTrace();
 		}
-		return "main";
+		return "list/orderlist";
 	}
-	
 }
-

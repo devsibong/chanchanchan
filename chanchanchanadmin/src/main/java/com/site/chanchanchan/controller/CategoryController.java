@@ -12,17 +12,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.site.chanchanchan.dto.Admin;
+import com.site.chanchanchan.dto.Category;
 import com.site.chanchanchan.dto.Criteria;
 import com.site.chanchanchan.dto.Page;
-import com.site.chanchanchan.service.AdminService;
+import com.site.chanchanchan.service.CategoryService;
 
-@RequestMapping("/admin")
+@RequestMapping("/category")
 @Controller
-public class AdminController {
+public class CategoryController {
 	
 	@Autowired
-	AdminService admservice;
+	CategoryService cateservice;
 	
 	String dir ="list/";
 	
@@ -48,24 +48,23 @@ public class AdminController {
 		Criteria cri = new Criteria(pageNum,amount,option,searchVal,isSearchOk);
 		
 		int total=0;
-		List<Admin> adms=null;
+		List<Category> categorys=null;
 		
 		try {
-			adms= admservice.getListByPaging(cri);
-			total = admservice.getTotal(cri);
+			categorys= cateservice.getListByPaging(cri);
+			total = cateservice.getTotal(cri);
 			
 		} catch (Exception e) {
 		}
 		
 		Page page = new Page(cri,total);
 		
-		model.addAttribute("admin",adms);
+		model.addAttribute("category",categorys);
 		model.addAttribute("pageMaker", page);
-		
 		session.removeAttribute("option");
 		session.removeAttribute("searchVal");
 		
-		model.addAttribute("center",dir+"admin");
+		model.addAttribute("center",dir+"category");
 		
 		return "main";
 	}
@@ -74,11 +73,10 @@ public class AdminController {
 	@ResponseBody
 	@RequestMapping("/searchlist")
 	public String searchlist(String option, String searchVal,Model model, HttpSession session) {
-		
 		session.setAttribute("option",option);
 		session.setAttribute("searchVal",searchVal);
 		
-		return "rediret:/admin/list";
+		return "rediret:/category/list";
 	}
 	
 	//삭제버튼
@@ -86,24 +84,48 @@ public class AdminController {
 	@RequestMapping("/delete")
 	public String delete(int del) {
 		try {
-			admservice.remove(del);
+			cateservice.remove(del);
 		} catch (Exception e) {
 //			e.printStackTrace();
 		}
 		return "main";
 	}
 	
-	//승인버튼
+	
+	@RequestMapping("/popupmodify")
+	public String popupModify() {
+		return "popup/categorymodify";
+	}
+	
 	@ResponseBody
-	@RequestMapping("/approval")
-	public String approval(int apr) {
+	@RequestMapping("/modify")
+	public String modify(int category_id, String category_title, int category_parent) {
+		Category category = new Category(category_id,category_title,category_parent);
+		category.toString();
 		try {
-			admservice.changeStatus(apr);
+			cateservice.modify(category);
 		} catch (Exception e) {
-//			e.printStackTrace();
+			e.printStackTrace();
 		}
-		return "main";
+		return "rediret:/category/popupmodify";
 	}
 	
-}
+	@RequestMapping("/popupsignUp")
+	public String popupSignUp() {
+		return "popup/categoryregister";
+	}
 
+	@ResponseBody
+	@RequestMapping("/register")
+	public String register(String category_title, int category_parent) {
+		int category_id=0;
+		Category category = new Category(category_id,category_title,category_parent);
+		category.toString();
+		try {
+			cateservice.register(category);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "rediret:/category/popupsignUp";
+	}
+}
