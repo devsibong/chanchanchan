@@ -1,132 +1,67 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-
-<!-- Custom fonts for this template-->
-<link th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet"
-	type="text/css">
-<link
-	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-	rel="stylesheet">
-
-<!-- Custom styles for this template-->
-<link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<!-- Bootstrap core JavaScript-->
-<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
-<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
-
-<!-- Core plugin JavaScript-->
-<script th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
-
-<!-- Custom scripts for all pages-->
-<script th:src="@{/js/sb-admin-2.min.js}"></script>
 <script>
-function modify_fnc(product_id,modify_category_id,modify_name,
-		modify_description,modify_thumbnail_imgpath,
-		modify_detail_imgpath,modify_price,modify_essential,modify_discount){
-	$.ajax({
-		url:'[[@{/product/modify}]]',
-		type:'get',
-		data:{product_id:product_id,
-			category_id:modify_category_id,
-			product_name:modify_name,
-			product_description:modify_description,
-			product_thumbnail_imgpath:modify_thumbnail_imgpath,
-			product_detail_imgpath:modify_detail_imgpath,
-			product_price:modify_price,
-			product_essential:modify_essential,
-			product_discount:modify_discount},
-		success:function(){
-			alert('수정완료!');
-			opener.document.location.reload();
-			self.close();
-		},
-		error:function(){
-			alert('수정 실패!');
-			return false;
-		}
-	});
-};
-
 $(document).ready(function(){
-	var product_id= opener.$("input[name='checkbox']:checked").closest("th").next().text();
-	var category_id= opener.$("input[name='checkbox']:checked").closest("th").next().next().text();
-	var product_name= opener.$("input[name='checkbox']:checked").closest("th").next().next().next().text();
-	var product_description= opener.$("input[name='checkbox']:checked").closest("th").next().next().next().next().text();
-	var product_thumbnail_imgpath= opener.$("input[name='checkbox']:checked").closest("th").next().next().next().next().next().text();
-	var product_detail_imgpath= opener.$("input[name='checkbox']:checked").closest("th").next().next().next().next().next().next().text();
-	var product_price= opener.$("input[name='checkbox']:checked").closest("th").next().next().next().next().next().next().next().text();
-	var product_essential= opener.$("input[name='checkbox']:checked").closest("th").next().next().next().next().next().next().next().next().text();
-	var product_discount= opener.$("input[name='checkbox']:checked").closest("th").next().next().next().next().next().next().next().next().next().children().val();
 	
-	
-	$("input[name='product_id']").val(product_id);
-	$("input[name='category_id']").val(category_id);
-	$("input[name='product_name']").val(product_name);
-	$("input[name='product_description']").val(product_description);
-	$("input[name='product_thumbnail_imgpath']").val(product_thumbnail_imgpath);
-	$("input[name='product_detail_imgpath']").val(product_detail_imgpath);
-	$("input[name='product_price']").val(product_price);
-	$("input[name='product_essential']").val(product_essential);
-	$("input[name='product_discount']").val(product_discount);
-
-	$("#modify_btn").click(function(){
-		var modify_category_id =$("input[name='category_id']").val();
-		var modify_name =$("input[name='product_name']").val();
-		var modify_description =$("input[name='product_description']").val();
-		var modify_thumbnail_imgpath=$("input[name='product_thumbnail_imgpath']").val();
-		var modify_detail_imgpath=$("input[name='product_detail_imgpath']").val();
-		var modify_price=$("input[name='product_price']").val();
-		var modify_essential =$("input[name='product_essential']").val();
-		var modify_discount =$("input[name='product_dscount']").val();
-
-		modify_fnc(product_id,modify_category_id,modify_name,
-				modify_description,modify_thumbnail_imgpath,
-				modify_detail_imgpath,modify_price,modify_essential,modify_discount);
+	$('#cancel').click(function(){
+		window.history.go(-1);
 	});
 });
+
 </script>
+<style>
+th{width:15%}
+
+</style>
 </head>
 <body>
-	<div class="card shadow mb-3" style="width:100%;">
+	<div class="card shadow mb-3" style="width:90%;">
 		<div class="card-body">
 			<div class="table-responsive">
-				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-					<thead>
-						<tr>
-							<th>상품고유번호</th>
-							<th>카테고리고유번호</th>
-							<th>상품명</th>
-							<th>상품설명</th>
-							<th>상품대표이미지</th>
-							<th>상품상세이미지</th>
-							<th>상품가격</th>
-							<th>필수정보고시</th>
-							<th>할인율</th>
-						</tr>
-					</thead>
+				<form id="adminpost_modify" th:action="@{/adminpost/modifyform}" method="post"> 
+				<table class="table table-bordered" id="dataTable" width="90%" cellspacing="0">
 					<tbody>
 						<tr>
-							<th><input type="text" name="product_id" readonly></input></th>
-							<th><input type="text" name="category_id"></input></th>
-							<th><input type="text" name="product_name"></input></th>
-							<th><input type="text" name="product_description"></input></th>
-							<th><input type="text" name="product_thumbnail_imgpath"></input></th>
-							<th><input type="text" name="product_detail_imgpath"></input></th>
-							<th><input type="text" name="product_price"></input></th>
-							<th><input type="text" name="product_essential"></input></th>
-							<th><input type="text" name="product_discount"></input></th>
+							<th>글 고유번호</th>
+							<td><input type="text" th:value="${admpost.adminpost_id}" style="width:20%;" name="adminpost_id" readonly></td>
 						</tr>
-					</tbody>
-				</table>
+						<tr>
+							<th>관리자번호</th>
+							<td><input type="text" th:value="${admpost.admin_index}" style="width:20%;" name="admin_index" readonly></td>
+						</tr>
+						<tr>
+							<th>글종류</th>
+							<td><input type="text" th:value="${admpost.post_type}" style="width:20%;" name="post_type"></td>
+						</tr>
+						<tr>
+							<th>글제목</th>
+							<td><input type="text" th:value="${admpost.post_subject}" style="width:90%;" name="post_subject"></td>
+						</tr>
+						<tr>
+							<th>글내용</th>
+							<td><textarea th:text="${admpost.post_content}" name="post_content" style="width:90%; height:330px;"></textarea></td>
+						</tr>
+						<tr>
+							<th>첨부파일1</th>
+							<td><input type="text" th:value="${admpost.post_attach1}" style="width:90%;" name="post_attach1"></td>
+						</tr>
+						<tr>
+							<th>첨부파일2</th>
+							<td><input type="text" th:value="${admpost.post_attach2}" style="width:90%;" name="post_attach2"></td>
+							<input type="hidden" th:value="${admpost.register_date}" style="width:90%;" name="register_date">
+						</tr>
+						</tbody>
+					</table>
+				<button type="submit" id="modify" class="btn btn-primary btn-sm float-right mr-3">수정완료</button>
+				</form>
 			</div>
-		<div class="d-grid gap-3 d-md-flex justify-content-md-end mt-3">
-		<button type="button" id="modify_btn" class="btn btn-success btn-sm float-right mr-4">상품 수정</button>
-		</div>
 			
+			<div class="d-grid gap-3 d-md-flex justify-content-md-end mt-3">
+				<button type="button" id="cancel" class="btn btn-danger btn-sm float-right mr-3">취소</button>
+			</div>
 		</div>
 	</div>
-</body>
+	</body>
 </html>

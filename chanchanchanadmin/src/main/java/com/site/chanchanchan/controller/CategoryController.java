@@ -100,8 +100,9 @@ public class CategoryController {
 	@ResponseBody
 	@RequestMapping("/modify")
 	public String modify(int category_id, String category_title, int category_parent) {
-		Category category = new Category(category_id,category_title,category_parent);
-		category.toString();
+		Category category=null;
+		
+		category = new Category(category_id,category_title,category_parent);
 		try {
 			cateservice.modify(category);
 		} catch (Exception e) {

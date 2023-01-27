@@ -8,7 +8,7 @@ function checked_delete(chk){
 		url:'[[@{/adminpost/delete}]]',
 		data:{"del":chk},
 		success:function(){
-			location.reload();
+			location.href="/adminpost/list";
 		},
 		error:function(){
 			alert('데이터 삭제실패');
@@ -22,38 +22,13 @@ $(document).ready(function(){
 	$('#delete').click(function(){
 		var result = confirm("선택한 글을 정말 삭제처리하시겠습니까?");
 		if(result){
-		$("input[name='checkbox']:checked").each(function(){
-			var chk =$(this).closest("th").next().text();
+			$("#post_id").text();
 	  	    checked_delete(chk);	
 		});
 			alert('삭제완료!');
 		}else{ 
 			alert('취소!');
 		}
-	});
-	
-	$('#list').click(function(){
-		window.history.go(-1);
-	});
-	
-	$('#register').click(function(){
-		$.ajax({
-			url:'[[@{/adminpost/register}]]',
-			type:'get',
-			data:{"option":"post_type",
-				"searchVal":"공지사항"},
-			success:function(){
-				location.reload();
-			},
-			error:function(){
-				alert('데이터전송 실패');
-				return false;
-			}
-		});
-	});
-	
-	$('#modify').click(function(){
-		window.history.go(-1);
 	});
 });
 
@@ -68,7 +43,7 @@ $(document).ready(function(){
 					<tbody>
 						<tr>
 							<th>글 고유번호</th>
-							<td th:text="${adminpostView.adminpost_id}"></td>
+							<td id="post_id" th:text="${adminpostView.adminpost_id}"></td>
 						</tr>
 						<tr>
 							<th>관리자번호</th>

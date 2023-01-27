@@ -1,106 +1,77 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-
-<!-- Custom fonts for this template-->
-<link th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet"
-	type="text/css">
-<link
-	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-	rel="stylesheet">
-
-<!-- Custom styles for this template-->
-<link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<!-- Bootstrap core JavaScript-->
-<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
-<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
-
-<!-- Core plugin JavaScript-->
-<script th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
-
-<!-- Custom scripts for all pages-->
-<script th:src="@{/js/sb-admin-2.min.js}"></script>
 <script>
-function register_fnc(register_category_id,register_name,
-		register_description,register_thumbnail_imgpath,
-		register_detail_imgpath,register_price,register_essential,register_discount){
-	
-	$.ajax({
-		url:'[[@{/product/register}]]',
-		type:'get',
-		data:{category_id:register_category_id,
-			product_name:register_name,
-			product_description:register_description,
-			product_thumbnail_imgpath:register_thumbnail_imgpath,
-			product_detail_imgpath:register_detail_imgpath,
-			product_price:register_price,
-			product_essential:register_essential,
-			product_discount:register_discount},
-		success:function(){
-			alert('등록완료!');
-			opener.document.location.reload();
-			self.close();
-		},
-		error:function(){
-			alert('등록 실패!');
-			return false;
-		}
-	});
+function submit_btn(){
+	if($('select[name=post_type]'),val()=='선택'){
+	alert('글종류를 선택해주세요!');
+	return false;
+	}
 };
 
 $(document).ready(function(){
-		$("#register_btn").click(function(){
-			var register_category_id =$("input[name='product_title']").val();
-			var register_name =$("input[name='product_name']").val();
-			var register_description =$("input[name='product_description']").val();
-			var register_thumbnail_imgpath=$("input[name='product_thumbnail_imgpath']").val();
-			var register_detail_imgpath=$("input[name='product_detail_imgpath']").val();
-			var register_price=$("input[name='product_price']").val();
-			var register_essential =$("input[name='product_essential']").val();
-			var register_discount =$("input[name='product_dscount']").val();
-
-			register_fnc(register_category_id,register_name,
-					register_description,register_thumbnail_imgpath,
-					register_detail_imgpath,register_price,register_essential,register_discount);
+	
+	$('#cancel').click(function(){
+		window.history.go(-1);
 	});
 });
+
 </script>
+<style>
+th{width:15%}
+
+</style>
 </head>
 <body>
-	<div class="card shadow mb-3" style="width:100%;">
+	<div class="card shadow mb-3" style="width:90%;">
 		<div class="card-body">
 			<div class="table-responsive">
-				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-					<thead>
+				<form id="adminpost_register" th:action="@{/adminpost/registerform}" method="post"> 
+				<table class="table table-bordered" id="dataTable" width="90%" cellspacing="0">
+					<tbody>
 						<tr>
-							<th>카테고리고유번호</th>
-							<th>상품명</th>
-							<th>상품설명</th>
-							<th>상품대표이미지</th>
-							<th>상품상세이미지</th>
-							<th>상품가격</th>
-							<th>필수정보고시</th>
-							<th>할인율</th>
-
-							<th><input type="text" name="category_id"></input></th>
-							<th><input type="text" name="product_name"></input></th>
-							<th><input type="text" name="product_description"></input></th>
-							<th><input type="text" name="product_thumbnail_imgpath"></input></th>
-							<th><input type="text" name="product_detail_imgpath"></input></th>
-							<th><input type="text" name="product_price"></input></th>
-							<th><input type="text" name="product_essential"></input></th>
-							<th><input type="text" name="product_discount"></input></th>
+							<th>관리자번호</th>
+							<td><input type="text" name="admin_index" style="width:20%;" th:value="${session.loginadm.admin_index}" readonly></td>
 						</tr>
-					</tbody>
-				</table>
+						<tr>
+							<th>글종류</th>
+							<td>
+								<select th:field="${AdminPost.post_type}" title="검색 유형 선택">
+					                <option value="선택">--선택--</option>
+					                <option value="공지사항">공지사항</option>
+					                <option value="Q&A">Q&A</option>
+					           	</select>
+					        </td>
+							
+								
+						</tr>
+						<tr>
+							<th>글제목</th>
+							<td><input type="text" style="width:90%;" th:field="${AdminPost.post_subject}"></td>
+						</tr>
+						<tr>
+							<th>글내용</th>
+							<td><textarea th:field="${AdminPost.post_content}" style="width:90%; height:330px;"></textarea></td>
+						</tr>
+						<tr>
+							<th>첨부파일1</th>
+							<td><input type="text" style="width:90%;" th:field="${AdminPost.post_attach1}"></td>
+						</tr>
+						<tr>
+							<th>첨부파일2</th>
+							<td><input type="text" style="width:90%;" th:field="${AdminPost.post_attach2}"></td>
+						</tr>
+						</tbody>
+					</table>
+				<button type="submit" id="register" class="btn btn-primary btn-sm float-right mr-3" onclick="submit_btn()">등록</button>
+				</form>
 			</div>
-		<div class="d-grid gap-3 d-md-flex justify-content-md-end mt-3">
-		<button type="button" id="register_btn" class="btn btn-success btn-sm float-right mr-4">상품 등록</button>
-		</div>
 			
+			<div class="d-grid gap-3 d-md-flex justify-content-md-end mt-3">
+				<button type="button" id="cancel" class="btn btn-danger btn-sm float-right mr-3">취소</button>
+			</div>
 		</div>
 	</div>
-</body>
+	</body>
 </html>

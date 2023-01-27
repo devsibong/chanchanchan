@@ -13,8 +13,15 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		INSERT INTO category VALUES (category_id,#{category_title},#{category_parent})
 	</insert>
 	<update id="update" parameterType="Category">
-		UPDATE category SET category_title=#{category_title},category_parent=#{category_parent}
+		UPDATE 
+		<if test='category_parent==null or category_parent==0'>
+		category SET category_title=#{category_title}
 		WHERE category_id=#{category_id}
+		</if>
+		<if test='category_parent=!null and category_parent!=0'>
+		category SET category_title=#{category_title},category_parent=#{category_parent}
+		WHERE category_id=#{category_id}
+		</if>
 	</update>
 	<delete id="delete" parameterType="Integer">
 		DELETE FROM category WHERE category_id=#{category_id}

@@ -32,19 +32,16 @@ th{width:15%}
 					<tbody>
 						<tr>
 							<th>관리자번호</th>
-							<td><input type="text" name="admin_index" style="width:20%;" th:value="${session.loginadm.admin_index}" readonly></td>
+							<td><input type="text" name="admin_index" style="width:20%;border:none;" th:value="${session.loginadm.admin_index}" readonly></td>
 						</tr>
 						<tr>
 							<th>글종류</th>
 							<td>
-								<select th:field="${AdminPost.post_type}" title="검색 유형 선택">
-					                <option value="선택">--선택--</option>
+								<select th:field="${AdminPost.post_type}">
 					                <option value="공지사항">공지사항</option>
 					                <option value="Q&A">Q&A</option>
 					           	</select>
 					        </td>
-							
-								
 						</tr>
 						<tr>
 							<th>글제목</th>
