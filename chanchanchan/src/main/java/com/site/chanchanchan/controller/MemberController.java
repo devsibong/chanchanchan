@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.site.chanchanchan.dto.Member;
 import com.site.chanchanchan.service.MemberService;
@@ -28,24 +27,24 @@ public class MemberController {
 	@RequestMapping("/login")
 	public String login(Model model) {
 		model.addAttribute("center", dir + "login");
-		return "layout";
+		return "index";
 	}
 
 	@RequestMapping("/loginimpl")
-	public ModelAndView loginimpl(HttpSession session, String member_id, String member_pw) {
-		ModelAndView mav = new ModelAndView();
+	public String loginimpl(HttpSession session, String member_id, String member_pw) {
+		String str = null;
 		try {
 			Member mem = memservice.get(member_id);
 			if(!member_pw.equals(mem.getMember_pw())) {
-				mav.setViewName("redirect:loginfail");
+				str = "redirect:loginfail";
 			}else {
 				session.setAttribute("loginmem", mem);
-				mav.setViewName("redirect:/");
+				str = "redirect:/";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return mav;
+		return str;
 	}
 
 	@RequestMapping("/logout")
@@ -59,13 +58,13 @@ public class MemberController {
 	@RequestMapping("/loginfail")
 	public String loginfail(Model model) {
 		model.addAttribute("center", dir + "loginfail");
-		return "layout";
+		return "index";
 	}
 	
 	@RequestMapping("/register")
 	public String register(Model model) {
 		model.addAttribute("center", dir + "register");
-		return "layout";
+		return "index";
 	}
 	
 	@RequestMapping("/registerimpl")
@@ -77,13 +76,13 @@ public class MemberController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "layout";
+		return "index";
 	}
 	
 	@RequestMapping("/findid")
 	public String findid(Model model) {
 		model.addAttribute("center", dir + "findid");
-		return "layout";
+		return "index";
 	}
 	
 	@RequestMapping("/findidimpl")
@@ -95,13 +94,13 @@ public class MemberController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "layout";
+		return "index";
 	}
 	
 	@RequestMapping("/findpwd")
-	public String findpwd(Model model) {
+	public String findPwd(Model model) {
 		model.addAttribute("center", dir + "findpwd");
-		return "layout";
+		return "index";
 	}
 	
 	@RequestMapping("/sendmail")
@@ -123,7 +122,7 @@ public class MemberController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		mailservice.sendmail(mem, member_email);
+		mailservice.sendPwdMail(mem, member_email);
 		model.addAttribute("center", dir + "login");
 		return "redirect:login";
 	}

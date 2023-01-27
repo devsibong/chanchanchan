@@ -49,7 +49,7 @@ public class AJAXController {
 		return result;
 	}
 	
-	@RequestMapping("/checkfindpwd")
+	@RequestMapping("/checkpwd")
 	public Object checkfindpwd(String member_id, String member_email) {
 		int result = 0;
 		Member mem = null;

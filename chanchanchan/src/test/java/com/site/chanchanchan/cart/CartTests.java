@@ -5,21 +5,43 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.site.chanchanchan.dto.Cart;
+import com.site.chanchanchan.mapper.CartMapper;
 import com.site.chanchanchan.service.CartService;
 
 @SpringBootTest
 public class CartTests {
-	
+
 	@Autowired
 	CartService service;
+
+	@Autowired
+	CartMapper mapper;
+
+	void cartSelectAllTest() throws Exception {
+		try {
+			service.get();
+			System.out.println(service.get());
+		} catch (Exception e) {
+			System.out.println("Fail");
+			e.printStackTrace();
+		}
+	}
+
+	void cartSelectTest() throws Exception {
+		try {
+			service.get("100");
+			System.out.println(service.get("100"));
+		} catch (Exception e) {
+			System.out.println("Fail");
+			e.printStackTrace();
+		}
+	}
 	
 	@Test
-	void cartInsetTest() {
-		
-		Cart cart = new Cart(0, 100, 100, 100);
+	void cartSelectByMemberTest() throws Exception {
 		try {
-			service.register(cart);
-			System.out.println("OK");
+			service.getByMember("100");
+			System.out.println(service.getByMember("100"));
 		} catch (Exception e) {
 			System.out.println("Fail");
 			e.printStackTrace();

@@ -16,4 +16,6 @@ public class Cart {
 	private int member_index;
 	private int product_id;
 	private int product_count;
+	
+	private Product product;
 }

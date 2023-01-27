@@ -8,6 +8,7 @@
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="shortcut icon" type="image/x-icon" href="images/favicon.svg" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
     <!-- ========================= CSS here ========================= -->
     <link rel="stylesheet" href="css/bootstrap.min.css" />
@@ -15,7 +16,7 @@
     <link rel="stylesheet" href="css/tiny-slider.css" />
     <link rel="stylesheet" href="css/glightbox.min.css" />
     <link rel="stylesheet" href="css/main.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    
 
 </head>
 
@@ -79,7 +80,7 @@
                     <div class="col-lg-4 col-md-4 col-12">
                         <div class="top-middle">
                             <ul class="useful-links">
-                                <li><a href="index.html">Home</a></li>
+                                <li><a th:href="@{/}">Home</a></li>
                                 <li><a href="about-us.html">About Us</a></li>
                                 <li><a href="contact.html">Contact Us</a></li>
                             </ul>
@@ -97,10 +98,11 @@
                             		<a th:href="@{/mypage}">MyPage</a>
                             	</li>
                                 <li>
-                                    <a href="login.html">Sign In</a>
+                                    <a th:href="@{/login}" th:if="${session.loginmem == null}">로그인</a>
+									<a th:href="@{/logout}" th:if="${session.loginmem != null}">로그아웃</a>
                                 </li>
                                 <li>
-                                    <a href="register.html">Register</a>
+                                    <a href="register.html">회원가입</a>
                                 </li>
                             </ul>
                         </div>
@@ -115,7 +117,7 @@
                 <div class="row align-items-center">
                     <div class="col-lg-3 col-md-3 col-7">
                         <!-- Start Header Logo -->
-                        <a class="navbar-brand" href="index.html">
+                        <a class="navbar-brand" th:href="@{/}">
                             <img src="images/logo/logo.svg" alt="Logo">
                         </a>
                         <!-- End Header Logo -->
@@ -157,22 +159,16 @@
                                 </h3>
                             </div>
                             <div class="navbar-cart">
-                                <div class="wishlist">
-                                    <a href="javascript:void(0)">
-                                        <i class="lni lni-heart"></i>
-                                        <span class="total-items">0</span>
-                                    </a>
-                                </div>
                                 <div class="cart-items">
                                     <a href="javascript:void(0)" class="main-btn">
                                         <i class="lni lni-cart"></i>
-                                        <span class="total-items">2</span>
+                                        <span class="total-items">1</span>
                                     </a>
                                     <!-- Shopping Item -->
                                     <div class="shopping-item">
                                         <div class="dropdown-cart-header">
                                             <span>2 Items</span>
-                                            <a href="cart.html">View Cart</a>
+                                            <a href="cart.html">장바구니 보기</a>
                                         </div>
                                         <ul class="shopping-list">
                                             <li>
@@ -228,9 +224,9 @@
                     <div class="nav-inner">
                         <!-- Start Mega Category Menu -->
                         <div class="mega-category-menu">
-                            <span class="cat-button"><i class="lni lni-menu"></i>All Categories</span>
+                            <span class="cat-button"><i class="lni lni-menu"></i>반찬 카테고리</span>
                             <ul class="sub-category">
-                                <li><a href="product-grids.html">Electronics <i class="lni lni-chevron-right"></i></a>
+                                <li><a href="product-grids.html">메인요리 <i class="lni lni-chevron-right"></i></a>
                                     <ul class="inner-sub-category">
                                         <li><a href="product-grids.html">Digital Cameras</a></li>
                                         <li><a href="product-grids.html">Camcorders</a></li>
@@ -344,7 +340,7 @@
         <!-- End Header Bottom -->
     </header>
     <!-- End Header Area -->
-    <th:block layout:fragment="main"></th:block>
+    <div th:insert="${center} ? ${center} : main"></div>
     
     <!-- Start Footer Area -->
     <footer class="footer">

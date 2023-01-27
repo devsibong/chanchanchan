@@ -10,8 +10,8 @@ import com.site.chanchanchan.frame.MyService;
 import com.site.chanchanchan.mapper.CartMapper;
 
 @Service
-public class CartService implements MyService<String, Cart>{
-	
+public class CartService implements MyService<String, Cart> {
+
 	@Autowired
 	CartMapper mapper;
 
@@ -40,4 +40,7 @@ public class CartService implements MyService<String, Cart>{
 		return mapper.selectall();
 	}
 
+	public List<Cart> getByMember(String k) throws Exception {
+		return mapper.selectByMember(k);
+	}
 }
