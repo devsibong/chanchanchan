@@ -14,11 +14,11 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		SELECT post_id,member_index,post_subject,post_content,register_date FROM post ORDER BY register_date desc
 	</select>
 	<insert id="insert" parameterType="Post">
-		INSERT INTO post VALUES (#{post_id},0,#{post_subject},#{post_content},#{post_attach1},#{post_attach2},now())
+		INSERT INTO post VALUES (#{post_id},null,#{post_subject},#{post_content},#{post_attach1},#{post_attach2},now())
 	</insert>
 	<update id="update" parameterType="Post">
-		UPDATE post SET member_index = #{member_index},post_subject = #{post_subjec},post_content = #{post_content},
-		post_attach1 = #{post_attach1},post_attach2 = #{post_attach2},register_date = #{register_date} WHERE post_id = #{post_id}
+		UPDATE post SET member_index = null,post_subject = #{post_subject},post_content = #{post_content},
+		post_attach1 = #{post_attach1},post_attach2 = #{post_attach2},register_date = now() WHERE post_id = #{post_id}
 		
 	</update>
 	<delete id="delete" parameterType="Integer">

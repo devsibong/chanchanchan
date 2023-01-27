@@ -1,3 +1,18 @@
+<script>
+function formCheck(){
+	if(document.getElementById("post_subject").value == ""){
+		alert("제목을 입력하세요.");
+		return false;
+	}
+	if(document.getElementById("post_content").value == ""){
+		alert("글내용을 입력하세요.");
+		return false;
+	}
+	alert("글 작성이 완료되었습니다.");
+	return true;
+}
+</script>
+
 <style>
 	.layout{
 		width:500px;
@@ -15,9 +30,9 @@
 	}
 </style>
 <div class="layout">
-	<form action="/mypage/inquiryQuestion" method="post">
-		제목<input name="post_subject" type="text"><br><br>
-		글내용<textarea name="post_content"></textarea>
+	<form action="/mypage/inquiryQuestionOk" method="post" onsubmit="return formCheck()">
+		제목<input name="post_subject" type="text" id="post_subject"><br><br>
+		글내용<textarea name="post_content" id="post_content"></textarea>
 		<button type="submit">작성</button>
 	</form>
 </div>

@@ -11,7 +11,7 @@
 	}
 </style>
 <script>
-
+	// 아이디 체크
 </script>
 <body>
 	<h1>1:1 문의</h1><br>
@@ -35,12 +35,13 @@
 					<td th:text="${li.member_index}"></td>
 					<td th:text="${li.post_subject}"></td>
 					<td>
-						<a th:text="${li.post_content}" th:href="@{/mypage/inquiryview}"></a>
+						<a th:text="${li.post_content}" th:href="@{/mypage/inquiryview(post_id=${li.post_id})}"></a>
 					</td>
 					<td th:text="${#dates.format(li.register_date, 'yyyy-MM-dd')}"></td>
 				</tr>
 			</tbody>
 		</table>
+		
 	</div>
 	
 </body>

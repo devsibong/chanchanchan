@@ -5,10 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.site.chanchanchan.dto.Post;
+import com.site.chanchanchan.service.MemberService;
 import com.site.chanchanchan.service.PostService;
 
 @Controller
@@ -16,6 +17,9 @@ public class MyPageController {
 	
 	@Autowired
 	PostService pservice;
+	
+	@Autowired
+	MemberService mservice;
 	
 	
 	@RequestMapping("/mypage")
@@ -44,13 +48,13 @@ public class MyPageController {
 		return "mypage/mypagemain";
 	}
 	
-	@RequestMapping("/mypage/inquiry")  //문의글 리스트
-	public String  inquiry(Model model) {
+	//문의글 리스트
+	@RequestMapping("/mypage/inquiry")  
+	public String  inquiry(Model model,Integer post_id) {
 		List<Post> list = null;
 		try {
 			list = pservice.list();
-			model.addAttribute("list", list);
-			
+			model.addAttribute("list", list);			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -59,25 +63,33 @@ public class MyPageController {
 		return "mypage/mypagemain";
 	}
 	
-	@RequestMapping("/mypage/inquiryQuestion")  //문의글 작성폼
-	public String  inquiryQuestion(Model model,Post post) {
-		try {
-			pservice.register(post);
-			System.out.println(post.getPost_subject());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
+	//문의글 작성폼
+	@RequestMapping("/mypage/inquiryQuestion")  
+	public String  inquiryQuestion(Model model) {	
 		model.addAttribute("left", "mypageleft");
 		model.addAttribute("center", "/mypage/inquiryQuestion");
 		return "mypage/mypagemain";
 	}
 	
-	@RequestMapping("/mypage/inquiryview")  //문의글 상세
-	public String  inquiryview(Model model,Integer post_id) {
+	//문의글 작성폼OK
+	@RequestMapping("/mypage/inquiryQuestionOk")  
+	public String  inquiryQuestionOk(Model model,Post post ) {	
+		try {
+			pservice.register(post);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("left", "mypageleft");
+		model.addAttribute("center", "/mypage/inquiryQuestion");
+		return "redirect:/mypage/inquiry";
+	}
+	
+	//문의글 상세
+	@RequestMapping("/mypage/inquiryview")  
+	public String inquiryview(Model model,Integer post_id) {
 		Post post = null;
 		try {
-			pservice.get(post_id);
+			post = pservice.get(post_id);
 			model.addAttribute("post", post);
 			System.out.println(post);
 		} catch (Exception e) {
@@ -89,8 +101,38 @@ public class MyPageController {
 		return "mypage/mypagemain";
 	}
 	
-	@RequestMapping("/mypage/inquirydel")  //문의글 상세
-	public String  inquirydel(Model model,@RequestParam("post_id") Integer post_id) {
+	//문의글 수정
+		@RequestMapping("/mypage/inquiryupd/{post_id}")  
+		public String  inquiryupd(Model model,@PathVariable("post_id") Integer post_id) {	
+			Post post=null;
+			try {
+				post = pservice.get(post_id);
+				model.addAttribute("post", post);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			model.addAttribute("left", "mypageleft");
+			model.addAttribute("center", "/mypage/inquiryupd");
+			return "mypage/mypagemain";
+		}
+	
+	//문의글 수정 OK
+			@RequestMapping("/mypage/inquiryupdok/{post_id}")  
+			public String  inquiryupdok(Model model,@PathVariable("post_id") Integer post_id,Post post) {	
+				try {
+					pservice.modify(post);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+				model.addAttribute("left", "mypageleft");
+				model.addAttribute("center", "/mypage/inquiryupd");
+				return "redirect:/mypage/inquiry";
+			}
+		
+	//문의글 삭제
+	@RequestMapping("/mypage/inquirydel")  
+	public String  inquirydel(Model model, Integer post_id) {
 		try {
 			pservice.remove(post_id);
 		} catch (Exception e) {
@@ -98,8 +140,8 @@ public class MyPageController {
 		}
 		
 		model.addAttribute("left", "mypageleft");
-		model.addAttribute("center", "/mypage/inquiryview");
-		return "mypage/mypagemain";
+		model.addAttribute("center", "/mypage/inquirydel");
+		return "redirect:/mypage/inquiry";
 	}
 	
 	@RequestMapping("/mypage/memberupdate")
