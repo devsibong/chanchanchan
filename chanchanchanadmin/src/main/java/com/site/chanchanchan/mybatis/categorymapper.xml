@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.site.chanchanchan.mapper.CategoryMapper">
+	<select id="select" parameterType="Integer" resultType="Category">
+		SELECT * FROM category WHERE category_id=#{category_id}
+	</select>
+	<select id="selectall" resultType="Category">
+		SELECT * FROM category
+	</select>
+	<insert id="insert" parameterType="Category">
+		INSERT INTO category VALUES (category_id,#{category_title},#{category_parent})
+	</insert>
+	<update id="update" parameterType="Category">
+		UPDATE 
+		<if test='category_parent==null or category_parent==0'>
+		category SET category_title=#{category_title}
+		WHERE category_id=#{category_id}
+		</if>
+		<if test='category_parent=!null and category_parent!=0'>
+		category SET category_title=#{category_title},category_parent=#{category_parent}
+		WHERE category_id=#{category_id}
+		</if>
+	</update>
+	<delete id="delete" parameterType="Integer">
+		DELETE FROM category WHERE category_id=#{category_id}
+	</delete>
+	<select id="search" parameterType="String" resultType="Category">
+		SELECT * FROM category WHERE category_title=#{category_title}
+	</select>
+	<select id="getTotal" parameterType="Criteria" resultType="Integer">
+		SELECT COUNT(*) FROM category
+		<if test='!isSearchOk'>
+ 		WHERE ${option} LIKE '%${searchVal}%'
+		</if>
+	</select>
+	
+	<select id="getListByPaging" parameterType="Criteria" resultType="Category">
+		SELECT * FROM 
+		<choose> 
+			<when test="isSearchOk">category</when>
+			<otherwise>
+			(SELECT * FROM category 
+			WHERE ${option} LIKE '%${searchVal}%')search_category 
+			</otherwise>
+		</choose>
+			ORDER BY category_id DESC LIMIT #{pageStartNum},#{amount}
+	</select>
+</mapper>

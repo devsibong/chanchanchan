@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>
+function submit_btn(){
+	if($('select[name=post_type]'),val()=='선택'){
+	alert('글종류를 선택해주세요!');
+	return false;
+	}
+};
+
+$(document).ready(function(){
+	
+	$('#cancel').click(function(){
+		window.history.go(-1);
+	});
+});
+
+</script>
+<style>
+th{width:15%}
+
+</style>
+</head>
+<body>
+	<div class="card shadow mb-3" style="width:90%;">
+		<div class="card-body">
+			<div class="table-responsive">
+				<form id="adminpost_register" th:action="@{/adminpost/registerform}" method="post"> 
+				<table class="table table-bordered" id="dataTable" width="90%" cellspacing="0">
+					<tbody>
+						<tr>
+							<th>관리자번호</th>
+							<td><input type="text" name="admin_index" style="width:20%;border:none;" th:value="${session.loginadm.admin_index}" readonly></td>
+						</tr>
+						<tr>
+							<th>글종류</th>
+							<td>
+								<select th:field="${AdminPost.post_type}">
+					                <option value="공지사항">공지사항</option>
+					                <option value="Q&A">Q&A</option>
+					           	</select>
+					        </td>
+						</tr>
+						<tr>
+							<th>글제목</th>
+							<td><input type="text" style="width:90%;" th:field="${AdminPost.post_subject}"></td>
+						</tr>
+						<tr>
+							<th>글내용</th>
+							<td><textarea th:field="${AdminPost.post_content}" style="width:90%; height:330px;"></textarea></td>
+						</tr>
+						<tr>
+							<th>첨부파일1</th>
+							<td><input type="text" style="width:90%;" th:field="${AdminPost.post_attach1}"></td>
+						</tr>
+						<tr>
+							<th>첨부파일2</th>
+							<td><input type="text" style="width:90%;" th:field="${AdminPost.post_attach2}"></td>
+						</tr>
+						</tbody>
+					</table>
+				<button type="submit" id="register" class="btn btn-primary btn-sm float-right mr-3" onclick="submit_btn()">등록</button>
+				</form>
+			</div>
+			
+			<div class="d-grid gap-3 d-md-flex justify-content-md-end mt-3">
+				<button type="button" id="cancel" class="btn btn-danger btn-sm float-right mr-3">취소</button>
+			</div>
+		</div>
+	</div>
+	</body>
+</html>

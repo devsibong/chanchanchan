@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>
+function checked_delete(chk){
+	$.ajax({
+		url:'[[@{/adminpost/delete}]]',
+		data:{"del":chk},
+		success:function(){
+			location.href="/adminpost/list";
+		},
+		error:function(){
+			alert('데이터 삭제실패');
+			return false;
+		}
+	});
+};
+
+$(document).ready(function(){
+	
+	$('#delete').click(function(){
+		var result = confirm("선택한 글을 정말 삭제처리하시겠습니까?");
+		if(result){
+			$("#post_id").text();
+	  	    checked_delete(chk);	
+		});
+			alert('삭제완료!');
+		}else{ 
+			alert('취소!');
+		}
+	});
+});
+
+</script>
+</head>
+<body>
+	<div class="card shadow mb-3" style="width:90%;">
+		<div class="card-body">
+			<div class="table-responsive">
+				<form> 
+				<table class="table table-bordered" id="dataTable" width="90%" cellspacing="0">
+					<tbody>
+						<tr>
+							<th>글 고유번호</th>
+							<td id="post_id" th:text="${adminpostView.adminpost_id}"></td>
+						</tr>
+						<tr>
+							<th>관리자번호</th>
+							<td th:text="${adminpostView.admin_index}"></td>
+						</tr>
+						<tr>
+							<th>글종류</th>
+							<td th:text="${adminpostView.post_type}"></td>
+						</tr>
+						<tr>
+							<th>글제목</th>
+							<td th:text="${adminpostView.post_subject}"></td>
+						</tr>
+						<tr>
+							<th>글내용</th>
+							<td th:text="${adminpostView.post_content}"></td>
+						</tr>
+						<tr>
+							<th>첨부파일1</th>
+							<td th:text="${adminpostView.post_attach1}"></td>
+						</tr>
+						<tr>
+							<th>첨부파일2</th>
+							<td th:text="${adminpostView.post_attach2}"></td>
+						</tr>
+						<tr>
+							<th>작성일</th>
+							<td th:text="${adminpostView.register_date}"></td>
+						</tr>
+						</tbody>
+					</table>
+				</form>
+			</div>
+			
+			<div class="d-grid gap-3 d-md-flex justify-content-md-end mt-3">
+				<button type="button" id="list" class="btn btn-secondary btn-sm float-right mr-3">목록으로</button>
+				<a th:href="@{/adminpost/register}"><button type="button" id="register" class="btn btn-primary btn-sm float-right mr-3">등록</button></a>
+				<th:block th:if="${adminpostView.admin_index==session.loginadm.admin_index}">
+				<a th:href="@{/adminpost/modify(id=${adminpostView.adminpost_id})}"><button type="button" id="modify" class="btn btn-success btn-sm float-right mr-3">수정</button></a>
+				</th:block>
+				<button type="button" id="delete" class="btn btn-danger btn-sm mr-3">삭제</button>
+			</div>
+		</div>
+	</div>
+	</body>
+</html>

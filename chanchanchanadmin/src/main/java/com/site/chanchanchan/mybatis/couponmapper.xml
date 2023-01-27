@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.site.chanchanchan.mapper.CouponMapper">
+	<select id="select" parameterType="Integer" resultType="Coupon">
+		SELECT * FROM coupon WHERE coupon_id=#{coupon_id}
+	</select>
+	<select id="selectall" resultType="Coupon">
+		SELECT * FROM coupon
+	</select>
+	<insert id="insert" parameterType="Coupon">
+		INSERT INTO coupon VALUES (coupon_id,#{member_index},#{coupon_minprice},#{coupon_discountper},#{coupon_expiredate},
+		#{coupon_status})
+	</insert>
+	<update id="update" parameterType="Coupon">
+		UPDATE coupon SET member_index=#{member_index},coupon_minprice=#{coupon_minprice},coupon_discountper=#{coupon_discountper},
+		coupon_expiredate=#{coupon_expiredate},coupon_status=#{coupon_status}
+		WHERE coupon_id=#{coupon_id}
+	</update>
+	<update id="changeStatus" parameterType="Integer">
+		UPDATE coupon SET coupon_status='used'
+		WHERE coupon_id=#{coupon_id}
+	</update>
+	<delete id="delete" parameterType="Integer">
+		DELETE FROM coupon WHERE coupon_id=#{coupon_id}
+	</delete>
+	<select id="search" parameterType="String" resultType="Coupon">
+		SELECT * FROM coupon WHERE coupon_id=#{id}
+	</select>
+	<select id="getTotal" parameterType="Criteria" resultType="Integer">
+		SELECT COUNT(*) FROM coupon
+		<if test='!isSearchOk'>
+ 		WHERE ${option} LIKE '%${searchVal}%'
+		</if>
+	</select>
+	
+	<select id="getListByPaging" parameterType="Criteria" resultType="Coupon">
+		SELECT * FROM 
+		<choose> 
+			<when test="isSearchOk">coupon</when>
+			<otherwise>
+			(SELECT * FROM coupon 
+			WHERE ${option} LIKE '%${searchVal}%')search_coupon 
+			</otherwise>
+		</choose>
+			ORDER BY coupon_id DESC LIMIT #{pageStartNum},#{amount}
+	</select>
+</mapper>
