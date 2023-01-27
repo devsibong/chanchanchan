@@ -235,18 +235,8 @@
                                         <li><a href="product-grids.html">Batteries</a></li>
                                         <li><a href="product-grids.html">Cables & Adapters</a></li>
                                     </ul>
-                                </li>
-                                <li><a href="product-grids.html">accessories</a></li>
-                                <li><a href="product-grids.html">Televisions</a></li>
-                                <li><a href="product-grids.html">best selling</a></li>
-                                <li><a href="product-grids.html">top 100 offer</a></li>
-                                <li><a href="product-grids.html">sunglass</a></li>
-                                <li><a href="product-grids.html">watch</a></li>
-                                <li><a href="product-grids.html">man’s product</a></li>
-                                <li><a href="product-grids.html">Home Audio & Theater</a></li>
-                                <li><a href="product-grids.html">Computers & Tablets </a></li>
-                                <li><a href="product-grids.html">Video Games </a></li>
-                                <li><a href="product-grids.html">Home Appliances </a></li>
+                                </li>                  
+                                <li><a th:each="ca:${catelist}" th:href="@{/product}" th:value="${ca.category_id}" id="${ca.category_id}" th:text="${ca.category_title}"></a></li>                           	
                             </ul>
                         </div>
                         <!-- End Mega Category Menu -->

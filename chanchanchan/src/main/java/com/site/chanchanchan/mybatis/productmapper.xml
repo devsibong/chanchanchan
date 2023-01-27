@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.site.chanchanchan.mapper.ProductMapper">
+	
+	<select id="select" parameterType="Integer" resultType="Product">
+		SELECT * FROM product WHERE product_id=#{product_id}
+	</select>
+	<select id="selectall" resultType="Product">
+		SELECT * FROM product
+	</select>
+	<insert id="insert" parameterType="Product">
+		INSERT INTO product VALUES ()
+	</insert>
+	<update id="update" parameterType="Product">
+		UPDATE product SET 
+	</update>
+	<delete id="delete" parameterType="Integer">
+		DELETE FROM product WHERE product_id=#{product_id}
+	</delete>
+	
+	
+</mapper>

@@ -22,25 +22,25 @@ public class CategoryService implements MyService<Integer, Category> {
 
 	@Override
 	public void remove(Integer k) throws Exception {
-		mapper.delete(null);
+		mapper.delete(k);
 	}
 
 	@Override
 	public void modify(Category v) throws Exception {
-		// TODO Auto-generated method stub
-		
+		mapper.update(v);
 	}
 
 	@Override
 	public Category get(Integer k) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return mapper.select(k);
 	}
 
 	@Override
 	public List<Category> get() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return mapper.selectall();
 	}
 
+	public List<Category> getcate() throws Exception {
+		return mapper.getcate();
+	}
 }
