@@ -1,0 +1,74 @@
+<script>
+$(document).ready(function(){
+	$('#member_id').keyup(function() {
+		var member_id = $(this).val();
+		$.ajax({
+			url: '[[@{/checkid}]]',
+			data: {"member_id":member_id},
+			success: function(data){
+				if(data == 0){
+					$('#id_span').text("이미 사용중인 아이디입니다.");
+				}else{
+					$('#id_span').text("사용 가능한 아이디입니다.");
+				}
+			}
+		});
+	});
+
+	$('#member_pw').keyup(function() {
+		var member_pw = $('#member_pw').val();
+		if(member_pw == '' || member_pw.length < 4){
+			$('#pwd_span').text("비밀번호는 4자리 이상으로 입력해주세요.");
+		}else{
+			$('#pwd_span').text("사용가능한 비밀번호 입니다.");
+		}
+	});
+	
+	$('#member_pw2').keyup(function() {
+		var member_pw = $('#member_pw').val();
+		var member_pw2 = $('#member_pw2').val();
+		if(member_pw == member_pw2){
+			$('#pwd_span2').text("비밀번호가 일치합니다.");
+		}else{
+			$('#pwd_span2').text("비밀번호가 일치하지 않습니다.");
+		}
+	});
+	
+	$('#registerbtn').click(function() {
+		var member_id = $('#member_id').val();
+		var member_pw = $('#member_pw').val();
+		var member_pw2 = $('#member_pw2').val();
+		$.ajax({
+			url: '[[@{/checkid}]]',
+			data: {"member_id":member_id},
+			success: function(data){
+				if(data == 0){
+					alert("아이디를 확인해 주세요.");
+				}else if($('#member_pw').val() != $('#member_pw2').val()){
+					alert("비밀번호가 일치하지 않습니다. 다시 입력해 주세요.");
+				}else {
+					$('#register_form').attr({
+						'method' : 'post',
+						'action' : '[[@{/registerimpl}]]'
+					});
+					$('#register_form').submit();	
+				}
+			}
+		});
+			
+	});
+});
+</script>
+
+<form id="register_form">
+	ID<input id="member_id" type="text" name="member_id"><span
+		id="id_span"></span><br> PWD1<input id="member_pw"
+		type="password" name="member_pw"><span id="pwd_span"></span><br>
+	PWD2<input id="member_pw2" type="password" name="member_pw2"><span
+		id="pwd_span2"></span><br> NAME<input id="member_name"
+		type="text" name="member_name"><br> 폰번호<input
+		id="member_tel" type="text" name="member_tel"><br> 이메일<input
+		id="member_email" type="text" name="member_email"><br>
+	<button id="registerbtn" class="btn btn-primary" type="button">REGISTER</button>
+</form>
+

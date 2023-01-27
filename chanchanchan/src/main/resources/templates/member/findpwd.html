@@ -1,0 +1,60 @@
+<script>
+$(document).ready(function() {
+	$('#findpwdbtn').click(function() {
+		var member_id = $('#member_id').val();
+		var member_email = $('#member_email').val();
+		$.ajax({
+			url : '[[@{/checkpwd}]]',
+			data : {
+				"member_id":member_id,
+				"member_email":member_email
+			},
+		 	success : function(data){
+		 		if(data == 0){
+			 		alert("일치하는 회원정보가 없습니다.")
+			 	}else {	
+			 		alert("임시 비밀번호가 발송되었습니다.");
+			 		$('#findpwd_form').attr({
+			 			'method' : 'post',
+						'action' : '[[@{/sendmail}]]'
+				 	});
+				 	$('#findpwd_form').submit();
+			 	}
+			}
+		});
+	});
+});
+
+</script>
+
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12 col-md-7 col-lg-4 mx-auto">
+			<div class="card border-2 rounded-3 my-5">
+				<div class="card-body p-4 p-sm-5">
+					<h5 class="card-title text-center mb-5 fw-bold fs-5">비밀번호 찾기</h5>
+					<form id="findpwd_form">
+						<div class="form-floating mb-3">
+							<input type="text" class="form-control" id="member_id"
+								name="member_id" placeholder="아이디"> <label
+								for="floatingInput">아이디</label>
+						</div>
+						<div class="form-floating mb-5">
+							<input type="text" class="form-control" id="member_email"
+								name="member_email" placeholder="이메일"> <label
+								for="floatingPassword">이메일</label>
+						</div>
+
+						<hr class="my-4">
+						<div class="d-grid">
+							<button id="findpwdbtn"
+								class="btn btn-dark btn-lg text-uppercase fw-bold"
+								type="button">비밀번호 찾기</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

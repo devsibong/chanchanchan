@@ -40,4 +40,6 @@ public class MemberService implements MyService<String, Member>{
 		return mapper.selectall();
 	}
 
+	
+	
 }

@@ -1,0 +1,75 @@
+<script>	
+$(document).ready(function() {
+	$('#loginbtn').click(function() {
+		$('#login_form').attr({
+			'method' : 'post',
+			'action' : '[[@{/loginimpl}]]'
+		});
+		$('#login_form').submit();
+	});
+	
+	$('#registerbtn').click(function(){
+		location.href="/register";
+	});
+	
+	$('#findid').click(function(){
+		location.href="/findid";
+	});
+	
+	$('#findpwd').click(function(){
+		location.href="/findpwd";
+	});
+});
+</script>
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12 col-md-7 col-lg-4 mx-auto">
+			<div class="card border-2 rounded-3 my-5">
+				<div class="card-body p-4 p-sm-5">
+					<h5 class="card-title text-center mb-5 fw-bold fs-5">로그인</h5>
+					<form id="login_form">
+						<div class="form-floating mb-3">
+							<input type="text" class="form-control" id="member_id"
+								name="member_id" placeholder="아이디"> <label
+								for="floatingInput">아이디</label>
+						</div>
+						<div class="form-floating">
+							<input type="password" class="form-control" id="member_pw"
+								name="member_pw" placeholder="비밀번호"> <label
+								for="floatingPassword">비밀번호</label>
+						</div>
+
+						<div class="btn-group-sm text-center mb-3">
+							<button id="findid" class="btn btn-login text-uppercase"
+								type="button">아이디 찾기</button>
+							<button id="findpwd" class="btn btn-login text-uppercase"
+								type="button">비밀번호 찾기</button>
+							<button id="registerbtn" class="btn btn-login text-uppercase"
+								type="button">회원가입</button>
+						</div>
+
+						<div class="d-grid">
+							<button id="loginbtn"
+								class="btn btn-dark btn-login text-uppercase fw-bold"
+								type="button">로그인</button>
+						</div>
+
+						<hr class="my-4">
+						<div class="d-grid mb-2">
+							<button class="btn btn-naver btn-login text-uppercase fw-bold"
+								type="submit">네이버로 로그인하기</button>
+						</div>
+						<div class="d-grid">
+							<button class="btn btn-kakao btn-login text-uppercase fw-bold"
+								type="submit">
+								<!--<i class="fab fa-facebook-f me-2"></i>-->
+								카카오로 로그인하기
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,20 @@
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12 col-md-7 col-lg-4 mx-auto">
+			<div class="card border-2 rounded-3 my-5">
+				<div class="card-body p-4 p-sm-5">
+					<h5 class="card-title text-center mb-5 fw-bold fs-5">아이디 조회 결과</h5>
+					<h1 class="text-center" th:text="${findmem.member_id}"></h1>
+						<hr class="my-4">
+						<div class="d-grid mb-2">
+							<a th:href="@{/findpwd}" class="btn btn-outline-dark" type="button">비밀번호 찾기</a>
+						</div>
+						<div class="d-grid mb-2">
+							<a th:href="@{/login}" class="btn btn-outline-dark" type="button">로그인</a>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
