@@ -84,7 +84,6 @@
 					data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<a class="collapse-item" th:href="@{/member/list}">회원정보 조회</a> 						
-						<a class="collapse-item" href="#">탈퇴회원 처리</a> 						
 						<a class="collapse-item" href="#">회원등급 관리</a>
 					</div>
 				</div></li>
@@ -233,7 +232,6 @@
 
 				<!-- Begin Page Content -->
 				<div class="container-fluid" th:include="${center} ? ${center} : center"></div>
-				<div class="container-fluid" th:include="${center2} ? ${center2} : center2"></div>
 				<!-- /.container-fluid -->
 
 			</div>
