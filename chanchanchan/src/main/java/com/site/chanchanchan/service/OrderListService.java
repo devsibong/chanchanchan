@@ -5,18 +5,18 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.site.chanchanchan.dto.Category;
+import com.site.chanchanchan.dto.OrderList;
 import com.site.chanchanchan.frame.MyService;
-import com.site.chanchanchan.mapper.CategoryMapper;
+import com.site.chanchanchan.mapper.OrderListMapper;
 
 @Service
-public class CategoryService implements MyService<Integer, Category> {
-
-	@Autowired
-	CategoryMapper mapper;
+public class OrderListService implements MyService<Integer, OrderList>{
 	
+	@Autowired
+	OrderListMapper mapper;
+
 	@Override
-	public void register(Category v) throws Exception {
+	public void register(OrderList v) throws Exception {
 		mapper.insert(v);
 	}
 
@@ -26,18 +26,18 @@ public class CategoryService implements MyService<Integer, Category> {
 	}
 
 	@Override
-	public void modify(Category v) throws Exception {
+	public void modify(OrderList v) throws Exception {
 		mapper.update(v);
 	}
 
 	@Override
-	public Category get(Integer k) throws Exception {
+	public OrderList get(Integer k) throws Exception {
 		return mapper.select(k);
 	}
 
 	@Override
-	public List<Category> get() throws Exception {
+	public List<OrderList> get() throws Exception {
 		return mapper.selectall();
 	}
-
+	
 }

@@ -1,14 +1,18 @@
 <script>
 $(document).ready(function() {
 	$('#findidbtn').click(function() {
-		var member_email = $('#member_email').val();  
+		var member_name = $('#member_name').val();
+		var member_email = $('#member_email').val();
 		$.ajax({
 			url : '[[@{/checkmail}]]',
-			data : {"member_email":member_email},
+			data : {
+				"member_name":member_name,
+				"member_email":member_email
+			},
 		 	success : function(data){
 		 		if(data == 0){
-					alert("일치하는 회원정보가 없습니다.");
-			 	}else {
+			 		alert("일치하는 회원정보가 없습니다.")
+			 	}else {	
 			 		$('#findid_form').attr({
 			 			'method' : 'post',
 						'action' : '[[@{/findidimpl}]]'
@@ -19,7 +23,6 @@ $(document).ready(function() {
 		});
 	});
 });
-
 </script>
 
 <div class="container">

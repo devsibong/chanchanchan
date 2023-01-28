@@ -9,7 +9,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="shortcut icon" type="image/x-icon" href="images/favicon.svg" />
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-
     <!-- ========================= CSS here ========================= -->
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/LineIcons.3.0.css" />
@@ -89,16 +88,20 @@
                     <div class="col-lg-4 col-md-4 col-12">
                         <div class="top-end">
                             <div class="user">
+                            	
                                 <i class="lni lni-user"></i>
                                 Hello
                             </div>
                             <ul class="user-login">
+                            	<li>
+                            		<a th:href="@{/mypage}">마이페이지</a>
+                            	</li>
                                 <li>
                                     <a th:href="@{/login}" th:if="${session.loginmem == null}">로그인</a>
 									<a th:href="@{/logout}" th:if="${session.loginmem != null}">로그아웃</a>
                                 </li>
                                 <li>
-                                    <a href="register.html">회원가입</a>
+                                    <a th:href="@{/register}">회원가입</a>
                                 </li>
                             </ul>
                         </div>
@@ -235,18 +238,8 @@
                                         <li><a href="product-grids.html">Batteries</a></li>
                                         <li><a href="product-grids.html">Cables & Adapters</a></li>
                                     </ul>
-                                </li>
-                                <li><a href="product-grids.html">accessories</a></li>
-                                <li><a href="product-grids.html">Televisions</a></li>
-                                <li><a href="product-grids.html">best selling</a></li>
-                                <li><a href="product-grids.html">top 100 offer</a></li>
-                                <li><a href="product-grids.html">sunglass</a></li>
-                                <li><a href="product-grids.html">watch</a></li>
-                                <li><a href="product-grids.html">man’s product</a></li>
-                                <li><a href="product-grids.html">Home Audio & Theater</a></li>
-                                <li><a href="product-grids.html">Computers & Tablets </a></li>
-                                <li><a href="product-grids.html">Video Games </a></li>
-                                <li><a href="product-grids.html">Home Appliances </a></li>
+                                </li>                  
+                                <li><a th:each="ca:${catelist}" th:href="@{/product(category_id=${ca.category_id})}" th:value="${ca.category_id}" id="${ca.category_id}" th:text="${ca.category_title}"></a></li>                           	
                             </ul>
                         </div>
                         <!-- End Mega Category Menu -->
@@ -495,6 +488,7 @@
     <script src="js/tiny-slider.js"></script>
     <script src="js/glightbox.min.js"></script>
     <script src="js/main.js"></script>
+    <script type="text/javascript" src="js/cart.js"></script>
     <script type="text/javascript">
         //========= Hero Slider 
         tns({
