@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+
+<!-- Custom fonts for this template-->
+<link th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet"
+	type="text/css">
+<link
+	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+	rel="stylesheet">
+
+<!-- Custom styles for this template-->
+<link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!-- Bootstrap core JavaScript-->
+<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+<!-- Core plugin JavaScript-->
+<script th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
+
+<!-- Custom scripts for all pages-->
+<script th:src="@{/js/sb-admin-2.min.js}"></script>
+<script>
+function create_fnc(member_rank,coupon_minprice,coupon_discountper,coupon_expiredate){
+	$.ajax({
+		url:'[[@{/coupon/popupcreatecoupon}]]',
+		type:'get',
+		data:{member_rank:member_rank,
+			coupon_minprice:coupon_minprice,
+			coupon_discountper:coupon_discountper,
+			coupon_expiredate:coupon_expiredate},
+		success:function(){
+			alert('등록완료!');
+			opener.document.location.reload();
+			self.close();
+		},
+		error:function(){
+			alert('등록 실패!');
+			return false;
+		}
+	});
+};
+
+$(document).ready(function(){
+	$("#create_btn").click(function(){
+		var member_rank = $("input[name='member_rank']").val();
+		var coupon_minprice = $("input[name='coupon_minprice']").val();
+		var coupon_discountper = $("input[name='coupon_discountper']").val();
+		var coupon_expiredate = $("input[name='coupon_expiredate']").val();
+		create_fnc(member_rank,coupon_minprice,coupon_discountper,coupon_expiredate);
+	});
+});
+</script>
+</head>
+<body>
+	<div class="card shadow mb-3" style="width:100%;">
+		<div class="card-body">
+			<div class="table-responsive">
+				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+					<thead>
+						<tr>
+							<th>회원등급</th>
+							<th>최소금액</th>
+							<th>할인율</th>
+							<th>만료일</th>							
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th><input type="text" name="member_rank"></input></th>
+							<th><input type="number" name="coupon_minprice"></input></th>
+							<th><input type="number" name="coupon_discountper"></input></th>
+							<th><input type="date" name="coupon_expiredate" min="2023-01-28" max="2023-12-31"></th>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		<div class="d-grid gap-3 d-md-flex justify-content-md-end mt-3">
+		<button type="button" id="create_btn" class="btn btn-success btn-sm float-right mr-4">등급별 쿠폰 생성</button>
+		</div>
+			
+		</div>
+	</div>
+</body>
+</html>

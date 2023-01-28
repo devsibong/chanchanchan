@@ -10,8 +10,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		SELECT * FROM coupon
 	</select>
 	<insert id="insert" parameterType="Coupon">
-		INSERT INTO coupon VALUES (coupon_id,#{member_index},#{coupon_minprice},#{coupon_discountper},#{coupon_expiredate},
-		#{coupon_status})
+		INSERT INTO coupon VALUES (0,#{member_index},#{coupon_minprice},#{coupon_discountper},#{coupon_expiredate},'사용가능')
 	</insert>
 	<update id="update" parameterType="Coupon">
 		UPDATE coupon SET member_index=#{member_index},coupon_minprice=#{coupon_minprice},coupon_discountper=#{coupon_discountper},

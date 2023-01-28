@@ -63,13 +63,13 @@ $(document).ready(function(){
 	});
 	
 	$('#delete').click(function(){
-		var result = confirm("선택한 회원을 정말 삭제처리하시겠습니까?");
+		var result = confirm("선택한 쿠폰을 정말 삭제처리하시겠습니까?");
 		if(result){
 		$("input[name='checkbox']:checked").each(function(){
 			var chk =$(this).closest("th").next().text();
 	  	    checked_delete(chk);	
 		});
-			alert('탈퇴완료!');
+			alert('삭제완료!');
 		}else{ 
 			alert('취소!');
 		}
@@ -79,6 +79,10 @@ $(document).ready(function(){
 	$('#canUseCoupon').click(function(){
 		canUseCoupon();
 	});
+	
+	$('#create_coupon').click(function(){
+		var create_coupon =window.open('[[@{/coupon/createcoupon}]]','window','width=950, height=260 left=500 top=300');
+	});	
 
 });
 
@@ -158,7 +162,7 @@ $(document).ready(function(){
 				<button type="button" id="canUseCoupon" class="btn btn-primary btn-sm float-right mr-3">사용불가능 쿠폰</button>
 			</div>
 			<div class="d-grid gap-3 d-md-flex justify-content-md-end mt-3">
-				<button type="button" id="produce" class="btn btn-success btn-sm float-right mr-3">쿠폰 생성</button>
+				<button type="button" id="create_coupon" class="btn btn-success btn-sm float-right mr-3">쿠폰 생성</button>
 				<button type="button" id="delete" class="btn btn-danger btn-sm mr-3">삭제</button>
 			</div>
 		</div>
