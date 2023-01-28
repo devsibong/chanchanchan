@@ -119,16 +119,13 @@ public class CouponController {
 		List<Member> listmems =null;
 		try {
 			listmems = memservice.search(member_rank);
-			System.out.println(listmems.toString());
 			int member_index;
 			Coupon coupon;
 			for(int i=0;i<listmems.size();i++) {
 				Member mem=listmems.get(i);
 				member_index=mem.getMember_index();
-				System.out.println(member_index);
 				
 				coupon=new Coupon(member_index,coupon_minprice,coupon_discountper,coupon_expiredate);
-				System.out.println(coupon.toString());
 				couponservice.register(coupon);
 			}
 		} catch (Exception e) {
