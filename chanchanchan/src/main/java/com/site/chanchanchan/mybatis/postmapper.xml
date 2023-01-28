@@ -24,5 +24,22 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<delete id="delete" parameterType="Integer">
 		DELETE FROM post WHERE post_id=#{post_id}
 	</delete>
+	<select id="getTotal" parameterType="Criteria" resultType="Integer">
+		SELECT COUNT(*) FROM post
+		<if test='!isSearchOk'>
+ 		WHERE ${option} LIKE '%${searchVal}%'
+		</if>
+	</select>
+	<select id="getListByPaging" parameterType="Criteria" resultType="Post">
+		SELECT * FROM 
+		<choose> 
+			<when test="isSearchOk">post</when>
+			<otherwise>
+			(SELECT * FROM post 
+			WHERE ${option} LIKE '%${searchVal}%')search_post 
+			</otherwise>
+		</choose>
+			ORDER BY post_id DESC LIMIT #{pageStartNum},#{amount}
+	</select>
 	
 </mapper>

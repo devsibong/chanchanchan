@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.site.chanchanchan.dto.Criteria;
 import com.site.chanchanchan.dto.Post;
 import com.site.chanchanchan.frame.MyService;
 import com.site.chanchanchan.mapper.PostMapper;
@@ -43,6 +44,16 @@ public class PostService implements MyService<Integer, Post>{
 	//문의글 리스트
 	public List<Post> list() throws Exception {
 		return mapper.list();
+	}
+	
+	//Paging
+	public List<Post> getListByPaging(Criteria cri) throws Exception{
+		return mapper.getListByPaging(cri);
+	};
+	
+	//COUNT
+	public int getTotal(Criteria cri) throws Exception{
+		return mapper.getTotal(cri);
 	}
 	
 
