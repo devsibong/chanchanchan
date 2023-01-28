@@ -15,4 +15,8 @@ public class Category {
 	private int category_id;
 	private String category_title;
 	private int category_parent;
+
+	private int product_id;
+	private String product_name;
+
 }

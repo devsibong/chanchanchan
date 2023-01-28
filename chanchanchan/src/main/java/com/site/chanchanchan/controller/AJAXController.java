@@ -13,8 +13,6 @@ public class AJAXController {
 	@Autowired
 	MemberService memservice;
 	
-	
-	
 	@RequestMapping("/checkid")
 	public Object checkid(String member_id) {
 		int result = 0;
@@ -33,12 +31,12 @@ public class AJAXController {
 	}
 	
 	@RequestMapping("/checkmail")
-	public Object checkmail(String member_email) {
+	public Object checkmail(String member_name, String member_email) {
 		int result = 0;
 		Member mem = null;
 		try {
 			mem = memservice.get(member_email);
-			if(mem == null) {
+			if(mem == null || !member_name.equals(mem.getMember_name())) {
 				result = 0;
 			}else {
 				result = 1;
