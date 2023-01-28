@@ -19,13 +19,11 @@ public class MainController {
 	@RequestMapping("/")
 	public String main(Model model) {
 		try {
-			List<Category> catelist = categoryservice.getcate();
+			List<Category> catelist = categoryservice.get();
 			model.addAttribute("catelist", catelist);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 		return "index";
-
 	}
 }

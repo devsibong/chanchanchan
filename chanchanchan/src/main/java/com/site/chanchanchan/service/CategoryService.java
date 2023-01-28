@@ -40,7 +40,4 @@ public class CategoryService implements MyService<Integer, Category> {
 		return mapper.selectall();
 	}
 
-	public List<Category> getcate() throws Exception {
-		return mapper.getcate();
-	}
 }

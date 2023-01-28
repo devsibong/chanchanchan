@@ -98,7 +98,7 @@
 									<a th:href="@{/logout}" th:if="${session.loginmem != null}">로그아웃</a>
                                 </li>
                                 <li>
-                                    <a href="register.html">회원가입</a>
+                                    <a th:href="@{/register}">회원가입</a>
                                 </li>
                             </ul>
                         </div>
@@ -236,7 +236,7 @@
                                         <li><a href="product-grids.html">Cables & Adapters</a></li>
                                     </ul>
                                 </li>                  
-                                <li><a th:each="ca:${catelist}" th:href="@{/product}" th:value="${ca.category_id}" id="${ca.category_id}" th:text="${ca.category_title}"></a></li>                           	
+                                <li><a th:each="ca:${catelist}" th:href="@{/product(category_id=${ca.category_id})}" th:value="${ca.category_id}" id="${ca.category_id}" th:text="${ca.category_title}"></a></li>                           	
                             </ul>
                         </div>
                         <!-- End Mega Category Menu -->

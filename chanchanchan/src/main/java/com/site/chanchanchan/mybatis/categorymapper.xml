@@ -19,9 +19,5 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<delete id="delete" parameterType="Integer">
 		DELETE FROM category WHERE category_id=#{category_id}
 	</delete>
-	<select id="getcate" resultType="Category">
-		SELECT * FROM category ca
-		JOIN product pr ON ca.category_id = pr.category_id
-	</select>
 	
 </mapper>

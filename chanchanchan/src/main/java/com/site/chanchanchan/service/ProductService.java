@@ -40,6 +40,9 @@ public class ProductService implements MyService<Integer, Product>{
 		return mapper.selectall();
 	}
 
+	public List<Product> getprod(Integer k) throws Exception {
+		return mapper.getprod(k);
+	}
 	
 	
 }

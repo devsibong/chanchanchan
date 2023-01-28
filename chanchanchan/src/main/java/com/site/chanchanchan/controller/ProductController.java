@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.site.chanchanchan.dto.Category;
+import com.site.chanchanchan.dto.Product;
 import com.site.chanchanchan.service.CategoryService;
 import com.site.chanchanchan.service.ProductService;
 
@@ -24,14 +25,21 @@ public class ProductController {
 	
 	@RequestMapping("/product")
 	public String product(Model model, int category_id) {
+		Category cate = null;
 		List<Category> catelist = null;
+		List<Product> prodlist = null;
 		try {
-			catelist = categoryservice.getcate();
-			model.addAttribute("catelist", catelist);
-			model.addAttribute("center", dir + "product");
+			cate = categoryservice.get(category_id);
+			catelist = categoryservice.get();
+			prodlist = productservice.getprod(category_id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		model.addAttribute("ca", cate);
+		model.addAttribute("catelist", catelist);
+		model.addAttribute("prodlist", prodlist);
+		model.addAttribute("center", dir + "product");
+		
 		return "index";
 	}
 }
