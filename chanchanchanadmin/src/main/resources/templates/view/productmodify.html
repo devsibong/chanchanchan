@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+	
+	$('#cancel').click(function(){
+		window.history.go(-1);
+	});
+});
+
+</script>
+<style>
+th{width:16%}
+
+</style>
+</head>
+<body>
+	<div class="card shadow mb-3" style="width:90%;">
+		<div class="card-body">
+			<div class="table-responsive">
+				<form id="product_modify" th:action="@{/product/modifyform}" method="post"> 
+				<table class="table table-bordered" id="dataTable" width="90%" cellspacing="0">
+					<tbody>
+						<tr>
+							<th>상품고유번호</th>
+							<td><input type="text" th:value="${product.product_id}" style="width:20%; border:none;" name="product_id" readonly></td>
+						</tr>
+						<tr>
+							<th>카테고리번호</th>
+							<td><input type="text" th:value="${product.category_id}" style="width:20%;" name="category_id"></td>
+						</tr>
+						<tr>
+							<th>상품명</th>
+							<td><input type="text" th:value="${product.product_name}" style="width:20%;" name="product_name"></td>
+						</tr>
+						<tr>
+							<th>상품설명</th>
+							<td><textarea th:text="${product.product_description}" name="product_description" style="width:90%; height:200px;"></textarea></td>
+						</tr>
+						<tr>
+							<th>대표이미지</th>
+							<td><input type="text" th:value="${product.product_thumbnail_imgpath}" style="width:90%;" name="product_thumbnail_imgpath"></td>
+						</tr>
+						<tr>
+							<th>상세이미지</th>
+							<td><input type="text" th:value="${product.product_detail_imgpath}" style="width:90%;" name="product_detail_imgpath"></td>
+						</tr>
+						<tr>
+							<th>상품가격</th>
+							<td><input type="text" th:value="${product.product_price}" style="width:90%;" name="product_price"> (원)</td>
+						</tr>
+						<tr>
+							<th>필수정보고시</th>
+							<td><textarea th:text="${product.product_essential}" name="product_essential" style="width:90%; height:200px;"></textarea></td>
+						</tr>
+						<tr>
+							<th>할인율</th>
+							<td><input type="text" th:value="${product.product_discount}" style="width:90%;" name="product_discount"></td>
+						</tr>
+						</tbody>
+					</table>
+				<button type="submit" id="modify" class="btn btn-primary btn-sm float-right mr-3">수정완료</button>
+				</form>
+			</div>
+			
+			<div class="d-grid gap-3 d-md-flex justify-content-md-end mt-3">
+				<button type="button" id="cancel" class="btn btn-danger btn-sm float-right mr-3">취소</button>
+			</div>
+		</div>
+	</div>
+	</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+	
+	$('#cancel').click(function(){
+		window.history.go(-1);
+	});
+});
+
+</script>
+<style>
+th{width:15%}
+
+</style>
+</head>
+<body>
+	<div class="card shadow mb-3" style="width:90%;">
+		<div class="card-body">
+			<div class="table-responsive">
+				<form id="adminpost_modify" th:action="@{/adminpost/modifyform}" method="post"> 
+				<table class="table table-bordered" id="dataTable" width="90%" cellspacing="0">
+					<tbody>
+						<tr>
+							<th>글 고유번호</th>
+							<td><input type="text" th:value="${admpost.adminpost_id}" style="border:none; width:20%;" name="adminpost_id" readonly></td>
+						</tr>
+						<tr>
+							<th>관리자번호</th>
+							<td><input type="text" th:value="${admpost.admin_index}" style="border:none; width:20%;" name="admin_index" readonly> </td>
+						</tr>
+						<tr>
+							<th>글종류</th>
+							<td><input type="text" th:value="${admpost.post_type}" style="border:none; width:20%;" name="post_type" readonly></td>
+						</tr>
+						<tr>
+							<th>글제목</th>
+							<td><input type="text" th:value="${admpost.post_subject}" style="width:90%;" name="post_subject"></td>
+						</tr>
+						<tr>
+							<th>글내용</th>
+							<td><textarea th:text="${admpost.post_content}" name="post_content" style="width:90%; height:330px;"></textarea></td>
+						</tr>
+						<tr>
+							<th>첨부파일1</th>
+							<td><input type="text" th:value="${admpost.post_attach1}" style="width:90%;" name="post_attach1"></td>
+						</tr>
+						<tr>
+							<th>첨부파일2</th>
+							<td><input type="text" th:value="${admpost.post_attach2}" style="width:90%;" name="post_attach2"></td>
+							<input type="hidden" th:value="${admpost.register_date}" style="width:90%;" name="register_date">
+						</tr>
+						</tbody>
+					</table>
+				<button type="submit" id="modify" class="btn btn-primary btn-sm float-right mr-3">수정완료</button>
+				</form>
+			</div>
+			
+			<div class="d-grid gap-3 d-md-flex justify-content-md-end mt-3">
+				<button type="button" id="cancel" class="btn btn-danger btn-sm float-right mr-3">취소</button>
+			</div>
+		</div>
+	</div>
+	</body>
+</html>
