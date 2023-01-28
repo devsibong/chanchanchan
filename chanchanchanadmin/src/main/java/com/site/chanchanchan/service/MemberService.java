@@ -42,8 +42,8 @@ public class MemberService implements MyService<Integer, Member>{
 	}
 	
 	//SearchID
-	public Member search(String id) throws Exception{
-		return memmapper.search(id);
+	public List<Member> search(String member_rank) throws Exception{
+		return memmapper.search(member_rank);
 	}
 	
 	//Paging
@@ -61,4 +61,13 @@ public class MemberService implements MyService<Integer, Member>{
 		memmapper.changeStatus(apr);
 	}
 	
+	//getSumById
+	public Member getSumById(int id) throws Exception{
+		return memmapper.getSumById(id);
+	}
+	
+	//changeRank
+	public void changeRank(Member mem) throws Exception{
+		memmapper.changeRank(mem);
+	}
 }

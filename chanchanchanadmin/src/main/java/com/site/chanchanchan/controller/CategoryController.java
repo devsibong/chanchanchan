@@ -110,6 +110,7 @@ public class CategoryController {
 			e.printStackTrace();
 		}
 		return "rediret:/category/popupmodify";
+		//-------------------수정필요-----------------------------------
 	}
 	
 	@RequestMapping("/popupsignUp")

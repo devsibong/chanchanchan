@@ -12,9 +12,10 @@ import com.site.chanchanchan.frame.MyMapper;
 @Mapper
 @Repository
 public interface MemberMapper extends MyMapper<Integer, Member>{
-	public Member search(String id) throws Exception;
+	public List<Member> search(String member_rank) throws Exception;
 	public List<Member> getListByPaging(Criteria cri) throws Exception;
 	public int getTotal(Criteria cri) throws Exception;
 	public void changeStatus(int apr) throws Exception;
-
+	public Member getSumById(int id) throws Exception;
+	public void changeRank(Member mem) throws Exception;
 }
