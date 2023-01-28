@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+
+<!-- Custom fonts for this template-->
+<link th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet"
+	type="text/css">
+<link
+	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+	rel="stylesheet">
+
+<!-- Custom styles for this template-->
+<link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!-- Bootstrap core JavaScript-->
+<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+<!-- Core plugin JavaScript-->
+<script th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
+
+<!-- Custom scripts for all pages-->
+<script th:src="@{/js/sb-admin-2.min.js}"></script>
+<script>
+function register_fnc(register_title,register_parent){
+	$.ajax({
+		url:'[[@{/category/register}]]',
+		type:'get',
+		data:{category_title:register_title,
+			category_parent:register_parent},
+		success:function(){
+			alert('등록완료!');
+			opener.document.location.reload();
+			self.close();
+		},
+		error:function(){
+			alert('등록 실패!');
+			return false;
+		}
+	});
+};
+
+$(document).ready(function(){
+	$("#register_btn").click(function(){
+		var register_title =$("input[name='category_title']").val();
+		
+		var register_parent;
+		if($("input[name='category_parent']").val()=="없음"){
+			register_parent=0;
+		}else{
+			register_parent =$("input[name='category_parent']").val();
+		}
+		register_fnc(register_title,register_parent);
+	});
+});
+</script>
+</head>
+<body>
+	<div class="card shadow mb-3" style="width:100%;">
+		<div class="card-body">
+			<div class="table-responsive">
+				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+					<thead>
+						<tr>
+							<th>카테고리 이름</th>
+							<th>상위 카테고리 번호</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th><input type="text" name="category_title"></input></th>
+							<th><input type="text" name="category_parent"></input></th>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		<div class="d-grid gap-3 d-md-flex justify-content-md-end mt-3">
+		<button type="button" id="register_btn" class="btn btn-success btn-sm float-right mr-4">카테고리 등록</button>
+		</div>
+			
+		</div>
+	</div>
+</body>
+</html>

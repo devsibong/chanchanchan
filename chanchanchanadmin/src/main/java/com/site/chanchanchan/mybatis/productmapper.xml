@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.site.chanchanchan.mapper.ProductMapper">
+	<select id="select" parameterType="Integer" resultType="Product">
+		SELECT * FROM product WHERE product_id=#{product_id}
+	</select>
+	<select id="selectall" resultType="Product">
+		SELECT * FROM product
+	</select>
+	<insert id="insert" parameterType="Product">
+		INSERT INTO product VALUES (#{product_id},#{category_id},#{product_name},#{product_description},#{product_thumbnail_imgpath},#{product_detail_imgpath},#{product_price},#{product_essential},#{product_discount})
+	</insert>
+	<update id="update" parameterType="Product">
+		UPDATE product SET product_id=#{product_id},category_id=#{category_id},product_name=#{product_name},
+		product_description=#{product_description},product_thumbnail_imgpath=#{product_thumbnail_imgpath},product_detail_imgpath=#{product_detail_imgpath},product_price=#{product_price},
+		product_essential=#{product_essential},product_discount=#{product_discount} 
+		WHERE product_id=#{product_id}
+	</update>
+	<update id="changeSale" parameterType="Integer">
+		UPDATE product SET product_discount=#{salerate}
+		WHERE product_id=#{id}
+	</update>
+	<delete id="delete" parameterType="Integer">
+		DELETE FROM product WHERE product_id=#{product_id}
+	</delete>
+	<select id="getTotal" parameterType="Criteria" resultType="Integer">
+		SELECT COUNT(*) FROM product
+		<if test='!isSearchOk'>
+ 		WHERE ${option} LIKE '%${searchVal}%'
+		</if>
+	</select>
+	<select id="getListByPaging" parameterType="Criteria" resultType="Product">
+		SELECT * FROM 
+		<choose> 
+			<when test="isSearchOk">product</when>
+			<otherwise>
+			(SELECT * FROM product 
+			WHERE ${option} LIKE '%${searchVal}%')search_product
+			</otherwise>
+		</choose>
+			ORDER BY product_id DESC LIMIT #{pageStartNum},#{amount}
+	</select>
+</mapper>
