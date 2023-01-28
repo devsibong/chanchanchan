@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.site.chanchanchan.dto.Coupon;
 import com.site.chanchanchan.dto.Criteria;
+import com.site.chanchanchan.dto.Member;
 import com.site.chanchanchan.dto.Page;
 import com.site.chanchanchan.service.CouponService;
+import com.site.chanchanchan.service.MemberService;
 
 @RequestMapping("/coupon")
 @Controller
@@ -23,6 +25,9 @@ public class CouponController {
 	
 	@Autowired
 	CouponService couponservice;
+	
+	@Autowired
+	MemberService memservice;
 	
 	String dir ="list/";
 	
@@ -88,7 +93,7 @@ public class CouponController {
 		} catch (Exception e) {
 //			e.printStackTrace();
 		}
-		return "main";
+		return "rediret:/coupon/list";
 	}
 	
 	//승인버튼
@@ -101,6 +106,36 @@ public class CouponController {
 //			e.printStackTrace();
 		}
 		return "main";
+	}
+	
+	@RequestMapping("/createcoupon")
+	public String createCoupon() {
+		return "popup/createcoupon";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/popupcreatecoupon")
+	public String popupCreateCoupon(String member_rank, int coupon_minprice, int coupon_discountper, String coupon_expiredate) {
+		List<Member> listmems =null;
+		try {
+			listmems = memservice.search(member_rank);
+			System.out.println(listmems.toString());
+			int member_index;
+			Coupon coupon;
+			for(int i=0;i<listmems.size();i++) {
+				Member mem=listmems.get(i);
+				member_index=mem.getMember_index();
+				System.out.println(member_index);
+				
+				coupon=new Coupon(member_index,coupon_minprice,coupon_discountper,coupon_expiredate);
+				System.out.println(coupon.toString());
+				couponservice.register(coupon);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "popup/createcouponfail";
+		}
+		return "popup/createcouponok";
 	}
 	
 }
