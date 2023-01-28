@@ -107,6 +107,10 @@ $(document).ready(function(){
 	$('#quitaccount').click(function(){
 		quitaccount();
 	});
+	
+	$('#memberlevel').click(function(){
+		var register =window.open('[[@{/member/membershiplevel}]]','window','width=800, height=260 left=500 top=300');
+	});	
 
 });
 
@@ -191,9 +195,10 @@ $(document).ready(function(){
 				<button type="button" id="selectall" class="btn btn-secondary btn-sm ml-3">전체선택</button>
 				<button type="button" id="cancelall" class="btn btn-secondary btn-sm ml-3 mr-auto">전체해제</button>
 				<button type="button" id="quitaccount" class="btn btn-primary btn-sm float-right mr-3">탈퇴계정 계정목록</button>
+				<button type="button" id="restore" class="btn btn-success btn-sm float-right mr-3">탈퇴계정 복원</button>
 			</div>
 			<div class="d-grid gap-3 d-md-flex justify-content-md-end mt-3">
-				<button type="button" id="restore" class="btn btn-success btn-sm float-right mr-3">탈퇴계정 복원</button>
+				<button type="button" id="memberlevel" class="btn btn-primary btn-sm float-right mr-3">금액별 등급설정</button>
 				<button type="button" id="delete" class="btn btn-danger btn-sm mr-3">삭제</button>
 			</div>
 		</div>

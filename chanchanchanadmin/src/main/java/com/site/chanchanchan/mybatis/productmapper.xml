@@ -10,8 +10,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		SELECT * FROM product
 	</select>
 	<insert id="insert" parameterType="Product">
-		INSERT INTO product VALUES (product_id,#{category_id},#{product_name},#{product_description},#{product_thumbnail_imgpath},
-		#{product_datail_imgpath},#{product_price},#{product_essential},#{product_discount})
+		INSERT INTO product VALUES (#{product_id},#{category_id},#{product_name},#{product_description},#{product_thumbnail_imgpath},#{product_detail_imgpath},#{product_price},#{product_essential},#{product_discount})
 	</insert>
 	<update id="update" parameterType="Product">
 		UPDATE product SET product_id=#{product_id},category_id=#{category_id},product_name=#{product_name},

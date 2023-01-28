@@ -89,10 +89,14 @@
                     <div class="col-lg-4 col-md-4 col-12">
                         <div class="top-end">
                             <div class="user">
+                            	
                                 <i class="lni lni-user"></i>
                                 Hello
                             </div>
                             <ul class="user-login">
+                            	<li>
+                            		<a th:href="@{/mypage}">마이페이지</a>
+                            	</li>
                                 <li>
                                     <a th:href="@{/login}" th:if="${session.loginmem == null}">로그인</a>
 									<a th:href="@{/logout}" th:if="${session.loginmem != null}">로그아웃</a>

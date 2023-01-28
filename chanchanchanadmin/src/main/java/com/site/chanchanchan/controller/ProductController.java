@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -103,35 +103,64 @@ public class ProductController {
 		return "list/product";
 	}
 	
-	@RequestMapping("/popupmodify")
-	public String popupModify() {
-		return "popup/productmodify";
-	}
-	
-	@ResponseBody
-	@RequestMapping("/modify")
-	public String modify(@RequestBody Product product) {
+	//게시글 뷰페이지
+	@GetMapping("/view")
+	public String get(Model model, HttpSession session, 
+			@RequestParam(value="id", defaultValue="0") Integer id){
+		 Product product = null;
 		try {
-			productservice.modify(product);
+			product= productservice.get(id);
 		} catch (Exception e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
-		return "rediret:/product/popupmodify";
+		model.addAttribute("productView",product);
+		model.addAttribute("center","view/productview");
+		return "main";
 	}
 	
-	@RequestMapping("/popupsignUp")
-	public String popupSignUp() {
-		return "popup/productregister";
-	}
-
-	@ResponseBody
 	@RequestMapping("/register")
-	public String register(@RequestBody Product product) {
+	public String register(Model model) {
+
+		model.addAttribute("center","view/productregister");
+		model.addAttribute("Product", new Product());
+		return "main";
+	}
+	
+	@RequestMapping("/registerform")
+	public String registerForm(@ModelAttribute("Product") Product product) {
+		
+		System.out.println(product.toString());
 		try {
 			productservice.register(product);
 		} catch (Exception e) {
 			e.printStackTrace();
+			return "popup/productregisterfail";
 		}
-		return "rediret:/product/popupsignUp";
+		return "popup/productregisterok";
+	}
+	
+	@RequestMapping("/modify")
+	public String modify(Model model, @RequestParam(value="id", defaultValue="0") Integer id ){
+		Product product = null;
+		try {
+			product= productservice.get(id);
+		} catch (Exception e) {
+			//e.printStackTrace();
+		}
+		model.addAttribute("product",product);
+		model.addAttribute("center","view/productmodify");
+		model.addAttribute("Product", new Product());
+		return "main";
+	}
+	
+	@RequestMapping("/modifyform")
+	public String modifyForm(@ModelAttribute("Product") Product product) {
+		try {
+			productservice.modify(product);
+		} catch (Exception e) {
+			// e.printStackTrace();
+			return "popup/productmodifyfail";
+		}
+		return "popup/productmodifyok";
 	}
 }

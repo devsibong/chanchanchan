@@ -103,4 +103,36 @@ public class MemberController {
 		return "main";
 	}
 	
+	@RequestMapping("/membershiplevel")
+	public String memberShipLevel() {
+		return "popup/membershiplevel";
+	}
+
+	@ResponseBody
+	@RequestMapping("/membershiplevelapply")
+	public String membershipapply(String member_rank, int rank_minprice, int rank_maxprice) {
+		List<Member> listmems =null;
+		try {
+			listmems = memservice.getall();
+			
+			int sum;
+			int member_index;
+			Member x;
+			for(int i=0;i<listmems.size();i++) {
+				Member mem=listmems.get(i);
+				member_index=mem.getMember_index();
+				x =memservice.getSumById(member_index);
+				sum =x.getSum();
+				System.out.println(sum);
+				if(sum>=rank_minprice && sum<=rank_maxprice) {
+					memservice.changeRank(new Member(member_index,member_rank));
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "popup/changememberlevelfail";
+		}
+		return "popup/changememberlevelok";
+	}
+	
 }

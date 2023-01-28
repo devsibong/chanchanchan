@@ -83,10 +83,11 @@ public class CategoryController {
 	@ResponseBody
 	@RequestMapping("/delete")
 	public String delete(int del) {
+		System.out.println(del);
 		try {
 			cateservice.remove(del);
 		} catch (Exception e) {
-//			e.printStackTrace();
+			e.printStackTrace();
 		}
 		return "main";
 	}
@@ -109,6 +110,7 @@ public class CategoryController {
 			e.printStackTrace();
 		}
 		return "rediret:/category/popupmodify";
+		//-------------------수정필요-----------------------------------
 	}
 	
 	@RequestMapping("/popupsignUp")

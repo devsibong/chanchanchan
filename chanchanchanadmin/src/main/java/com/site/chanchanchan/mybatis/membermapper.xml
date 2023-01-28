@@ -23,11 +23,18 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		UPDATE member SET member_status='Y'
 		WHERE member_index=#{member_index}
 	</update>
+	<update id="changeRank" parameterType="Member">
+		UPDATE member SET member_rank=#{member_rank}
+		WHERE member_index=#{member_index}
+	</update>
 	<delete id="delete" parameterType="Integer">
 		DELETE FROM member WHERE member_index=#{member_index}
 	</delete>
 	<select id="search" parameterType="String" resultType="Member">
-		SELECT * FROM member WHERE member_id=#{id}
+		SELECT * FROM member WHERE member_rank=#{member_rank}
+	</select>
+	<select id="getSumById" parameterType="Integer" resultType="Member">
+		SELECT sum(product_totalprice) AS sum FROM order_list WHERE member_index=#{id} GROUP BY member_index;
 	</select>
 	<select id="getTotal" parameterType="Criteria" resultType="Integer">
 		SELECT COUNT(*) FROM member
@@ -35,7 +42,6 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
  		WHERE ${option} LIKE '%${searchVal}%'
 		</if>
 	</select>
-	
 	<select id="getListByPaging" parameterType="Criteria" resultType="Member">
 		SELECT * FROM 
 		<choose> 
