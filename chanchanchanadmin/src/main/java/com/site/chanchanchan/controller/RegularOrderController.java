@@ -13,16 +13,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.site.chanchanchan.dto.Criteria;
-import com.site.chanchanchan.dto.OrderList;
 import com.site.chanchanchan.dto.Page;
-import com.site.chanchanchan.service.OrderListService;
+import com.site.chanchanchan.dto.RegularOrder;
+import com.site.chanchanchan.service.RegularOrderService;
 
-@RequestMapping("/orderlist")
+@RequestMapping("/regularorder")
 @Controller
-public class OrderLiistController {
+public class RegularOrderController {
 	
 	@Autowired
-	OrderListService olservice;
+	RegularOrderService regservice;
 	
 	String dir ="list/";
 	
@@ -48,18 +48,18 @@ public class OrderLiistController {
 		Criteria cri = new Criteria(pageNum,amount,option,searchVal,isSearchOk);
 		
 		int total=0;
-		List<OrderList> ols=null;
+		List<RegularOrder> ros=null;
 		
 		try {
-			ols= olservice.getListByPaging(cri);
-			total = olservice.getTotal(cri);
+			ros= regservice.getListByPaging(cri);
+			total = regservice.getTotal(cri);
 			
 		} catch (Exception e) {
 		}
 		
 		Page page = new Page(cri,total);
 		
-		model.addAttribute("orderlist",ols);
+		model.addAttribute("regularorder",ros);
 		model.addAttribute("pageMaker", page);
 		session.removeAttribute("option");
 		session.removeAttribute("searchVal");
@@ -76,7 +76,7 @@ public class OrderLiistController {
 		session.setAttribute("option",option);
 		session.setAttribute("searchVal",searchVal);
 		
-		return "rediret:/orderlist/list";
+		return "rediret:/regularorder/list";
 	}
 	
 	//삭제버튼
@@ -84,7 +84,7 @@ public class OrderLiistController {
 	@RequestMapping("/delete")
 	public String delete(int del) {
 		try {
-			olservice.remove(del);
+			regservice.remove(del);
 		} catch (Exception e) {
 //			e.printStackTrace();
 		}
@@ -95,10 +95,10 @@ public class OrderLiistController {
 	@RequestMapping("/changestate")
 	public String changeState(int order_id, String order_state) {
 		try {
-			olservice.changeState(new OrderList(order_id,order_state));
+			regservice.changeState(null);
 		} catch (Exception e) {
 //			e.printStackTrace();
 		}
-		return "list/orderlist";
+		return "list/regularorder";
 	}
 }
