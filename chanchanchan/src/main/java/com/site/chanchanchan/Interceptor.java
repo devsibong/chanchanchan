@@ -20,14 +20,14 @@ public class Interceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
+    	List<Category> catelist = categoryservice.get();
+    	request.setAttribute("catelist", catelist);
         return true;
     }
  
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
-            ModelAndView modelAndView) throws Exception {
-    	List<Category> catelist = categoryservice.get();
-    	modelAndView.addObject("catelist", catelist);
+            ModelAndView modelAndView) throws Exception {    	
         
     }
  
