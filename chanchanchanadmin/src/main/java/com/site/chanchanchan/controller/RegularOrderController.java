@@ -64,7 +64,7 @@ public class RegularOrderController {
 		session.removeAttribute("option");
 		session.removeAttribute("searchVal");
 		
-		model.addAttribute("center",dir+"orderlist");
+		model.addAttribute("center",dir+"regularorder");
 		
 		return "main";
 	}

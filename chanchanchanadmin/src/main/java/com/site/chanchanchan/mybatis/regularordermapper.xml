@@ -2,45 +2,38 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.site.chanchanchan.mapper.OrderListMapper">
-	<select id="select" parameterType="Integer" resultType="OrderList">
-		SELECT * FROM order_list WHERE order_id=#{order_id}
+<mapper namespace="com.site.chanchanchan.mapper.RegularOrderMapper">
+	<select id="select" parameterType="Integer" resultType="RegularOrder">
+		SELECT * FROM regular_orderdetail WHERE regular_orderdetail_id=#{regular_orderdetail_id}
 	</select>
-	<select id="selectall" resultType="OrderList">
-		SELECT * FROM order_list
+	<select id="selectall" resultType="RegularOrder">
+		SELECT * FROM regular_orderdetail
 	</select>
-	<insert id="insert" parameterType="OrderList">
-		INSERT INTO order_list VALUES (order_id,#{member_index},#{product_totalprice},#{shippingfee},#{order_totalpayment},
-		#{payment_method},NOW(),#{order_state},#{receiver},#{receiver_tel},#{delivery_info})
+	<insert id="insert" parameterType="RegularOrder">
+		INSERT INTO regular_orderdetail VALUES (regular_orderdetail_id,#{product_id},#{order_id},#{regular_price})
 	</insert>
-	<update id="update" parameterType="OrderList">
-		UPDATE order_list SET member_index=#{member_index},product_totalprice=#{product_totalprice},shippingfee=#{shippingfee},
-		order_totalpayment=#{order_totalpayment},payment_method=#{payment_method},order_date=#{order_date},order_state=#{order_state},
-		receiver=#{receiver},receiver_tel=#{receiver_tel},delivery_info=#{delivery_info} 
-		WHERE order_id=#{order_id}
-	</update>
-	<update id="changeState" parameterType="OrderList">
-		UPDATE order_list SET order_state=#{order_state}
-		WHERE order_id=#{order_id}
+	<update id="update" parameterType="RegularOrder">
+		UPDATE regular_orderdetail SET product_id=#{product_id},order_id=#{order_id},regular_price=#{regular_price}
+		WHERE regular_orderdetail_id=#{regular_orderdetail_id}
 	</update>
 	<delete id="delete" parameterType="Integer">
-		DELETE FROM order_list WHERE order_id=#{order_id}
+		DELETE FROM regular_orderdetail WHERE regular_orderdetail_id=#{regular_orderdetail_id}
 	</delete>
 	<select id="getTotal" parameterType="Criteria" resultType="Integer">
-		SELECT COUNT(*) FROM order_list
+		SELECT COUNT(*) FROM regular_orderdetail
 		<if test='!isSearchOk'>
  		WHERE ${option} LIKE '%${searchVal}%'
 		</if>
 	</select>
-	<select id="getListByPaging" parameterType="Criteria" resultType="OrderList">
+	<select id="getListByPaging" parameterType="Criteria" resultType="RegularOrder">
 		SELECT * FROM 
 		<choose> 
-			<when test="isSearchOk">order_list</when>
+			<when test="isSearchOk">regular_orderdetail</when>
 			<otherwise>
-			(SELECT * FROM order_list 
-			WHERE ${option} LIKE '%${searchVal}%')search_ol
+			(SELECT * FROM regular_orderdetail 
+			WHERE ${option} LIKE '%${searchVal}%')search_rod
 			</otherwise>
 		</choose>
-			ORDER BY order_id DESC LIMIT #{pageStartNum},#{amount}
+			ORDER BY regular_orderdetail_id DESC LIMIT #{pageStartNum},#{amount}
 	</select>
 </mapper>
