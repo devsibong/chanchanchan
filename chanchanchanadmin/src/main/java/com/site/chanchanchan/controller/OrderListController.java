@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.site.chanchanchan.dto.Criteria;
 import com.site.chanchanchan.dto.OrderList;
 import com.site.chanchanchan.dto.Page;
+import com.site.chanchanchan.dto.Product;
 import com.site.chanchanchan.service.OrderListService;
 
 @RequestMapping("/orderlist")
@@ -100,5 +101,20 @@ public class OrderListController {
 //			e.printStackTrace();
 		}
 		return "list/orderlist";
+	}
+	
+	//게시글 뷰페이지
+	@GetMapping("/view")
+	public String get(Model model, HttpSession session, 
+			@RequestParam(value="id", defaultValue="0") Integer id){
+		 OrderList ol = null;
+		try {
+			ol = olservice.get(id);
+		} catch (Exception e) {
+//			e.printStackTrace();
+		}
+		model.addAttribute("orderlistView",ol);
+		model.addAttribute("center","view/orderlistview");
+		return "main";
 	}
 }
