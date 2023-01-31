@@ -1,1 +1,22 @@
-ordship
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">주문번호</th>
+      <th scope="col">상품</th>
+      <th scope="col">총결제금액</th>
+      <th scope="col">결제일</th>
+      <th scope="col">주문상태</th>
+      <th scope="col">상세</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr th:each="li:${list}">
+        <td th:text="${li.post_id}"></td>
+        <td th:text="${li.member_index}"></td>
+        <td th:text="${li.post_subject}"></td>
+        <td><a th:text="${li.post_content}"></a></td>
+        <td th:text="${#dates.format(li.register_date, 'yyyy-MM-dd')}"></td>
+    </tr>
+    
+  </tbody>
+</table>

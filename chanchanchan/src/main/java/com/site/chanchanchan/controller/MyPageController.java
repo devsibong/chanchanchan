@@ -8,14 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.site.chanchanchan.dto.Criteria;
+import com.site.chanchanchan.dto.OrderDetail;
 import com.site.chanchanchan.dto.Page;
 import com.site.chanchanchan.dto.Post;
-import com.site.chanchanchan.service.MemberService;
+import com.site.chanchanchan.service.OrderDetailService;
 import com.site.chanchanchan.service.PostService;
 
 @Controller
@@ -25,7 +25,7 @@ public class MyPageController {
 	PostService pservice;
 	
 	@Autowired
-	MemberService mservice;
+	OrderDetailService odservice;
 	
 	
 	@RequestMapping("/mypage")
@@ -33,28 +33,36 @@ public class MyPageController {
 		return "mypage/mypagemain";
 	}
 	
-	@RequestMapping("/mypage/ordshipselupd")
+	@RequestMapping("/ordshipselupd")
 	public String ordshipselupd(Model model) {
+		List<OrderDetail>list = null;
+		try {
+			list = odservice.list();
+			System.out.println(list);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("list", list);
 		model.addAttribute("left", "mypageleft");
 		model.addAttribute("center", "/mypage/ordshipselupd");
 		return "mypage/mypagemain";
 	}
 	
-	@RequestMapping("/mypage/regordshipselupd")
+	@RequestMapping("/regordshipselupd")
 	public String regordshipselupd(Model model) {
 		model.addAttribute("left", "mypageleft");
 		model.addAttribute("center", "/mypage/regordshipselupd");
 		return "mypage/mypagemain";
 	}
 	
-	@RequestMapping("/mypage/review")
+	@RequestMapping("/review")
 	public String review(Model model) {
 		model.addAttribute("left", "mypageleft");
 		model.addAttribute("center", "/mypage/review");
 		return "mypage/mypagemain";
 	}
 	
-	@GetMapping("/mypage/inquiry")
+	@GetMapping("/inquiry")
 	public String get(Model model, HttpSession session,
 				@RequestParam(value="pageNum", defaultValue="1") Integer pageNum,
 				@RequestParam(value="amount", defaultValue="10") Integer amount,
@@ -93,14 +101,14 @@ public class MyPageController {
 		model.addAttribute("pageMaker", page);
 		session.removeAttribute("option");
 		session.removeAttribute("searchVal");
-		
+		model.addAttribute("left", "mypageleft");
 		model.addAttribute("center","/mypage/inquiry");
 		
 		return "mypage/mypagemain";
 	}
 	
 	//문의글 작성폼
-	@RequestMapping("/mypage/inquiryQuestion")  
+	@RequestMapping("/inquiryQuestion")  
 	public String  inquiryQuestion(Model model) {	
 		model.addAttribute("left", "mypageleft");
 		model.addAttribute("center", "/mypage/inquiryQuestion");
@@ -108,7 +116,7 @@ public class MyPageController {
 	}
 	
 	//문의글 작성폼OK
-	@RequestMapping("/mypage/inquiryQuestionOk")  
+	@RequestMapping("/inquiryQuestionOk")  
 	public String  inquiryQuestionOk(Model model,Post post ) {	
 		try {
 			pservice.register(post);
@@ -117,11 +125,11 @@ public class MyPageController {
 		}
 		model.addAttribute("left", "mypageleft");
 		model.addAttribute("center", "/mypage/inquiryQuestion");
-		return "redirect:/mypage/inquiry";
+		return "redirect:/inquiry";
 	}
 	
 	//문의글 상세
-	@RequestMapping("/mypage/inquiryview")  
+	@RequestMapping("/inquiryview")  
 	public String inquiryview(Model model,Integer post_id) {
 		Post post = null;
 		try {
@@ -138,8 +146,8 @@ public class MyPageController {
 	}
 	
 	//문의글 수정
-		@RequestMapping("/mypage/inquiryupd/{post_id}")  
-		public String  inquiryupd(Model model,@PathVariable("post_id") Integer post_id) {	
+		@RequestMapping("/inquiryupd")  
+		public String  inquiryupd(Model model, Integer post_id) {	
 			Post post=null;
 			try {
 				post = pservice.get(post_id);
@@ -153,8 +161,8 @@ public class MyPageController {
 		}
 	
 	//문의글 수정 OK
-			@RequestMapping("/mypage/inquiryupdok/{post_id}")  
-			public String  inquiryupdok(Model model,@PathVariable("post_id") Integer post_id,Post post) {	
+			@RequestMapping("/inquiryupdok")  
+			public String  inquiryupdok(Model model, Integer post_id,Post post) {	
 				try {
 					pservice.modify(post);
 				} catch (Exception e) {
@@ -163,11 +171,11 @@ public class MyPageController {
 				
 				model.addAttribute("left", "mypageleft");
 				model.addAttribute("center", "/mypage/inquiryupd");
-				return "redirect:/mypage/inquiry";
+				return "redirect:/inquiry";
 			}
 		
 	//문의글 삭제
-	@RequestMapping("/mypage/inquirydel")  
+	@RequestMapping("/inquirydel")  
 	public String  inquirydel(Model model, Integer post_id) {
 		try {
 			pservice.remove(post_id);
@@ -177,17 +185,17 @@ public class MyPageController {
 		
 		model.addAttribute("left", "mypageleft");
 		model.addAttribute("center", "/mypage/inquirydel");
-		return "redirect:/mypage/inquiry";
+		return "redirect:/inquiry";
 	}
 	
-	@RequestMapping("/mypage/memberupdate")
+	@RequestMapping("/memberupdate")
 	public String memberupdate(Model model) {
 		model.addAttribute("left", "mypageleft");
 		model.addAttribute("center", "/mypage/memberupdate");
 		return "mypage/mypagemain";
 	}
 	
-	@RequestMapping("/mypage/coupon")
+	@RequestMapping("/coupon")
 	public String coupon(Model model) {
 		model.addAttribute("left", "mypageleft");
 		model.addAttribute("center", "/mypage/coupon");

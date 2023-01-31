@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.site.chanchanchan.mapper.OrderDetailMapper">
+	
+	<select id="select" parameterType="Integer" resultType="OrderDetail">
+		SELECT post_id,member_index,post_subject,post_content,register_date FROM post WHERE post_id=#{post_id}
+	</select>
+	<select id="selectall" resultType="OrderDetail">
+		SELECT * FROM post
+	</select>
+	<select id="list" resultType="OrderDetail">
+		SELECT ol.order_id,pr.product_name,ol.order_totalpayment,ol.order_date,ol.order_state FROM order_detail AS od 
+		INNER JOIN product AS pr ON od.product_id = pr.product_id 
+		INNER JOIN order_list AS ol ON od.order_id = ol.order_id 
+		ORDER BY ol.order_id desc
+	</select>
+	<insert id="insert" parameterType="OrderDetail">
+		INSERT INTO post VALUES (#{post_id},null,#{post_subject},#{post_content},#{post_attach1},#{post_attach2},now())
+	</insert>
+	<update id="update" parameterType="OrderDetail">
+		UPDATE post SET member_index = null,post_subject = #{post_subject},post_content = #{post_content},
+		post_attach1 = #{post_attach1},post_attach2 = #{post_attach2},register_date = now() WHERE post_id = #{post_id}
+		
+	</update>
+	<delete id="delete" parameterType="Integer">
+		DELETE FROM post WHERE post_id=#{post_id}
+	</delete>
+	
+</mapper>
