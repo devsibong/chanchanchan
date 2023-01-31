@@ -17,4 +17,5 @@ public class RegularOrderSchedule {
 	private int regular_orderschedule_id;
 	private int regular_orderdetail_id;
 	private Date regular_shippingdate;
+	private String regular_delivery_state;
 }

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.site.chanchanchan.mapper.RegularOrderScheduleMapper">
+	<select id="select" parameterType="Integer" resultType="RegularOrderSchedule">
+		SELECT * FROM regular_orderschedule WHERE regular_orderschedule_id=#{regular_orderschedule_id}
+	</select>
+	<select id="selectall" resultType="RegularOrderSchedule">
+		SELECT * FROM regular_orderschedule
+	</select>
+	<insert id="insert" parameterType="RegularOrderSchedule">
+		INSERT INTO regular_orderschedule VALUES (regular_orderschedule_id,#{regular_orderdetail_id},#{regular_shippingdate})
+	</insert>
+	<update id="update" parameterType="RegularOrderSchedule">
+		UPDATE regular_orderschedule SET regular_orderdetail_id=#{regular_orderdetail_id},regular_shippingdate=#{regular_shippingdate}
+		WHERE regular_orderschedule_id=#{regular_orderschedule_id}
+	</update>
+	<delete id="delete" parameterType="Integer">
+		DELETE FROM regular_orderschedule WHERE regular_orderschedule_id=#{regular_orderschedule_id}
+	</delete>
+	<select id="getTotal" parameterType="Criteria" resultType="Integer">
+		SELECT COUNT(*) FROM regular_orderschedule
+		<if test='!isSearchOk'>
+ 		WHERE ${option} LIKE '%${searchVal}%'
+		</if>
+	</select>
+	<select id="getListByPaging" parameterType="Criteria" resultType="RegularOrderSchedule">
+		SELECT * FROM 
+		<choose> 
+			<when test="isSearchOk">regular_orderschedule</when>
+			<otherwise>
+			(SELECT * FROM regular_orderschedule 
+			WHERE ${option} LIKE '%${searchVal}%')search_ros
+			</otherwise>
+		</choose>
+			ORDER BY regular_orderschedule_id DESC LIMIT #{pageStartNum},#{amount}
+	</select>
+</mapper>

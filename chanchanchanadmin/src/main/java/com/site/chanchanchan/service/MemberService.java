@@ -41,7 +41,7 @@ public class MemberService implements MyService<Integer, Member>{
 		return memmapper.selectall();
 	}
 	
-	//SearchID
+	//Search
 	public List<Member> search(String member_rank) throws Exception{
 		return memmapper.search(member_rank);
 	}

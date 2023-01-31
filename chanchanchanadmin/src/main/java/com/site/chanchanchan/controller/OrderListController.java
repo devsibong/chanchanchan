@@ -19,7 +19,7 @@ import com.site.chanchanchan.service.OrderListService;
 
 @RequestMapping("/orderlist")
 @Controller
-public class OrderLiistController {
+public class OrderListController {
 	
 	@Autowired
 	OrderListService olservice;

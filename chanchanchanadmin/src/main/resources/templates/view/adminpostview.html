@@ -24,11 +24,14 @@ $(document).ready(function(){
 		if(result){
 			$("#post_id").text();
 	  	    checked_delete(chk);	
-		});
 			alert('삭제완료!');
 		}else{ 
 			alert('취소!');
 		}
+	});
+	
+	$('#go_list').click(function(){
+		window.history.go(-1);
 	});
 });
 
@@ -79,7 +82,7 @@ $(document).ready(function(){
 			</div>
 			
 			<div class="d-grid gap-3 d-md-flex justify-content-md-end mt-3">
-				<button type="button" id="list" class="btn btn-secondary btn-sm float-right mr-3">목록으로</button>
+				<button type="button" id="go_list" class="btn btn-secondary btn-sm float-right mr-3">목록으로</button>
 				<a th:href="@{/adminpost/register}"><button type="button" id="register" class="btn btn-primary btn-sm float-right mr-3">등록</button></a>
 				<th:block th:if="${adminpostView.admin_index==session.loginadm.admin_index}">
 				<a th:href="@{/adminpost/modify(id=${adminpostView.adminpost_id})}"><button type="button" id="modify" class="btn btn-success btn-sm float-right mr-3">수정</button></a>
