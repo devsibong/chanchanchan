@@ -5,7 +5,7 @@
 <script>
 function checked_delete(chk){
 	$.ajax({
-		url:'[[@{/coupon/delete}]]',
+		url:'[[@{/orderlist/delete}]]',
 		data:{"del":chk},
 		success:function(){
 			location.reload();
@@ -17,6 +17,7 @@ function checked_delete(chk){
 	});
 };
 
+
 function formSubmit(){
 	var formData={
 		option:$('select[name=option]').val(),
@@ -24,25 +25,9 @@ function formSubmit(){
 	};
 	
 	$.ajax({
-		url:'[[@{/coupon/searchlist}]]',
+		url:'[[@{/orderlist/searchlist}]]',
 		type:'get',
 		data:formData,
-		success:function(){
-			location.reload();
-		},
-		error:function(){
-			alert('데이터전송 실패');
-			return false;
-		}
-	});
-};
-
-function canUseCoupon(){
-	$.ajax({
-		url:'[[@{/coupon/searchlist}]]',
-		type:'get',
-		data:{"option":"coupon_status",
-			"searchVal":"사용불가능"},
 		success:function(){
 			location.reload();
 		},
@@ -63,7 +48,7 @@ $(document).ready(function(){
 	});
 	
 	$('#delete').click(function(){
-		var result = confirm("선택한 쿠폰을 정말 삭제처리하시겠습니까?");
+		var result = confirm("선택한 주문을 정말 삭제처리하시겠습니까?");
 		if(result){
 		$("input[name='checkbox']:checked").each(function(){
 			var chk =$(this).closest("th").next().text();
@@ -74,33 +59,21 @@ $(document).ready(function(){
 			alert('취소!');
 		}
 	});
-
-	
-	$('#canUseCoupon').click(function(){
-		canUseCoupon();
-	});
-	
-	$('#create_coupon').click(function(){
-		var create_coupon =window.open('[[@{/coupon/createcoupon}]]','window','width=950, height=260 left=500 top=300');
-	});	
-
 });
 
 </script>
 </head>
 <body>
-	<div class="card shadow mb-3" style="width:80%;">
+	<div class="card shadow mb-3" style="width:100%;">
 		<div class="card-header py-3">
-			<h4 class="m-1 font-weight-bold text-dark d-inline">쿠폰</h4>
+			<h4 class="m-1 font-weight-bold text-dark d-inline">정기배송 주문정보</h4>
 		<div class="search_box float-right">
 		    <form id="searchForm">
 		        <div class="sch_group fl">
 		            <select id="searchOption" name="option" title="검색 유형 선택">
-		                <option value="coupon_id">쿠폰번호</option>
-		                <option value="member_index">회원번호</option>
-		                <option value="coupon_discountper">할인율</option>
-		                <option value="coupon_expiredate">만료일</option>
-		                <option value="coupon_status">쿠폰상태</option>
+		                <option value="regular_orderdetail_id">정기배송번호</option>
+		                <option value="product_id">상품번호</option>
+		                <option value="order_id">주문번호</option>
 		            </select>
 		            <input type="text" name="searchVal" id="keyword" placeholder="검색어를 입력하세요." title="키워드 입력"  autocomplete="off" />
 		            <button type="button" id="submit" class="bt_search" onclick="return formSubmit()"><i class="fas fa-search"></i><span class="skip_info">검색</span></button>
@@ -114,23 +87,21 @@ $(document).ready(function(){
 					<thead>
 						<tr>
 							<th></th>
-							<th>쿠폰번호</th>
-							<th>회원번호</th>
-							<th>최소금액</th>
-							<th>할인율</th>
-							<th>만료일</th>
-							<th>쿠폰상태</th>
+							<th style="width:12%">정기배송번호</th>
+							<th style="width:12%">상품번호</th>
+							<th style="width:12%">주문번호</th>
+							<th>정기배송가격</th>
+							<th>정기배송일정</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="coupon:${coupon}">
+						<tr th:each="regularorder:${regularorder}">
 							<th><input type="checkbox" name="checkbox"></input></th>
-							<th th:text="${coupon.coupon_id}"></th>
-							<th th:text="${coupon.member_index}"></th>
-							<th th:text="${coupon.coupon_minprice}"></th>
-							<th th:text="${coupon.coupon_discountper}"></th>
-							<th th:text="${coupon.coupon_expiredate}"></th>
-							<th th:text="${coupon.coupon_status}"></th>
+							<th th:text="${regularorder.regular_orderdetail_id}"></th>
+							<th><a th:text="${regularorder.product_id}" th:href="@{/product/view(id=${regularorder.product_id})}"></a></th>
+							<th><a th:text="${regularorder.order_id}" th:href="@{/orderlist/view(id=${order_id})}"></a></th>
+							<th th:text="${regularorder.regular_price}+'원'"></th>
+							<th><a href="#">정기배송일정확인</a></th>
 						</tr>
 					</tbody>
 					<tfoot>
@@ -142,27 +113,25 @@ $(document).ready(function(){
 			  <th:block th:if="${pageMaker.endPage!=0}">
 				   <th:block th:if="${pageMaker.prev}">
 				    	<li class="page-item previous"><a class="page-link" 
-				    	th:href="@{/coupon/list(pageNum=${pageMaker.startPage-1},amount=${pageMaker.cri.amount},option=${pageMaker.cri.option},searchVal=${pageMaker.cri.searchVal})}">이전</a></li>
+				    	th:href="@{/regularorder/list(pageNum=${pageMaker.startPage-1},amount=${pageMaker.cri.amount},option=${pageMaker.cri.option},searchVal=${pageMaker.cri.searchVal})}">이전</a></li>
 				   </th:block>	
 				   <th:block th:each="num : ${#numbers.sequence(pageMaker.startPage	,pageMaker.endPage)}">
 				    	<li class="page-item"><a class="page-link num" 
-				    	th:href="@{/coupon/list(pageNum=${num},amount=${pageMaker.cri.amount},option=${pageMaker.cri.option},searchVal=${pageMaker.cri.searchVal})}" th:text="${num}"></a></li>
+				    	th:href="@{/regularorder/list(pageNum=${num},amount=${pageMaker.cri.amount},option=${pageMaker.cri.option},searchVal=${pageMaker.cri.searchVal})}" th:text="${num}"></a></li>
 				   </th:block>
 			   	   <th:block th:if="${pageMaker.next}">
 				  		<li class="page-item next"><a class="page-link" 
-				   		th:href="@{/coupon/list(pageNum=${pageMaker.endPage+1},amount=${pageMaker.cri.amount},option=${pageMaker.cri.option},searchVal=${pageMaker.cri.searchVal})}">다음</a></li>
+				   		th:href="@{/regularorder/list(pageNum=${pageMaker.endPage+1},amount=${pageMaker.cri.amount},option=${pageMaker.cri.option},searchVal=${pageMaker.cri.searchVal})}">다음</a></li>
 			   		</th:block>
 			  </th:block>
 			  </ul>
 			</nav>
 			
-			<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+			<div class="d-grid gap-3 d-md-flex justify-content-md-end">
 				<button type="button" id="selectall" class="btn btn-secondary btn-sm ml-3">전체선택</button>
 				<button type="button" id="cancelall" class="btn btn-secondary btn-sm ml-3 mr-auto">전체해제</button>
-				<button type="button" id="canUseCoupon" class="btn btn-primary btn-sm float-right mr-3">사용불가능 쿠폰</button>
 			</div>
 			<div class="d-grid gap-3 d-md-flex justify-content-md-end mt-3">
-				<button type="button" id="create_coupon" class="btn btn-success btn-sm float-right mr-3">쿠폰 생성</button>
 				<button type="button" id="delete" class="btn btn-danger btn-sm mr-3">삭제</button>
 			</div>
 		</div>

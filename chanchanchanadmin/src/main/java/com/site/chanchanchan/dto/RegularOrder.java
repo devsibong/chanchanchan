@@ -11,7 +11,7 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class RegularOrderDetail {
+public class RegularOrder {
 	private int regular_orderdetail_id;
 	private int product_id;
 	private int order_id;

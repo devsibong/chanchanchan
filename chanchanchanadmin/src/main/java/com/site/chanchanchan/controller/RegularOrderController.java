@@ -12,17 +12,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.site.chanchanchan.dto.Category;
 import com.site.chanchanchan.dto.Criteria;
 import com.site.chanchanchan.dto.Page;
-import com.site.chanchanchan.service.CategoryService;
+import com.site.chanchanchan.dto.RegularOrder;
+import com.site.chanchanchan.service.RegularOrderService;
 
-@RequestMapping("/category")
+@RequestMapping("/regularorder")
 @Controller
-public class CategoryController {
+public class RegularOrderController {
 	
 	@Autowired
-	CategoryService cateservice;
+	RegularOrderService regservice;
 	
 	String dir ="list/";
 	
@@ -48,23 +48,23 @@ public class CategoryController {
 		Criteria cri = new Criteria(pageNum,amount,option,searchVal,isSearchOk);
 		
 		int total=0;
-		List<Category> categorys=null;
+		List<RegularOrder> ros=null;
 		
 		try {
-			categorys= cateservice.getListByPaging(cri);
-			total = cateservice.getTotal(cri);
+			ros= regservice.getListByPaging(cri);
+			total = regservice.getTotal(cri);
 			
 		} catch (Exception e) {
 		}
 		
 		Page page = new Page(cri,total);
 		
-		model.addAttribute("category",categorys);
+		model.addAttribute("regularorder",ros);
 		model.addAttribute("pageMaker", page);
 		session.removeAttribute("option");
 		session.removeAttribute("searchVal");
 		
-		model.addAttribute("center",dir+"category");
+		model.addAttribute("center",dir+"regularorder");
 		
 		return "main";
 	}
@@ -76,58 +76,29 @@ public class CategoryController {
 		session.setAttribute("option",option);
 		session.setAttribute("searchVal",searchVal);
 		
-		return "rediret:/category/list";
+		return "rediret:/regularorder/list";
 	}
 	
 	//삭제버튼
 	@ResponseBody
 	@RequestMapping("/delete")
 	public String delete(int del) {
-		System.out.println(del);
 		try {
-			cateservice.remove(del);
+			regservice.remove(del);
 		} catch (Exception e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 		return "main";
 	}
 	
-	
-	@RequestMapping("/popupmodify")
-	public String popupModify() {
-		return "popup/categorymodify";
-	}
-	
 	@ResponseBody
-	@RequestMapping("/modify")
-	public String modify(int category_id, String category_title, int category_parent) {
-		Category category=null;
-		
-		category = new Category(category_id,category_title,category_parent);
+	@RequestMapping("/changestate")
+	public String changeState(int order_id, String order_state) {
 		try {
-			cateservice.modify(category);
+			regservice.changeState(null);
 		} catch (Exception e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
-		return "rediret:/category/popupmodify";
-	}
-	
-	@RequestMapping("/popupsignUp")
-	public String popupSignUp() {
-		return "popup/categoryregister";
-	}
-
-	@ResponseBody
-	@RequestMapping("/register")
-	public String register(String category_title, int category_parent) {
-		int category_id=0;
-		Category category = new Category(category_id,category_title,category_parent);
-		category.toString();
-		try {
-			cateservice.register(category);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return "rediret:/category/popupsignUp";
+		return "list/regularorder";
 	}
 }
