@@ -24,7 +24,7 @@
 					<div class="product-info">
 						<span class="category">Watches</span>
 						<h4 class="title">
-							<a th:text="${pr.product_name}"></a>
+							<a th:href="@{/productdetails(product_id=${pr.product_id})}" th:text="${pr.product_name}"></a>
 						</h4>
 						<ul class="review">
 							<li><i class="lni lni-star-filled"></i></li>

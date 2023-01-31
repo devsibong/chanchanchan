@@ -42,4 +42,22 @@ public class ProductController {
 		
 		return "index";
 	}
+	
+	@RequestMapping("/productdetails")
+	public String productdetails(Model model, int product_id) {
+		List<Category> catelist = null;
+		Product prod = null;
+		try {
+			
+			catelist = categoryservice.get();
+			prod = productservice.get(product_id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("catelist", catelist);
+		model.addAttribute("pr", prod);
+		model.addAttribute("center", dir + "productdetails");
+		
+		return "index";
+	}
 }
