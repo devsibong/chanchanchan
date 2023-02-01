@@ -14,6 +14,6 @@ import com.site.chanchanchan.frame.MyMapper;
 public interface RegularOrderScheduleMapper extends MyMapper<Integer, RegularOrderSchedule>{
 	public List<RegularOrderSchedule> getListByPaging(Criteria cri) throws Exception;
 	public int getTotal(Criteria cri) throws Exception;
-	public void changeState(RegularOrderSchedule ol) throws Exception;
+	public void changeState(RegularOrderSchedule ros) throws Exception;
 
 }

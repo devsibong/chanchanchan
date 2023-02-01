@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.site.chanchanchan.dto.Criteria;
 import com.site.chanchanchan.dto.OrderList;
 import com.site.chanchanchan.dto.Page;
-import com.site.chanchanchan.dto.Product;
 import com.site.chanchanchan.service.OrderListService;
 
 @RequestMapping("/orderlist")
