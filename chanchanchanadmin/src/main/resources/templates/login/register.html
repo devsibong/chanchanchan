@@ -83,6 +83,16 @@ $(document).ready(function(){
 		$('#pwd2_span').text("비밀번호가 일치합니다");
 	});
 	
+	$('#email').keyup(function(){
+		var email =$('#email').val();
+		var emailcheck=/^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
+		if(!emailcheck.test(email)){
+			$('#email_span').text("잘못된 이메일형식입니다");
+			return false;
+		}
+		$('#email_span').text("사용가능!");
+	});
+	
 	$('#register_form > a').click(function(){
 		var c = confirm('신청 하시겠습니까 ?');
 		if(c == true){
@@ -126,7 +136,7 @@ $(document).ready(function(){
                                         placeholder="비밀번호">
                                         <div id="pwd_span"></div>
                                 </div>
-                               <div class="form-group">
+                                <div class="form-group">
                                     <input type="password" class="form-control form-control-user" id="password2"
                                         placeholder="비밀번호 확인">
                                         <div id="pwd2_span"></div>
@@ -141,6 +151,12 @@ $(document).ready(function(){
                                         placeholder="직급">
                                 </div>      
                                 <input type="hidden" name="admin_status" value="N">
+                                
+                                <div class="form-group">
+                                    <input type="text" name="admin_email" class="form-control form-control-user" id="email"
+                                        placeholder="이메일">
+                                        <div id="email_span"></div>
+                                </div>
                                 
                                 <a href="#" class="btn btn-primary btn-user btn-block">
                                     계정 신청

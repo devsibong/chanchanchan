@@ -15,5 +15,5 @@ public interface RegularOrderScheduleMapper extends MyMapper<Integer, RegularOrd
 	public List<RegularOrderSchedule> getListByPaging(Criteria cri) throws Exception;
 	public int getTotal(Criteria cri) throws Exception;
 	public void changeState(RegularOrderSchedule ros) throws Exception;
-
+	public void remove(int roi) throws Exception;
 }

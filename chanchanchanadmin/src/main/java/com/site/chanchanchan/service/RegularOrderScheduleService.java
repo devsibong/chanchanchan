@@ -55,4 +55,9 @@ public class RegularOrderScheduleService implements MyService<Integer, RegularOr
 	public void changeState(RegularOrderSchedule ros) throws Exception{
 		 rosmapper.changeState(ros);
 	}
+	
+	//delete by regulor_order_id
+	public void delete(int roi) throws Exception{
+		rosmapper.remove(roi);
+	}
 }

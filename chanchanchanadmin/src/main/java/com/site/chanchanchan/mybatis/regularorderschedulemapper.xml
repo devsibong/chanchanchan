@@ -23,6 +23,9 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<delete id="delete" parameterType="Integer">
 		DELETE FROM regular_orderschedule WHERE regular_orderschedule_id=#{regular_orderschedule_id}
 	</delete>
+	<delete id="remove" parameterType="Integer">
+		DELETE FROM regular_orderschedule WHERE regular_orderdetail_id=#{roi}
+	</delete>
 	<select id="getTotal" parameterType="Criteria" resultType="Integer">
 		SELECT COUNT(*) FROM regular_orderschedule
 		<if test='!isSearchOk'>

@@ -3,10 +3,11 @@
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script>
-function checked_delete(chk){
+function checked_delete(regular_order_id,order_id){
 	$.ajax({
-		url:'[[@{/orderlist/delete}]]',
-		data:{"del":chk},
+		url:'[[@{/regularorder/delete}]]',
+		data:{"roi":regular_order_id,
+			"oi":order_id},
 		success:function(){
 			location.reload();
 		},
@@ -25,7 +26,7 @@ function formSubmit(){
 	};
 	
 	$.ajax({
-		url:'[[@{/orderlist/searchlist}]]',
+		url:'[[@{/regularorder/searchlist}]]',
 		type:'get',
 		data:formData,
 		success:function(){
@@ -51,8 +52,9 @@ $(document).ready(function(){
 		var result = confirm("선택한 주문을 정말 삭제처리하시겠습니까?");
 		if(result){
 		$("input[name='checkbox']:checked").each(function(){
-			var chk =$(this).closest("th").next().text();
-	  	    checked_delete(chk);	
+			var regular_order_id =$(this).closest("th").next().text();
+			var order_id =$(this).closest("th").next().next().next().text();
+	  	    checked_delete(regular_order_id,order_id);	
 		});
 			alert('삭제완료!');
 		}else{ 
@@ -99,7 +101,7 @@ $(document).ready(function(){
 							<th><input type="checkbox" name="checkbox"></input></th>
 							<th th:text="${regularorder.regular_orderdetail_id}"></th>
 							<th><a th:text="${regularorder.product_id}" th:href="@{/product/view(id=${regularorder.product_id})}"></a></th>
-							<th><a th:text="${regularorder.order_id}" th:href="@{/orderlist/view(id=${order_id})}"></a></th>
+							<th><a th:text="${regularorder.order_id}" th:href="@{/regularorder/view(id=${order_id})}"></a></th>
 							<th th:text="${regularorder.regular_price}+'원'"></th>
 							<th><a th:href="@{/regularorderschedule/list(option=regular_orderdetail_id,searchVal=${regularorder.regular_orderdetail_id})}">정기배송 일정확인</a></th>
 						</tr>
