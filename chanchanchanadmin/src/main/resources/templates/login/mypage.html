@@ -2,22 +2,6 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content="">
-
-<!-- Custom fonts for this template-->
-<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
-	type="text/css">
-<link
-	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-	rel="stylesheet">
-<!-- Custom styles for this template-->
-<link href="css/sb-admin-2.min.css" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script>
 function checked_delete(chk){
@@ -41,11 +25,13 @@ $(document).ready(function(){
 		if(result){
 			$("#admin_id").text();
 	  	    checked_delete(chk);	
-		});
-			alert('탈퇴완료!');
 		}else{ 
 			alert('취소!');
 		}
+	});
+	
+	$("#home").click(function(){
+		window.history.go(-1);
 	});
 });
 
@@ -71,7 +57,7 @@ th{width:17%;}
 						</tr>
 						<tr>
 							<th>비밀번호</th>
-							<td><input type="password" th:value="${session.loginadm.admin_pwd}"></td>
+							<td><input type="password" th:value="${session.loginadm.admin_pwd}" style="border:none;"></td>
 						</tr>
 						<tr>
 							<th>이름</th>
@@ -95,8 +81,8 @@ th{width:17%;}
 			</div>
 			
 			<div class="d-grid gap-3 d-md-flex justify-content-md-end mt-3">
-				<button type="button" id="list" class="btn btn-secondary btn-sm float-right mr-3">홈으로</button>
-				<a th:href="@{/mypagemodify(id=${session.loginadm.admin_id})}"><button type="button" id="modify" class="btn btn-primary btn-sm float-right mr-3">수정</button></a>
+				<button type="button" id="home" class="btn btn-secondary btn-sm float-right mr-3">홈으로</button>
+				<a th:href="@{/admin/mypagemodify}"><button type="button" id="modify" class="btn btn-primary btn-sm float-right mr-3">수정</button></a>
 				<button type="button" id="delete" class="btn btn-danger btn-sm mr-3">계정탈퇴</button>
 			</div>
 		</div>

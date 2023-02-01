@@ -81,6 +81,29 @@ public class AdminController {
 		return "rediret:/admin/list";
 	}
 	
+	@RequestMapping("/mypage")
+	public String mypage(Model model) {
+		model.addAttribute("center","login/mypage");
+		return "main";
+	}
+	
+	@RequestMapping("/mypagemodify")
+	public String mypagemodfiy(Model model) {
+		model.addAttribute("center","login/mypagemodify");
+		return "main";
+	}
+	
+	@RequestMapping("/mypagemodifycomplete")
+	public String mypagemodfiycomplete(Model model,Admin admin) {
+		try {
+			admservice.modify(admin);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+//			e.printStackTrace();
+		}
+		return "redirect:/admin/mypage";
+	}
+	
 	//삭제버튼
 	@ResponseBody
 	@RequestMapping("/delete")

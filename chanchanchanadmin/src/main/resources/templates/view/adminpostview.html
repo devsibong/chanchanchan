@@ -5,10 +5,10 @@
 <script>
 function checked_delete(chk){
 	$.ajax({
-		url:'[[@{/adminpost/delete}]]',
+		url:'[[@{/admin/delete}]]',
 		data:{"del":chk},
 		success:function(){
-			location.href="/adminpost/list";
+			location.href="/admin/list";
 		},
 		error:function(){
 			alert('데이터 삭제실패');
@@ -18,7 +18,6 @@ function checked_delete(chk){
 };
 
 $(document).ready(function(){
-	
 	$('#delete').click(function(){
 		var result = confirm("선택한 글을 정말 삭제처리하시겠습니까?");
 		if(result){
