@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -90,18 +91,20 @@ public class AdminController {
 	@RequestMapping("/mypagemodify")
 	public String mypagemodfiy(Model model) {
 		model.addAttribute("center","login/mypagemodify");
+		model.addAttribute("admin", new Admin());
 		return "main";
 	}
 	
 	@RequestMapping("/mypagemodifycomplete")
-	public String mypagemodfiycomplete(Model model,Admin admin) {
+	public String mypagemodfiycomplete(@ModelAttribute("admin") Admin admin, HttpSession session) {
 		try {
+			System.out.println(admin.toString());
 			admservice.modify(admin);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-//			e.printStackTrace();
+			return "login/mypagemodifyfail";
 		}
-		return "redirect:/admin/mypage";
+		session.setAttribute("loginadm", admin);
+		return "login/mypagemodifyok";
 	}
 	
 	//삭제버튼
