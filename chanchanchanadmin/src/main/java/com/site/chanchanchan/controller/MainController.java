@@ -20,6 +20,11 @@ public class MainController {
 	public String main() {
 		return "main";
 	}
+	@RequestMapping("/mypage")
+	public String mypage(Model model) {
+		model.addAttribute("center","login/mypage");
+		return "main";
+	}
 	
 	@RequestMapping("/login")
 	public String login() {
