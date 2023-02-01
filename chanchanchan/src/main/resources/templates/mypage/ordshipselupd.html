@@ -11,11 +11,11 @@
   </thead>
   <tbody>
     <tr th:each="li:${list}">
-        <td th:text="${li.post_id}"></td>
-        <td th:text="${li.member_index}"></td>
-        <td th:text="${li.post_subject}"></td>
-        <td><a th:text="${li.post_content}"></a></td>
-        <td th:text="${#dates.format(li.register_date, 'yyyy-MM-dd')}"></td>
+        <td th:text="${li.ol.order_id}"></td>
+        <td th:text="${li.pr.product_name}"></td>
+        <td th:text="${li.ol.order_totalpayment}"></td>
+        <td><a th:text="${li.ol.order_state}"></a></td>
+        <td th:text="${#dates.format(li.ol.order_date, 'yyyy-MM-dd')}"></td>
     </tr>
     
   </tbody>
