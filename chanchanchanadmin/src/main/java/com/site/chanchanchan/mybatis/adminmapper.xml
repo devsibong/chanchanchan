@@ -10,10 +10,10 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		SELECT * FROM admin
 	</select>
 	<insert id="insert" parameterType="Admin">
-		INSERT INTO admin VALUES (admin_index,#{admin_id},#{admin_pwd},#{admin_name},#{admin_class},admin_status)
+		INSERT INTO admin VALUES (admin_index,#{admin_id},#{admin_pwd},#{admin_name},#{admin_class},admin_status,#{admin_email})
 	</insert>
 	<update id="update" parameterType="Admin">
-		UPDATE admin SET admin_id=#{admin_id},admin_pwd=#{admin_pwd},admin_name=#{admin_name},admin_class=#{admin_class},admin_status='Y' 
+		UPDATE admin SET admin_id=#{admin_id},admin_pwd=#{admin_pwd},admin_name=#{admin_name},admin_class=#{admin_class},admin_status='Y',admin_email=#{admin_email} 
 		WHERE admin_index=#{admin_index}
 	</update>
 	<update id="changeStatus" parameterType="Integer">

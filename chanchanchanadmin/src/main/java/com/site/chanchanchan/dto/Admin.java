@@ -18,5 +18,6 @@ public class Admin {
 	private String admin_name;
 	private String admin_class;
 	private char admin_status;
+	private String admin_email;
 	
 }

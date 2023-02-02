@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>
+$(document).ready(function(){	
+	$("#home").click(function(){
+		window.history.go(-1);
+	});
+});
+
+</script>
+<style>
+th{width:17%;}
+</style>
+</head>
+<body>
+	<div class="card shadow mb-3 " style="width:80%;">
+		<div class="card-body">
+			<div class="table-responsive">
+				<form id="myinfo_form" th:action="@{/admin/mypagemodifycomplete}" method="post"> 
+				<table class="table table-bordered" id="dataTable">
+						<tbody>
+						<tr>
+							<th>관리자고유번호</th>
+							<td><input type="text" th:value="${session.loginadm.admin_index}" name="admin_index" style="width:20%; border:none;" readonly></td>
+						</tr>
+						<tr>
+							<th>아이디</th>
+							<td><input type="text" th:value="${session.loginadm.admin_id}" name="admin_id" style="width:20%; border:none;" readonly></td>
+						</tr>
+						<tr>
+							<th>비밀번호</th>
+							<td><input type="password" th:value="${session.loginadm.admin_pwd}" name="admin_pwd" style="width:20%;"></td>
+						</tr>
+						<tr>
+							<th>이름</th>
+							<td><input type="text"  th:value="${session.loginadm.admin_name}" name="admin_name"  style="width:20%;"></td>
+						</tr>
+						<tr>
+							<th>직책</th>
+							<td><input type="text"  th:value="${session.loginadm.admin_class}" name="admin_class"  style="width:20%;"></td>
+						</tr>
+						<tr>
+							<th>이메일</th>
+							<td><input type="text"  th:value="${session.loginadm.admin_email}" name="admin_email" style="width:50%;"></td>
+						</tr>
+						<tr>
+							<th>승인상태</th>
+							<td><input type="text" th:value="${session.loginadm.admin_status}" name="admin_status" style="width:20%; border:none;" readonly></td>
+						</tr>
+						</tbody>
+					</table>
+					<button type="submit" id="modify" class="btn btn-primary btn-sm float-right mr-3">수정완료</button>
+				</form>
+			</div>
+			
+			<div class="d-grid gap-3 d-md-flex justify-content-md-end mt-3">
+				<button type="button" id="home" class="btn btn-secondary btn-sm float-right mr-3">이전으로</button>
+			</div>
+		</div>
+	</div>
+	</body>
+</html>

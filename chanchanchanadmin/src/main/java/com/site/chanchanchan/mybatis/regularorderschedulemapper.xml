@@ -10,14 +10,21 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		SELECT * FROM regular_orderschedule
 	</select>
 	<insert id="insert" parameterType="RegularOrderSchedule">
-		INSERT INTO regular_orderschedule VALUES (regular_orderschedule_id,#{regular_orderdetail_id},#{regular_shippingdate})
+		INSERT INTO regular_orderschedule VALUES (regular_orderschedule_id,#{regular_orderdetail_id},#{regular_shippingdate},#{regular_shipping_state})
 	</insert>
 	<update id="update" parameterType="RegularOrderSchedule">
-		UPDATE regular_orderschedule SET regular_orderdetail_id=#{regular_orderdetail_id},regular_shippingdate=#{regular_shippingdate}
+		UPDATE regular_orderschedule SET regular_orderdetail_id=#{regular_orderdetail_id},regular_shippingdate=#{regular_shippingdate},regular_shipping_state=#{regular_shipping_state}
+		WHERE regular_orderschedule_id=#{regular_orderschedule_id}
+	</update>
+	<update id="changeState" parameterType="RegularOrderSchedule">
+		UPDATE regular_orderschedule SET regular_shipping_state=#{regular_shipping_state}
 		WHERE regular_orderschedule_id=#{regular_orderschedule_id}
 	</update>
 	<delete id="delete" parameterType="Integer">
 		DELETE FROM regular_orderschedule WHERE regular_orderschedule_id=#{regular_orderschedule_id}
+	</delete>
+	<delete id="remove" parameterType="Integer">
+		DELETE FROM regular_orderschedule WHERE regular_orderdetail_id=#{roi}
 	</delete>
 	<select id="getTotal" parameterType="Criteria" resultType="Integer">
 		SELECT COUNT(*) FROM regular_orderschedule

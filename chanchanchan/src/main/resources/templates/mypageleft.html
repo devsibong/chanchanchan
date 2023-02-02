@@ -1,12 +1,114 @@
-<ul>
-	<h3>나의 쇼핑 정보</h3><br>
-	<li><a th:href="@{/mypage/ordshipselupd}">주문/배송 조회 및 변경</a></li>
-	<li><a th:href="@{/mypage/regordshipselupd}">정기배송 주문/배송 조회 및 변경</a></li>
-	<li><a th:href="@{/mypage/review}">상품후기 작성</a></li>
-	<li><a th:href="@{/mypage/inquiry}">1:1 문의</a></li>
-	
-	<h3>나의 계정</h3><br>
-	<li><a th:href="@{/mypage/memberupdate}">회원정보 수정</a></li>
-	<li><a th:href="@{/mypage/coupon}">쿠폰</a></li>
-	
-</ul>
+    <!-- Custom fonts for this template -->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this page -->
+    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <h3 class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+                
+                <div class="sidebar-brand-text mx-3">찬찬찬 마이페이지</div>
+            </h3>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                나의 쇼핑 정보
+            </div>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" th:href="@{/ordshipselupd}">                 
+                    <span>주문/배송 조회 및 변경</span>
+                </a>
+            </li>
+
+            <!-- Nav Item - Utilities Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" th:href="@{/regordshipselupd}">
+                    <span>정기 주문/배송 조회 및 변경</span>
+                </a>              
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" th:href="@{/review}">
+                    <span>상품후기 작성</span>
+                </a>              
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" th:href="@{/inquiry}">
+                    <span>1:1 문의</span>
+                </a>              
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                나의 계정
+            </div>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" th:href="@{/memberupdate}">
+                    <span>회원정보 수정</span>
+                </a>              
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" th:href="@{/coupon}">
+                    <span>쿠폰</span>
+                </a>              
+            </li>
+
+            
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
+        </ul>
+        <!-- End of Sidebar -->      
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>
+
+</body>

@@ -109,7 +109,7 @@ $(document).ready(function() {
                             </div>
                             <ul class="user-login">
                             	<li>
-                            		<a th:href="@{/mypage}">마이페이지</a>
+                            		<a th:href="@{/mypage}" th:if="${session.loginmem != null}">마이페이지</a>
                             	</li>
                                 <li>
                                     <a th:href="@{/login}" th:if="${session.loginmem == null}">로그인</a>

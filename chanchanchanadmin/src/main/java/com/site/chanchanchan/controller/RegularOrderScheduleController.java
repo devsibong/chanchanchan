@@ -17,7 +17,7 @@ import com.site.chanchanchan.dto.Page;
 import com.site.chanchanchan.dto.RegularOrderSchedule;
 import com.site.chanchanchan.service.RegularOrderScheduleService;
 
-@RequestMapping("/regularorderscedule")
+@RequestMapping("/regularorderschedule")
 @Controller
 public class RegularOrderScheduleController {
 	
@@ -64,7 +64,7 @@ public class RegularOrderScheduleController {
 		session.removeAttribute("option");
 		session.removeAttribute("searchVal");
 		
-		model.addAttribute("center",dir+"orderlist");
+		model.addAttribute("center",dir+"regularorderschedule");
 		
 		return "main";
 	}
@@ -94,10 +94,11 @@ public class RegularOrderScheduleController {
 	@ResponseBody
 	@RequestMapping("/changestate")
 	public String changeState(int order_id, String order_state) {
+		RegularOrderSchedule ros = new RegularOrderSchedule(order_id,order_state);
 		try {
-			rosservice.changeState(null);
+			rosservice.changeState(ros);
 		} catch (Exception e) {
-//			e.printStackTrace();
+			e.printStackTrace();
 		}
 		return "list/regularorderscedule";
 	}

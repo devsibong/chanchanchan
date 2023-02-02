@@ -1,13 +1,14 @@
 <script>
 function formCheck(){
-	if(document.getElementById("submit").value == ""){
+	if(document.getElementById("post_subject").value == ""){
 		alert("제목을 입력하세요.");
 		return false;
 	}
-	if(document.getElementById("content").value == ""){
+	if(document.getElementById("post_content").value == ""){
 		alert("글내용을 입력하세요.");
 		return false;
 	}
+	alert("글 수정이 완료되었습니다.");
 	return true;
 }
 </script>
@@ -29,9 +30,9 @@ function formCheck(){
 	}
 </style>
 <div class="layout">
-	<form th:action="@{/mypage/inquiryupdok/{post_id}(post_id=${post.post_id})}" method="post">
-		제목<input name="post_subject" type="text" th:value="${post.post_subject}"><br><br>
-		글내용<textarea name="post_content" th:value="${post.post_content}"></textarea>  <!-- 내용 안들어옴!!! -->
+	<form th:action="@{/inquiryupdok(post_id=${post.post_id})}" method="post" onsubmit="return formCheck()">
+		제목<input name="post_subject" type="text" th:value="${post.post_subject}" id="post_subject"><br><br>
+		글내용<textarea name="post_content" th:value="${post.post_content}" id="post_content"></textarea>  <!-- 내용 안들어옴!!! -->
 		<button type="submit">글수정</button>
 	</form>
 </div>

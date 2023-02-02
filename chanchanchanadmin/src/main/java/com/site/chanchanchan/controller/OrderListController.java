@@ -101,4 +101,19 @@ public class OrderListController {
 		}
 		return "list/orderlist";
 	}
+	
+	//게시글 뷰페이지
+	@GetMapping("/view")
+	public String get(Model model, HttpSession session, 
+			@RequestParam(value="id", defaultValue="0") Integer id){
+		 OrderList ol = null;
+		try {
+			ol = olservice.get(id);
+		} catch (Exception e) {
+//			e.printStackTrace();
+		}
+		model.addAttribute("orderlistView",ol);
+		model.addAttribute("center","view/orderlistview");
+		return "main";
+	}
 }

@@ -1,85 +1,85 @@
-<!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-
 <style>
-	*{
-		margin:0 auto;
-		padding:0 auto;
-		overflow:hidden;
-	}
-	td{
-		text-align: center;
-	}
-	li{
-		margin-left:15px;
-		float:left;
-	}
 	.pagenum{
 		text-align:center;
 	}
 	ul{
 		display:inline-block;
 	}
+	li{
+		margin-left:15px;
+		float:left;
+	}
 </style>
 <script>
 	// 아이디 체크
 </script>
-</head>
-<body>
-	<h1>1:1 문의</h1><br>
-	<div>
-		<p>1:1문의를 남겨주시면 빠른 시일내 답변드리겠습니다! :) <a th:href="@{/mypage/inquiryQuestion}">문의하기</a></p>
-	</div>
-	<div class="card shadow mb-3" style="width:90%;">
-		
-		<div class="card-body">
-			<div class="table-responsive">
-				<table class="table">
-					<thead>
-						<tr>
-							<th>글번호</th>
-							<th>아이디</th>
-							<th>제목</th>
-							<th>글내용</th>
-							<th>등록일</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:each="li:${list}">
-							<td th:text="${li.post_id}"></td>
-							<td th:text="${li.member_index}"></td>
-							<td th:text="${li.post_subject}"></td>
-							<td>
-								<a th:text="${li.post_content}" th:href="@{/mypage/inquiryview(post_id=${li.post_id})}"></a>
-							</td>
-							<td th:text="${#dates.format(li.register_date, 'yyyy-MM-dd')}"></td>
-						</tr>
-					</tbody>
-				</table><br>
-			</div>
-			</div>
-			<nav aria-label="Page navigation example" class="pagenum">
-			  <ul>
-			  <th:block th:if="${pageMaker.endPage!=0}">
-				   <th:block th:if="${pageMaker.prev}">
-				    	<li class="page-item previous"><a class="page-link" 
-				    	th:href="@{/mypage/inquiry(pageNum=${pageMaker.startPage-1},amount=${pageMaker.cri.amount},option=${pageMaker.cri.option},searchVal=${pageMaker.cri.searchVal})}">이전</a></li>
-				   </th:block>	
-				   <th:block th:each="num : ${#numbers.sequence(pageMaker.startPage	,pageMaker.endPage)}">
-				    	<li class="page-item"><a class="page-link num" 
-				    	th:href="@{/mypage/inquiry(pageNum=${num},amount=${pageMaker.cri.amount},option=${pageMaker.cri.option},searchVal=${pageMaker.cri.searchVal})}" th:text="${num}"></a></li>
-				   </th:block>
-			   	   <th:block th:if="${pageMaker.next}">
-				  		<li class="page-item next"><a class="page-link" 
-				   		th:href="@{/mypage/inquiry(pageNum=${pageMaker.endPage+1},amount=${pageMaker.cri.amount},option=${pageMaker.cri.option},searchVal=${pageMaker.cri.searchVal})}">다음</a></li>
-			   		</th:block>
-			  </th:block>
-			  </ul>
-			</nav>
-				
-		</div>
+
+
 	
-</body>
-</html>
+	<div>
+		<p>1:1문의를 남겨주시면 빠른 시일내 답변드리겠습니다! :) 
+			<a th:href="@{/inquiryQuestion}">
+				<button type="button" class="btn btn-secondary">문의하기</button>
+			</a>
+		</p>
+	</div>
+	
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">1:1 문의 내역</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>글번호</th>
+                                            <th>아이디</th>
+                                            <th>제목</th>
+                                            <th>글내용</th>
+                                            <th>등록일</th>                                          
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="li:${list}">
+                                            <td th:text="${li.post_id}"></td>
+                                            <td th:text="${li.member_index}"></td>
+                                            <td th:text="${li.post_subject}"></td>
+                                            <td><a th:text="${li.post_content}" th:href="@{/inquiryview(post_id=${li.post_id})}"></a></td>
+                                            <td th:text="${#dates.format(li.register_date, 'yyyy-MM-dd')}"></td>
+                                        </tr>               
+                                    </tbody>
+                                    
+                                </table>
+                                
+                            </div>
+                            
+                        </div>
+			         <nav aria-label="Page navigation example">
+						  <ul class="pagenum">
+						  <th:block th:if="${pageMaker.endPage!=0}">
+							   <th:block th:if="${pageMaker.prev}">
+							    	<li class="page-item previous"><a class="page-link" 
+							    	th:href="@{/inquiry(pageNum=${pageMaker.startPage-1},amount=${pageMaker.cri.amount},option=${pageMaker.cri.option},searchVal=${pageMaker.cri.searchVal})}">이전</a></li>
+							   </th:block>	
+							   <th:block th:each="num : ${#numbers.sequence(pageMaker.startPage	,pageMaker.endPage)}">
+							    	<li class="page-item"><a class="page-link num" 
+							    	th:href="@{/inquiry(pageNum=${num},amount=${pageMaker.cri.amount},option=${pageMaker.cri.option},searchVal=${pageMaker.cri.searchVal})}" th:text="${num}"></a></li>
+							   </th:block>
+						   	   <th:block th:if="${pageMaker.next}">
+							  		<li class="page-item next"><a class="page-link" 
+							   		th:href="@{/inquiry(pageNum=${pageMaker.endPage+1},amount=${pageMaker.cri.amount},option=${pageMaker.cri.option},searchVal=${pageMaker.cri.searchVal})}">다음</a></li>
+						   		</th:block>
+						  </th:block>
+						  </ul>
+					</nav>
+                </div>
+            </div>
+            <!-- /.container-fluid -->
