@@ -1,22 +1,20 @@
 <section class="h-100">
-	<div class="container py-5 h-100">
-		<div
-			class="row d-flex justify-content-center align-items-center h-100">
-			<div class="col-8">
-				<div class="container text-center">
-					<div class="row">
-						<div class="col-4 container border border-bottom-0 ">asdf</div>
-						<div class="col-4 container border border-bottom-0">asdf</div>
-					</div>
+	<div class="container g-0 py-5 h-100">
+		<div class="row d-flex justify-content-center h-100">
+			<div class="col-8 p-3">
+				<div class="row justify-content-start mx-1 text-dark text-center">
+					<div class="col-2 border border-bottom-0 p-2">일반배송</div>
+					<div class="col-2 border border-bottom-0 p-2">정기배송</div>
 				</div>
+
 				<div class="container border">
 					<div class="p-3">
 
 						<div
 							class="row mb-4 d-flex justify-content-between align-items-center text-center text-dark">
-							<div class="col-md-5 col-lg-5 col-xl-5">상품정보</div>
-							<div class="col-md-3 col-lg-3 col-xl-2 d-flex">수량</div>
-							<div class="col-md-4 col-lg-3 col-xl-3">주문금액</div>
+							<div class="col-5 ">상품정보</div>
+							<div class="col-3 ">수량</div>
+							<div class="col-4">주문금액</div>
 						</div>
 
 						<hr>
@@ -24,40 +22,49 @@
 						<div th:each="cart : ${cartList}">
 							<div
 								class="row mb-4 d-flex justify-content-between align-items-center">
-								<div class="col-md-2 col-lg-2 col-xl-2">
+								<div class="col-2">
 									<img src="images/products/product-1.jpg"
 										class="img-fluid rounded-3" alt="Cotton T-shirt">
 								</div>
-								<div class="col-md-3 col-lg-3 col-xl-3">
+								<div class="col-3">
 									<h6 class="text-muted"
 										th:text="${cart.product.product_description}"></h6>
 									<h6 class="text-black mb-0"
 										th:text="${cart.product.product_name}"></h6>
 								</div>
-								<div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-									<button class="btn btn-link px-2" name="minus_btn">
-										<i class="lni lni-circle-minus"></i>
-									</button>
+								<div class="col-7">
+									<div
+										class="row justify-content-center align-items-center text-center">
+										<div class="col-1 m-0 p-0">
+											<button class="btn btn-link p-0 m-0" name="minus_btn">
+												<i class="lni lni-circle-minus"></i>
+											</button>
+										</div>
 
-									<input id="form1" name="count"
-										class="form-control form-control-sm bg-white text-center"
-										th:value="${cart.product_count}" readonly /> <input
-										th:value="${cart.product.product_price}" type="text"
-										name="product_price" hidden="true" />
-
-
-									<button class="btn btn-link px-2" name="plus_btn">
-										<i class="lni lni-circle-plus"></i>
-									</button>
-								</div>
-								<div
-									class="col-md-3 col-lg-2 col-xl-2 offset-lg-1 fs-5 text-dark text-end">
-									<span class="mb-0" name="product_sumprice"
-										th:text="${cart.product.product_price * cart.product_count}" />
-										<span>원</span>
-								</div>
-								<div class="col-md-1 col-lg-1 col-xl-1 text-end">
-									<a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
+										<div class="col-1 p-0 m-0">
+											<input id="form1" name="count"
+												class="form-control bg-white text-center p-0 m-0"
+												th:value="${cart.product_count}" readonly />
+										</div>
+										<div class="col-1 p-0 m-0">
+											<button class="btn btn-link p-0 m-0" name="plus_btn">
+												<i class="lni lni-circle-plus"></i>
+											</button>
+										</div>
+										<div class="col-6 text-dark text-end">
+											<span class="mb-0" name="product_sumprice"
+												th:text="${#numbers.formatInteger(cart.product.product_price * cart.product_count, 3, 'COMMA')}" />
+											<span>원</span>
+										</div>
+										<div class="col-1 text-end">
+											<a href="#!" name="close"><i class="lni lni-close"></i></a>
+										</div>
+										<!-- Hidden -->
+										<input th:value="${cart.product.product_price}" type="text"
+											name="product_price" hidden="true" /> <input
+											th:value="${cart.cart_id}" type="text" name="cart_id"
+											hidden="true" />
+									</div>
 								</div>
 							</div>
 						</div>
@@ -66,15 +73,27 @@
 
 						<hr class="my-4">
 
-						<div class="pt-5">
-							<h6 class="mb-0">
-								<a href="#!" class="text-body"><i
-									class="fas fa-long-arrow-alt-left me-2"></i>Back to shop</a>
-							</h6>
+						<div class="pt-1 text-end">
+							<span class="mb-0"> 총 합계 </span> <span name="totalPrice"></span>
+							<span> 원</span>
 						</div>
+
+
+
+
 					</div>
+
+				</div>
+				<div class="row justify-content-end m-0 mt-3">
+					<button class="col-2 btn btn-outline-primary me-2" th:onclick="|location.href='@{/}'|">
+						더 둘러보기
+					</button>
+					<button class="col-2 btn btn-primary" th:onclick="|location.href='@{/order}'|">
+						주문하기
+					</button>
 				</div>
 			</div>
 		</div>
 	</div>
 </section>
+<script type="text/javascript" src="js/cart.js"></script>

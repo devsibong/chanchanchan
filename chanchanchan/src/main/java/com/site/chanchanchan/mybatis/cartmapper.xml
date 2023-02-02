@@ -45,11 +45,16 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<update id="update" parameterType="Cart">
 		UPDATE cart SET
 		#{cart_id},#{member_index},#{product_id},#{product_count}
-		WHERE cart-id
+		WHERE cart_id
 		= #{cart_id}
 	</update>
+	<update id="updateCount" parameterType="Cart">
+		UPDATE cart 
+		SET product_count = #{product_count}
+		WHERE cart_id = #{cart_id}
+	</update>
 	<delete id="delete" parameterType="String">
-		DELETE FROM cart WHERE cart-id
+		DELETE FROM cart WHERE cart_id
 		= #{cart_id}
 	</delete>	
 </mapper>

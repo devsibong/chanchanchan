@@ -10,4 +10,6 @@ import com.site.chanchanchan.frame.MyMapper;
 @Mapper
 public interface MemberMapper extends MyMapper<String, Member>{
 
+	Member selectByIndex(String k);
+
 }

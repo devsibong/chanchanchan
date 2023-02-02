@@ -11,7 +11,7 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class shipping {
+public class Shipping {
 	private int shipping_id;
 	private int member_index;
 	private String shipping_title;

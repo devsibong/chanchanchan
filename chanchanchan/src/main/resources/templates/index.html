@@ -159,9 +159,11 @@
                             </div>
                             <div class="navbar-cart">
                                 <div class="cart-items">
-                                    <a href="javascript:void(0)" class="main-btn">
+                                    <a th:href="@{/cart}" class="main-btn">
                                         <i class="lni lni-cart"></i>
-                                        <span class="total-items">1</span>
+                                        <span th:if="${not #lists.isEmpty(cartList)}">
+                                        	<span class="total-items" name="cartCount" th:text="${#lists.size(cartList)}"></span>
+                                        </span>
                                     </a>
                                 </div>
                             </div>
@@ -443,7 +445,6 @@
     <script src="js/tiny-slider.js"></script>
     <script src="js/glightbox.min.js"></script>
     <script src="js/main.js"></script>
-    <script type="text/javascript" src="js/cart.js"></script>
     <script type="text/javascript">
         //========= Hero Slider 
         tns({
