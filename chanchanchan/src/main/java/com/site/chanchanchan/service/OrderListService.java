@@ -40,4 +40,7 @@ public class OrderListService implements MyService<Integer, OrderList>{
 		return mapper.selectall();
 	}
 	
+	public List<OrderList> list(Integer k) throws Exception{
+		return mapper.list(k);
+	}
 }

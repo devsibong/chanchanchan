@@ -11,5 +11,6 @@ import com.site.chanchanchan.frame.MyMapper;
 @Mapper
 @Repository
 public interface OrderDetailMapper extends MyMapper<Integer, OrderDetail>{
-	public List<OrderDetail> list();
+	public List<OrderDetail> list() throws Exception;
+	public OrderDetail orddetail(Integer order_id) throws Exception;
 }

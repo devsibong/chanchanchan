@@ -12,10 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.site.chanchanchan.dto.Criteria;
+import com.site.chanchanchan.dto.Member;
 import com.site.chanchanchan.dto.OrderDetail;
+import com.site.chanchanchan.dto.OrderList;
 import com.site.chanchanchan.dto.Page;
 import com.site.chanchanchan.dto.Post;
+import com.site.chanchanchan.service.MemberService;
 import com.site.chanchanchan.service.OrderDetailService;
+import com.site.chanchanchan.service.OrderListService;
 import com.site.chanchanchan.service.PostService;
 
 @Controller
@@ -25,26 +29,64 @@ public class MyPageController {
 	PostService pservice;
 	
 	@Autowired
+	OrderListService olservice;
+	
+	@Autowired
 	OrderDetailService odservice;
 	
+	@Autowired
+	MemberService mservice;
 	
 	@RequestMapping("/mypage")
 	public String main() {
 		return "mypage/mypagemain";
 	}
 	
+	//주문내역
 	@RequestMapping("/ordshipselupd")
-	public String ordshipselupd(Model model) {
-		List<OrderDetail>list = null;
-		try {
-			list = odservice.list();
-			System.out.println(list);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public String ordshipselupd(HttpSession session,Model model) throws Exception {
+		Member loginMember = (Member)session.getAttribute("loginmem");
+		if (loginMember == null) {
+			return "redirect:/login";
+		} else {
+			List<OrderList> list = olservice.list(loginMember.getMember_index());
+		
+		
 		model.addAttribute("list", list);
 		model.addAttribute("left", "mypageleft");
 		model.addAttribute("center", "/mypage/ordshipselupd");
+		return "mypage/mypagemain";
+		}
+	}
+	
+	//주문내역 삭제
+		@RequestMapping("/orderdel")  
+		public String  orderdel(Model model, Integer order_id) {
+			try {
+				olservice.remove(order_id);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			model.addAttribute("left", "mypageleft");
+			model.addAttribute("center", "/mypage/orderdel");
+			return "redirect:/ordshipselupd";
+		}
+	
+	//주문내역 상세페이지
+	@RequestMapping("/orddetail")
+	public String orddetail(Model model,Integer order_id) {
+		OrderDetail orderdetail = null;
+		System.out.println(order_id);
+		try {
+			orderdetail = odservice.orddetail(order_id);
+			model.addAttribute("orderdetail", orderdetail);
+			System.out.println(orderdetail);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("left", "mypageleft");
+		model.addAttribute("center", "/mypage/orddetail");
 		return "mypage/mypagemain";
 	}
 	
@@ -188,8 +230,11 @@ public class MyPageController {
 		return "redirect:/inquiry";
 	}
 	
+	//회원정보 수정
 	@RequestMapping("/memberupdate")
-	public String memberupdate(Model model) {
+	public String memberupdate(HttpSession session,Model model) {
+		Member loginMember = (Member)session.getAttribute("loginmem");
+		
 		model.addAttribute("left", "mypageleft");
 		model.addAttribute("center", "/mypage/memberupdate");
 		return "mypage/mypagemain";

@@ -25,4 +25,6 @@ public class OrderList {
 	private String receiver;
 	private String receiver_tel;
 	private String delivery_info;
+	
+	private Product product;
 }
