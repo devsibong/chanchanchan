@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>
+function checked_delete(chk){
+	$.ajax({
+		url:'[[@{/regularorderschedule/delete}]]',
+		data:{"del":chk},
+		success:function(){
+			location.reload();
+		},
+		error:function(){
+			alert('데이터 삭제실패');
+			return false;
+		}
+	});
+};
+
+
+var cnt=0;
+function changeState(id,state_option){
+	$.ajax({
+		url:'[[@{/regularorderschedule/changestate}]]',
+		type:'get',
+		data:{order_id:id,
+			order_state:state_option},
+		success:function(){
+			location.reload();
+		},
+		error:function(){
+			alert(id+'번 스캐줄 상태수정 실패!');
+			cnt+=1;
+			return false;
+		}
+	});
+};
+
+$(document).ready(function(){
+	$('#selectall').click(function(){
+		$("input[name='checkbox']").prop("checked", true);
+	});
+	
+	$('#cancelall').click(function(){
+		$("input[name='checkbox']").prop("checked", false);
+	});
+	
+	$('#delete').click(function(){
+		var result = confirm("선택한 스캐줄을 삭제처리하시겠습니까?");
+		if(result){
+		$("input[name='checkbox']:checked").each(function(){
+			var chk =$(this).closest("th").next().text();
+	  	    checked_delete(chk);	
+		});
+			alert('삭제완료!');
+		}else{ 
+			alert('취소!');
+		}
+	});
+	
+	$('#changes_save').click(function(){
+		$("select[name='regular_shipping_state'] option:selected").each(function(){
+				var id = $(this).closest("th").parent().children().first().next().text();
+				var state_option = $(this).val();
+				if(state_option != "--선택--"){
+					changeState(id,state_option);
+				}
+		});
+		if(cnt>0){
+			alert(cnt+'번 수정에 실패했습니다');
+		}else{
+			alert('수정 성공!');
+		}
+	});
+});
+
+</script>
+</head>
+<body>
+	<div class="card shadow mb-3" style="width:80%;">
+		<div class="card-header py-3">
+			<h4 class="m-1 font-weight-bold text-dark d-inline">주문정보/배송상태변경</h4>
+		<div class="search_box float-right">
+		</div>
+		</div>
+		<div class="card-body">
+			<div class="table-responsive">
+				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+					<thead>
+						<tr>
+							<th style="width:5%"></th>
+							<th style="width:10%">배송일정고유번호</th>
+							<th style="width:10%">정기배송고유번호</th>
+							<th style="width:13%">정기배송날짜</th>
+							<th style="width:10%">배송상태</th>
+							<th style="width:10%">배송상태변경</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="regularorderschedule:${regularorderschedule}">
+							<th><input type="checkbox" name="checkbox"></input></th>
+							<th th:text="${regularorderschedule.regular_orderschedule_id}"></th>
+							<th th:text="${regularorderschedule.regular_orderdetail_id}"></th>
+							<th th:text="${regularorderschedule.regular_shippingdate}"></th>
+							<th th:text="${regularorderschedule.regular_shipping_state}"></th>
+							<th>
+							<select id="searchOption" name="regular_shipping_state" title="검색 유형 선택">
+							  <option value="--선택--">--선택--</option>
+		              		  <option value="배송전">배송전</option>
+		              		  <option value="배송준비중">배송준비중</option>
+		               		  <option value="배송중">배송중</option>
+		               		  <option value="배송완료">배송완료</option>
+		               		  <option value="주문취소">주문취소</option>
+		           			</select>
+		           			</th>
+						</tr>
+					</tbody>
+					<tfoot>
+					</tfoot>
+				</table>
+			</div>
+			<nav aria-label="Page navigation example">
+			  <ul class="pagination justify-content-center">
+			  <th:block th:if="${pageMaker.endPage!=0}">
+				   <th:block th:if="${pageMaker.prev}">
+				    	<li class="page-item previous"><a class="page-link" 
+				    	th:href="@{/regularorderschedule/list(pageNum=${pageMaker.startPage-1},amount=${pageMaker.cri.amount},option=${pageMaker.cri.option},searchVal=${pageMaker.cri.searchVal})}">이전</a></li>
+				   </th:block>	
+				   <th:block th:each="num : ${#numbers.sequence(pageMaker.startPage	,pageMaker.endPage)}">
+				    	<li class="page-item"><a class="page-link num" 
+				    	th:href="@{/regularorderschedule/list(pageNum=${num},amount=${pageMaker.cri.amount},option=${pageMaker.cri.option},searchVal=${pageMaker.cri.searchVal})}" th:text="${num}"></a></li>
+				   </th:block>
+			   	   <th:block th:if="${pageMaker.next}">
+				  		<li class="page-item next"><a class="page-link" 
+				   		th:href="@{/regularorderschedule/list(pageNum=${pageMaker.endPage+1},amount=${pageMaker.cri.amount},option=${pageMaker.cri.option},searchVal=${pageMaker.cri.searchVal})}">다음</a></li>
+			   		</th:block>
+			  </th:block>
+			  </ul>
+			</nav>
+			
+			<div class="d-grid gap-3 d-md-flex justify-content-md-end">
+				<button type="button" id="selectall" class="btn btn-secondary btn-sm ml-3">전체선택</button>
+				<button type="button" id="cancelall" class="btn btn-secondary btn-sm ml-3 mr-auto">전체해제</button>
+				<button type="button" id="changes_save" class="btn btn-success btn-sm mr-3">배송 변경사항 저장</button>
+			</div>
+			<div class="d-grid gap-3 d-md-flex justify-content-md-end mt-3">
+				<button type="button" id="delete" class="btn btn-danger btn-sm mr-3">삭제</button>
+			</div>
+		</div>
+	</div>
+	</body>
+</html>

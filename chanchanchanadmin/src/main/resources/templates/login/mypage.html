@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>
+function checked_delete(chk){
+	$.ajax({
+		url:'[[@{/admin/delete}]]',
+		data:{"del":chk},
+		success:function(){
+			location.href="/main";
+		},
+		error:function(){
+			alert('탈퇴 실패');
+			return false;
+		}
+	});
+};
+
+$(document).ready(function(){
+	
+	$('#delete').click(function(){
+		var result = confirm("관리자 계정 탈퇴하시겠습니까?");
+		if(result){
+			$("#admin_id").text();
+	  	    checked_delete(chk);	
+		}else{ 
+			alert('취소!');
+		}
+	});
+	
+	$("#home").click(function(){
+		window.history.go(-1);
+	});
+});
+
+</script>
+<style>
+th{width:17%;}
+</style>
+</head>
+<body>
+	<div class="card shadow mb-3 " style="width:85%;">
+		<div class="card-body">
+			<div class="table-responsive">
+				<form> 
+				<table class="table table-bordered" id="dataTable">
+						<tbody>
+						<tr>
+							<th>관리자고유번호</th>
+							<td id="admin_id" th:text="${session.loginadm.admin_index}" style="width:20%; border:none;"></td>
+						</tr>
+						<tr>
+							<th>아이디</th>
+							<td th:text="${session.loginadm.admin_id}"></td>
+						</tr>
+						<tr>
+							<th>비밀번호</th>
+							<td><input type="password" th:value="${session.loginadm.admin_pwd}" style="border:none;"></td>
+						</tr>
+						<tr>
+							<th>이름</th>
+							<td th:text="${session.loginadm.admin_name}"></td>
+						</tr>
+						<tr>
+							<th>직책</th>
+							<td th:text="${session.loginadm.admin_class}" style="width:90%;"></td>
+						</tr>
+						<tr>
+							<th>이메일</th>
+							<td th:text="${session.loginadm.admin_email}" style="width:90%;"></td>
+						</tr>
+						<tr>
+							<th>승인상태</th>
+							<td th:text="${session.loginadm.admin_status}" style="width:90%;"></td>
+						</tr>
+						</tbody>
+					</table>
+				</form>
+			</div>
+			
+			<div class="d-grid gap-3 d-md-flex justify-content-md-end mt-3">
+				<button type="button" id="home" class="btn btn-secondary btn-sm float-right mr-3">홈으로</button>
+				<a th:href="@{/admin/mypagemodify}"><button type="button" id="modify" class="btn btn-primary btn-sm float-right mr-3">수정</button></a>
+				<button type="button" id="delete" class="btn btn-danger btn-sm mr-3">계정탈퇴</button>
+			</div>
+		</div>
+	</div>
+	</body>
+</html>

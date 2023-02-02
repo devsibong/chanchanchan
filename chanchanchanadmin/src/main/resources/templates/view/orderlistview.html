@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+	
+	$('#list').click(function(){
+		window.history.go(-1);
+	});
+});
+
+</script>
+</head>
+<body>
+	<div class="card shadow mb-3" style="width:90%;">
+		<div class="card-body">
+			<div class="table-responsive">
+				<form> 
+				<table class="table table-bordered" id="dataTable" width="90%" cellspacing="0">
+						<tbody>
+						<tr>
+							<th>주문번호</th>
+							<td id="product_id" th:text="${orderlistView.order_id}" style="width:20%; border:none;"></td>
+						</tr>
+						<tr>
+							<th>회원번호</th>
+							<td th:text="${orderlistView.member_index}" style="width:20%;"></td>
+						</tr>
+						<tr>
+							<th>총가격</th>
+							<td th:text="${orderlistView.product_totalprice}" style="width:20%;"></td>
+						</tr>
+						<tr>
+							<th>배송비</th>
+							<td th:text="${orderlistView.shippingfee}" style="width:90%; height:200px;"></td>
+						</tr>
+						<tr>
+							<th>총결제금액</th>
+							<td th:text="${orderlistView.order_totalpayment}" style="width:90%;"></td>
+						</tr>
+						<tr>
+							<th>결제방법</th>
+							<td th:text="${orderlistView.payment_method}" style="width:90%;"></td>
+						</tr>
+						<tr>
+							<th>결제일</th>
+							<td th:text="${orderlistView.order_date}" style="width:90%;"></td>
+						</tr>
+						<tr>
+							<th>주문상태</th>
+							<td th:text="${orderlistView.order_state}" style="width:90%; height:200px;"></td>
+						</tr>
+						<tr>
+							<th>받는사람</th>
+							<td th:text="${orderlistView.receiver}" style="width:90%;"></td>
+						</tr>
+						<tr>
+							<th>연락처</th>
+							<td th:text="${orderlistView.receiver_tel}" style="width:90%;"></td>
+						</tr>
+						<tr>
+							<th>요청사항</th>
+							<td th:text="${orderlistView.delivery_info}" style="width:90%;"></td>
+						</tr>
+						</tbody>
+					</table>
+				</form>
+			</div>
+			
+			<div class="d-grid gap-3 d-md-flex justify-content-md-end mt-3">
+				<button type="button" id="list" class="btn btn-secondary btn-sm float-right mr-3">목록으로</button>
+			</div>
+		</div>
+	</div>
+	</body>
+</html>

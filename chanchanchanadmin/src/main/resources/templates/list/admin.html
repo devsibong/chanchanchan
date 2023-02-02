@@ -122,6 +122,7 @@ $(document).ready(function(){
 		                <option value="admin_id">아이디</option>
 		                <option value="admin_name">이름</option>
 		                <option value="admin_class">직책</option>
+		                <option value="admin_email">이메일</option>
 		                <option value="admin_status">승인상태</option>
 		            </select>
 		            <input type="text" name="searchVal" id="keyword" placeholder="검색어를 입력하세요." title="키워드 입력"  autocomplete="off" />
@@ -140,6 +141,7 @@ $(document).ready(function(){
 							<th>아이디</th>
 							<th>이름</th>
 							<th>직책</th>
+							<th>이메일</th>
 							<th>승인상태</th>
 						</tr>
 					</thead>
@@ -150,6 +152,7 @@ $(document).ready(function(){
 							<th th:text="${admin.admin_id}"></th>
 							<th th:text="${admin.admin_name}"></th>
 							<th th:text="${admin.admin_class}"></th>
+							<th th:text="${admin.admin_email}"></th>
 							<th th:text="${admin.admin_status}"></th>
 						</tr>
 					</tbody>

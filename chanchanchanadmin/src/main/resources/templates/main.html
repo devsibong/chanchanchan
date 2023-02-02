@@ -138,7 +138,7 @@
 					aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<a class="collapse-item" th:href="@{/orderlist/list}">주문조회 /배송상태 변경</a> 
-						<a class="collapse-item" href="#">정기배송주문 관리</a> 
+						<a class="collapse-item" th:href="@{/regularorder/list}">정기배송주문 관리</a> 
 						<a class="collapse-item" href="#">배송가능지역/배송비설정</a> 
 					</div>
 				</div></li>
@@ -212,7 +212,7 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" th:href="@{/admin/mypage}">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     내 정보
                                 </a>
