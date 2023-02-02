@@ -20,9 +20,12 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		DELETE FROM product WHERE product_id=#{product_id}
 	</delete>
 	<select id="getprod" parameterType="Integer" resultType="Product">
-		SELECT DISTINCT * FROM product pr
+		SELECT * FROM product pr
 		JOIN category ca ON ca.category_id = pr.category_id
 		WHERE ca.category_id=#{category_id}
 	</select>
 	
+	<select id="searchprod" parameterType="String" resultType="Product">
+		SELECT * FROM product WHERE product_name LIKE CONCAT('%',#{txt},'%') 
+	</select>
 </mapper>

@@ -12,4 +12,5 @@ import com.site.chanchanchan.frame.MyMapper;
 @Mapper
 public interface ProductMapper extends MyMapper<Integer, Product>{
 	public List<Product> getprod(Integer k) throws Exception;
+	public List<Product> searchprod(String txt) throws Exception;
 }

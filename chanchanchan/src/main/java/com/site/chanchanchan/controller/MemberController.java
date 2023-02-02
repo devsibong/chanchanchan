@@ -68,7 +68,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/registerimpl")
-	public String registerimpl(Model model, Member mem) {
+	public String registerimpl(Model model, Member mem) {		
 		try {
 			memservice.register(mem);
 			model.addAttribute("registermem", mem);
@@ -126,4 +126,5 @@ public class MemberController {
 		model.addAttribute("center", dir + "login");
 		return "redirect:login";
 	}
+		
 }

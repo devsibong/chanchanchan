@@ -17,8 +17,23 @@
     <link rel="stylesheet" href="css/main.css" />
     
 
-</head>
+<script>
+$(document).ready(function() {
+	$('#search_btn').click(function() {
+		if($('#search_input').val()==''){
+			alert("검색어를 입력하세요.");
+		}else{
+			$('#search_form').attr({
+				'method' : 'get',
+				'action' : '[[@{/searchimpl}]]'
+			});
+			$('#search_form').submit();
+		}
+	});
+});
+</script>
 
+</head>
 <body>
     <!--[if lte IE 9]>
       <p class="browserupgrade">
@@ -123,8 +138,9 @@
                     </div>
                     <div class="col-lg-5 col-md-7 d-xs-none">
                         <!-- Start Main Menu Search -->
+                        <form id="search_form">
                         <div class="main-menu-search">
-                            <!-- navbar search start -->
+                            <!-- navbar search start -->                           
                             <div class="navbar-search search-style-5">
                                 <div class="search-select">
                                     <div class="select-position">
@@ -139,14 +155,15 @@
                                     </div>
                                 </div>
                                 <div class="search-input">
-                                    <input type="text" placeholder="Search">
+                                    <input id="search_input" name="txt" type="text" placeholder="Search">
                                 </div>
-                                <div class="search-btn">
+                                <div id="search_btn" class="search-btn">
                                     <button><i class="lni lni-search-alt"></i></button>
                                 </div>
-                            </div>
+                            </div>                        
                             <!-- navbar search Ends -->
                         </div>
+                        </form>
                         <!-- End Main Menu Search -->
                     </div>
                     <div class="col-lg-4 col-md-2 col-5">
