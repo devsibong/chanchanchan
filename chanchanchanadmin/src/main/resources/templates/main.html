@@ -31,6 +31,13 @@
 
 <!-- Custom scripts for all pages-->
 <script th:src="@{/js/sb-admin-2.min.js}"></script>
+
+<!-- highcharts lib -->
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-3d.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
 </head>
 
 <body id="page-top">
@@ -175,7 +182,7 @@
 				<div id="collapseOne" class="collapse" aria-labelledby="headingOne"
 					data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" href="#">매출정보</a> 
+						<a class="collapse-item" th:href="@{/chart/order}">매출정보</a> 
 						<a class="collapse-item" href="#">상품정보</a> 
 						<a class="collapse-item" href="#">사이트정보</a>
 					</div>

@@ -1,0 +1,116 @@
+<style>
+#container{
+	width:90%;
+	height:400px;
+	border: 2px solid black; 
+}
+</style>
+<Script>
+function display(data){
+	Highcharts.chart('container', {
+	    chart: {
+	        type: 'column'
+	    },
+	    title: {
+	        text: 'Monthly Average Rainfall'
+	    },
+	    subtitle: {
+	        text: 'Source: WorldClimate.com'
+	    },
+	    xAxis: {
+	        categories: data.m,
+	        crosshair: true
+	    },
+	    yAxis: {
+	        min: 0,
+	        title: {
+	            text: 'Rainfall (mm)'
+	        }
+	    },
+	    tooltip: {
+	        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+	        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+	            '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+	        footerFormat: '</table>',
+	        shared: true,
+	        useHTML: true
+	    },
+	    plotOptions: {
+	        column: {
+	            pointPadding: 0.2,
+	            borderWidth: 0
+	        }
+	    },
+	    series: data.data
+	});
+};
+
+function getdata(sm,em){
+	$.ajax({
+		url:'[[@{/chart/chart1}]]',
+		data:{'sm':sm, 'em':em},
+		success:function(data){
+			display(data);
+		}
+	});
+};
+
+
+$(document).ready(function(){
+	$('#btn').click(function(){
+		var sm = $('#sm').val();
+		var em = $('#em').val();
+		if(sm > em){
+			alert('다시 입력 하세요');
+			return;
+		}
+		//alert(sm +' '+em);
+		getdata(sm, em);
+	});
+});
+</Script>
+<h3>월별 매출액</h3>
+시작 월<select id="sm">
+	<option value="1">1</option>
+	<option value="2">2</option>
+	<option value="3">3</option>
+	<option value="4">4</option>
+	<option value="5">5</option>
+	<option value="6">6</option>
+	<option value="7">7</option>
+	<option value="8">8</option>
+	<option value="9">9</option>
+	<option value="10">10</option>
+	<option value="11">11</option>
+	<option value="12">12</option>	
+</select> 
+~ 마지막 월<select id="em">
+	<option value="1">1</option>
+	<option value="2">2</option>
+	<option value="3">3</option>
+	<option value="4">4</option>
+	<option value="5">5</option>
+	<option value="6">6</option>
+	<option value="7">7</option>
+	<option value="8">8</option>
+	<option value="9">9</option>
+	<option value="10">10</option>
+	<option value="11">11</option>
+	<option value="12">12</option>
+</select>
+<button id="btn">통계 확인</button>
+<div id="container"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
