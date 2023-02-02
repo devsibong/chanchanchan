@@ -34,6 +34,23 @@ $(document).ready(function(){
 		}
 	});
 	
+	
+	$('#member_email').keyup(function(){					
+		var member_email = $('#member_email').val();
+		$.ajax({
+			url : '[[@{/checkregi}]]',
+			data : {"member_email":member_email},
+			 success : function(data){
+			 	if(data == 0){
+			 		$('#email_span').text("이미 가입된 이메일입니다.");
+			 	}else {	
+			 		$('#email_span').text("사용가능한 이메일입니다.");
+				}
+			}
+		});			
+	});
+
+		
 	$('#registerbtn').click(function() {
 		var member_id = $('#member_id').val();
 		var member_pw = $('#member_pw').val();
@@ -45,7 +62,7 @@ $(document).ready(function(){
 				if(data == 0){
 					alert("아이디를 확인해 주세요.");
 				}else if($('#member_pw').val() != $('#member_pw2').val()){
-					alert("비밀번호가 일치하지 않습니다. 다시 입력해 주세요.");
+					alert("비밀번호가 일치하지 않습니다. 다시 입력해 주세요.");				
 				}else {
 					$('#register_form').attr({
 						'method' : 'post',
@@ -56,19 +73,79 @@ $(document).ready(function(){
 			}
 		});
 			
-	});
+	});			
 });
 </script>
 
-<form id="register_form">
-	ID<input id="member_id" type="text" name="member_id"><span
-		id="id_span"></span><br> PWD1<input id="member_pw"
-		type="password" name="member_pw"><span id="pwd_span"></span><br>
-	PWD2<input id="member_pw2" type="password" name="member_pw2"><span
-		id="pwd_span2"></span><br> NAME<input id="member_name"
-		type="text" name="member_name"><br> 폰번호<input
-		id="member_tel" type="text" name="member_tel"><br> 이메일<input
-		id="member_email" type="text" name="member_email"><br>
-	<button id="registerbtn" class="btn btn-primary" type="button">REGISTER</button>
-</form>
 
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-lg-8 col-xl-6">
+        <div class="card rounded-3">
+          <div class="card-body p-4 p-md-5">
+            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">회원가입</h3>
+
+            <form id="register_form">
+
+              <div class="form-outline mb-4">
+                <input type="text" id="member_id" name="member_id" class="form-control" placeholder="아이디">
+                <span id="id_span"></span>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-4">
+
+                  <div class="form-outline">
+                    <input type="password" id="member_pw" name="member_pw" class="form-control" placeholder="비밀번호">
+                    <span id="pwd_span"></span>
+                  </div>
+
+                </div>
+                
+                <div class="col-md-6 mb-4">
+
+                  <div class="form-outline">
+                    <input type="password" id="member_pw2" name="member_pw2" class="form-control" placeholder="비밀번호 확인">
+                    <span id="pwd_span2"></span>
+                  </div>
+
+                </div>              
+              </div>
+              
+             <div class="form-outline mb-4">
+                <input type="text" id="member_name" name="member_name" class="form-control" placeholder="이름">
+                <span id="name_span"></span>
+             </div> 
+             <div class="form-outline mb-4">
+                <input type="text" id="member_tel" name="member_tel" class="form-control" placeholder="핸드폰 번호">
+                <span id="tel_span"></span>
+             </div> 
+             
+             <div class="row">
+                <div class="col-md-6 mb-4">
+
+                  <div class="form-outline">
+                    <input type="text" id="member_email" name="member_email" class="form-control" placeholder="이메일">                  
+                  </div>
+
+                </div>
+                
+                <div class="col-md-6 mb-4">
+
+                  <div class="form-outline">
+                    <span id="email_span"></span>                  
+                  </div>
+
+                </div>                      
+              </div>              
+
+              
+              <button id="registerbtn" class="btn btn-dark " type="button">가입하기</button>
+
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
