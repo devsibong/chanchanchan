@@ -9,5 +9,5 @@ import com.site.chanchanchan.frame.MyMapper;
 @Repository
 @Mapper
 public interface MemberMapper extends MyMapper<String, Member>{
-
+	Member selectByIndex(String k);
 }

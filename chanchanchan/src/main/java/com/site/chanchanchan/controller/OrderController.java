@@ -8,51 +8,45 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.site.chanchanchan.dto.Cart;
 import com.site.chanchanchan.dto.Member;
 import com.site.chanchanchan.service.CartService;
+import com.site.chanchanchan.service.MemberService;
 
 @Controller
-public class CartController {
+public class OrderController {
 	
-	String dir = "cart/";
+	String dir = "order/";
 	
 	@Autowired
 	CartService cartService;
+	
+	@Autowired
+	MemberService memberService;
 
-	@RequestMapping("/cart")
+	@RequestMapping("/order")
 	public String myCart(HttpSession session, Model model) throws Exception {
 		Member loginMember = (Member)session.getAttribute("loginmem");
 		if (loginMember == null) {
 			return "redirect:/login";
 		} else {
-			model.addAttribute("center", dir + "mycart");
+			model.addAttribute("center", dir + "order");
 			List<Cart> cartList = cartService.getByMember(Integer.toString(loginMember.getMember_index()));
 			model.addAttribute("cartList", cartList);
 			return "index";
 		}
 	}
 	
-	@RequestMapping(value = "/updatecart", method = { RequestMethod.POST })
+	@PostMapping("/getmemberinfo")
 	@ResponseBody
-    public Cart changeCartCount(@RequestBody Cart cart) throws Exception {
-		cartService.modifyCount(cart);
-		Cart resultCart = cartService.get(Integer.toString(cart.getCart_id()));
-        return resultCart;
+    public Member changeCartCount(@RequestBody Member member) throws Exception {
+		Member resultMember = memberService.getByIndex(Integer.toString(member.getMember_index()));
+        return resultMember;
     }
-	
-	@RequestMapping(value = "/deletecart", method = { RequestMethod.POST })
-    public String deleteCart(@RequestBody Cart cart) throws Exception {
-		String temp = Integer.toString(cart.getCart_id());
-		cartService.remove(temp);
-		return "index";
-    }
-	
-	
 
 }

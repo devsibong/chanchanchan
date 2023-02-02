@@ -44,5 +44,10 @@ public class OrderDetailService implements MyService<Integer, OrderDetail>{
 		public List<OrderDetail> list() throws Exception {
 			return mapper.list();
 		}
+		
+	//주문내역 상세
+	public OrderDetail orddetail(Integer order_id) throws Exception {
+		return mapper.orddetail(order_id);
+	}
 	
 }

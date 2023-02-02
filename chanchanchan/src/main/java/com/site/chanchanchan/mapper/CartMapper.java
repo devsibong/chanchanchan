@@ -12,4 +12,5 @@ import com.site.chanchanchan.frame.MyMapper;
 @Mapper
 public interface CartMapper extends MyMapper<String, Cart>{
 	public List<Cart> selectByMember(String k) throws Exception;
+	public int updateCount(Cart v) throws Exception;
 }

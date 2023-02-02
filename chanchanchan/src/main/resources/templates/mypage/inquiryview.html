@@ -3,5 +3,10 @@
 <h1 th:text="${post.post_subject}">제목입니다.</h1>
 <p th:text="${post.post_content}">내용입니다.</p>
 
-<a th:href="@{/inquirydel(post_id=${post.post_id})}">글삭제</a>
-<a th:href="@{/inquiryupd(post_id=${post.post_id})}">글수정</a>
+<a th:href="@{/inquiryupd(post_id=${post.post_id})}">
+	<button type="button" class="btn btn-secondary">글수정</button>
+</a>
+<a th:href="@{/inquirydel(post_id=${post.post_id})}">
+	<button type="button" class="btn btn-secondary">글삭제</button>
+</a>
+

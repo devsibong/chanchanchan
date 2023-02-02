@@ -43,4 +43,8 @@ public class CartService implements MyService<String, Cart> {
 	public List<Cart> getByMember(String k) throws Exception {
 		return mapper.selectByMember(k);
 	}
+	
+	public int modifyCount(Cart v) throws Exception {
+		return mapper.updateCount(v);
+	}
 }

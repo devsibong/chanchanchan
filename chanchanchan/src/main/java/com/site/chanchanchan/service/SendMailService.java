@@ -17,11 +17,11 @@ public class SendMailService {
 	MailSender sender;
 	
 	public void sendPwdMail(Member mem, String member_email) {
-	SimpleMailMessage message = new SimpleMailMessage();
-	message.setTo(member_email);  	
-	message.setSubject("찬찬찬 임시 비밀번호입니다.");
-	message.setText("안녕하세요. 회원님의 임시 비밀번호는 "+mem.getMember_pw()+" 입니다.");
-	sender.send(message);
+		SimpleMailMessage message = new SimpleMailMessage();
+		message.setTo(member_email);  	
+		message.setSubject("찬찬찬 임시 비밀번호입니다.");
+		message.setText("안녕하세요. 회원님의 임시 비밀번호는 "+mem.getMember_pw()+" 입니다.");
+		sender.send(message);
 
 	}
 }

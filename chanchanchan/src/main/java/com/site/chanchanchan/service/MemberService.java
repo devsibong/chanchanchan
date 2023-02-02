@@ -40,6 +40,8 @@ public class MemberService implements MyService<String, Member>{
 		return mapper.selectall();
 	}
 
-	
+	public Member getByIndex(String k) throws Exception {
+		return mapper.selectByIndex(k);
+	}
 	
 }
