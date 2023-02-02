@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.site.chanchanchan.dto.Criteria;
 import com.site.chanchanchan.dto.Page;
 import com.site.chanchanchan.dto.RegularOrder;
+import com.site.chanchanchan.service.OrderListService;
+import com.site.chanchanchan.service.RegularOrderScheduleService;
 import com.site.chanchanchan.service.RegularOrderService;
 
 @RequestMapping("/regularorder")
@@ -23,6 +25,12 @@ public class RegularOrderController {
 	
 	@Autowired
 	RegularOrderService regservice;
+	
+	@Autowired
+	RegularOrderScheduleService rosservice;
+	
+	@Autowired
+	OrderListService olservice;
 	
 	String dir ="list/";
 	
@@ -82,9 +90,12 @@ public class RegularOrderController {
 	//삭제버튼
 	@ResponseBody
 	@RequestMapping("/delete")
-	public String delete(int del) {
+	public String delete(int roi,int oi) {
 		try {
-			regservice.remove(del);
+			regservice.remove(roi);
+			rosservice.delete(roi);
+			olservice.remove(oi);
+			
 		} catch (Exception e) {
 //			e.printStackTrace();
 		}

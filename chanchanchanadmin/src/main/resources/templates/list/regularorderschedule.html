@@ -5,7 +5,7 @@
 <script>
 function checked_delete(chk){
 	$.ajax({
-		url:'[[@{/orderlist/delete}]]',
+		url:'[[@{/regularorderschedule/delete}]]',
 		data:{"del":chk},
 		success:function(){
 			location.reload();
@@ -17,61 +17,11 @@ function checked_delete(chk){
 	});
 };
 
-	
-function checked_restore(chk){
-	$.ajax({
-		url:'[[@{/orderlist/restore}]]',
-		data:{"res":chk},
-		success:function(){
-			location.reload();
-		},
-		error:function(){
-			alert('복원프로세스 실패');
-			return false;
-		}
-	});
-};
-
-function formSubmit(){
-	var formData={
-		option:$('select[name=option]').val(),
-		searchVal:$('#keyword').val()
-	};
-	
-	$.ajax({
-		url:'[[@{/orderlist/searchlist}]]',
-		type:'get',
-		data:formData,
-		success:function(){
-			location.reload();
-		},
-		error:function(){
-			alert('데이터전송 실패');
-			return false;
-		}
-	});
-};
-
-function quitaccount(){
-	$.ajax({
-		url:'[[@{/orderlist/searchlist}]]',
-		type:'get',
-		data:{"option":"member_status",
-			"searchVal":"N"},
-		success:function(){
-			location.reload();
-		},
-		error:function(){
-			alert('데이터전송 실패');
-			return false;
-		}
-	});
-};
 
 var cnt=0;
 function changeState(id,state_option){
 	$.ajax({
-		url:'[[@{/orderlist/changestate}]]',
+		url:'[[@{/regularorderschedule/changestate}]]',
 		type:'get',
 		data:{order_id:id,
 			order_state:state_option},
@@ -79,7 +29,7 @@ function changeState(id,state_option){
 			location.reload();
 		},
 		error:function(){
-			alert(id+'번 주문 상태수정 실패!');
+			alert(id+'번 스캐줄 상태수정 실패!');
 			cnt+=1;
 			return false;
 		}
@@ -96,38 +46,20 @@ $(document).ready(function(){
 	});
 	
 	$('#delete').click(function(){
-		var result = confirm("선택한 회원을 정말 삭제처리하시겠습니까?");
+		var result = confirm("선택한 스캐줄을 삭제처리하시겠습니까?");
 		if(result){
 		$("input[name='checkbox']:checked").each(function(){
 			var chk =$(this).closest("th").next().text();
 	  	    checked_delete(chk);	
 		});
-			alert('탈퇴완료!');
+			alert('삭제완료!');
 		}else{ 
 			alert('취소!');
 		}
-	});
-	
-	$('#restore').click(function(){
-		var result = confirm("선택한 탈퇴계정을 복구하시겠습니까?");
-		if(result){
-		$("input[name='checkbox']:checked").each(function(){
-			var chk =$(this).closest("th").next().text();
-			console.log(chk);
-	  	    checked_restore(chk);	
-		});
-			alert('복구완료!');
-		}else{ 
-			alert('취소!');
-		}
-	});
-	
-	$('#quitaccount').click(function(){
-		quitaccount();
 	});
 	
 	$('#changes_save').click(function(){
-		$("select[name='state_option'] option:selected").each(function(){
+		$("select[name='regular_shipping_state'] option:selected").each(function(){
 				var id = $(this).closest("th").parent().children().first().next().text();
 				var state_option = $(this).val();
 				if(state_option != "--선택--"){
@@ -145,25 +77,10 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-	<div class="card shadow mb-3" style="width:100%;">
+	<div class="card shadow mb-3" style="width:80%;">
 		<div class="card-header py-3">
 			<h4 class="m-1 font-weight-bold text-dark d-inline">주문정보/배송상태변경</h4>
 		<div class="search_box float-right">
-		    <form id="searchForm">
-		        <div class="sch_group fl">
-		            <select id="searchOption" name="option" title="검색 유형 선택">
-		                <option value="order_id">주문번호</option>
-		                <option value="order_state">주문상태</option>
-		                <option value="shippingfee">배송비</option>
-		                <option value="payment_method">결제방법</option>
-		                <option value="order_state">주문상태</option>
-		                <option value="receiver">받는사람 이름</option>
-		                <option value="receiver_tel">받는사람 연락처</option>
-		            </select>
-		            <input type="text" name="searchVal" id="keyword" placeholder="검색어를 입력하세요." title="키워드 입력"  autocomplete="off" />
-		            <button type="button" id="submit" class="bt_search" onclick="return formSubmit()"><i class="fas fa-search"></i><span class="skip_info">검색</span></button>
-		        </div>
-		    </form>
 		</div>
 		</div>
 		<div class="card-body">
@@ -171,44 +88,31 @@ $(document).ready(function(){
 				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 					<thead>
 						<tr>
-							<th></th>
-							<th>주문번호</th>
-							<th>회원번호</th>
-							<th>총가격</th>
-							<th>배송비</th>
-							<th>총결제금액</th>
-							<th>결제방법</th>
-							<th>결제일</th>
-							<th>주문상태</th>
-							<th>주문상태변경</th>
-							<th>받는사람</th>
-							<th>연락처</th>
-							<th>요청사항</th>
+							<th style="width:5%"></th>
+							<th style="width:10%">배송일정고유번호</th>
+							<th style="width:10%">정기배송고유번호</th>
+							<th style="width:13%">정기배송날짜</th>
+							<th style="width:10%">배송상태</th>
+							<th style="width:10%">배송상태변경</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="orderlist:${orderlist}">
+						<tr th:each="regularorderschedule:${regularorderschedule}">
 							<th><input type="checkbox" name="checkbox"></input></th>
-							<th th:text="${orderlist.order_id}"></th>
-							<th th:text="${orderlist.member_index}"></th>
-							<th th:text="${orderlist.product_totalprice}"></th>
-							<th th:text="${orderlist.shippingfee}"></th>
-							<th th:text="${orderlist.order_totalpayment}"></th>
-							<th th:text="${orderlist.payment_method}"></th>
-							<th th:text="${orderlist.order_date}"></th>
-							<th th:text="${orderlist.order_state}"></th>
+							<th th:text="${regularorderschedule.regular_orderschedule_id}"></th>
+							<th th:text="${regularorderschedule.regular_orderdetail_id}"></th>
+							<th th:text="${regularorderschedule.regular_shippingdate}"></th>
+							<th th:text="${regularorderschedule.regular_shipping_state}"></th>
 							<th>
-							<select id="searchOption" name="state_option" title="검색 유형 선택">
+							<select id="searchOption" name="regular_shipping_state" title="검색 유형 선택">
 							  <option value="--선택--">--선택--</option>
-		              		  <option value="배송준비">배송준비</option>
+		              		  <option value="배송전">배송전</option>
+		              		  <option value="배송준비중">배송준비중</option>
 		               		  <option value="배송중">배송중</option>
 		               		  <option value="배송완료">배송완료</option>
 		               		  <option value="주문취소">주문취소</option>
 		           			</select>
 		           			</th>
-							<th th:text="${orderlist.receiver}"></th>
-							<th th:text="${orderlist.receiver_tel}"></th>
-							<th th:text="${orderlist.delivery_info}"></th>
 						</tr>
 					</tbody>
 					<tfoot>
@@ -220,15 +124,15 @@ $(document).ready(function(){
 			  <th:block th:if="${pageMaker.endPage!=0}">
 				   <th:block th:if="${pageMaker.prev}">
 				    	<li class="page-item previous"><a class="page-link" 
-				    	th:href="@{/orderlist/list(pageNum=${pageMaker.startPage-1},amount=${pageMaker.cri.amount},option=${pageMaker.cri.option},searchVal=${pageMaker.cri.searchVal})}">이전</a></li>
+				    	th:href="@{/regularorderschedule/list(pageNum=${pageMaker.startPage-1},amount=${pageMaker.cri.amount},option=${pageMaker.cri.option},searchVal=${pageMaker.cri.searchVal})}">이전</a></li>
 				   </th:block>	
 				   <th:block th:each="num : ${#numbers.sequence(pageMaker.startPage	,pageMaker.endPage)}">
 				    	<li class="page-item"><a class="page-link num" 
-				    	th:href="@{/orderlist/list(pageNum=${num},amount=${pageMaker.cri.amount},option=${pageMaker.cri.option},searchVal=${pageMaker.cri.searchVal})}" th:text="${num}"></a></li>
+				    	th:href="@{/regularorderschedule/list(pageNum=${num},amount=${pageMaker.cri.amount},option=${pageMaker.cri.option},searchVal=${pageMaker.cri.searchVal})}" th:text="${num}"></a></li>
 				   </th:block>
 			   	   <th:block th:if="${pageMaker.next}">
 				  		<li class="page-item next"><a class="page-link" 
-				   		th:href="@{/orderlist/list(pageNum=${pageMaker.endPage+1},amount=${pageMaker.cri.amount},option=${pageMaker.cri.option},searchVal=${pageMaker.cri.searchVal})}">다음</a></li>
+				   		th:href="@{/regularorderschedule/list(pageNum=${pageMaker.endPage+1},amount=${pageMaker.cri.amount},option=${pageMaker.cri.option},searchVal=${pageMaker.cri.searchVal})}">다음</a></li>
 			   		</th:block>
 			  </th:block>
 			  </ul>
@@ -237,7 +141,7 @@ $(document).ready(function(){
 			<div class="d-grid gap-3 d-md-flex justify-content-md-end">
 				<button type="button" id="selectall" class="btn btn-secondary btn-sm ml-3">전체선택</button>
 				<button type="button" id="cancelall" class="btn btn-secondary btn-sm ml-3 mr-auto">전체해제</button>
-				<button type="button" id="changes_save" class="btn btn-success btn-sm mr-3">주문/배송 변경사항 저장</button>
+				<button type="button" id="changes_save" class="btn btn-success btn-sm mr-3">배송 변경사항 저장</button>
 			</div>
 			<div class="d-grid gap-3 d-md-flex justify-content-md-end mt-3">
 				<button type="button" id="delete" class="btn btn-danger btn-sm mr-3">삭제</button>

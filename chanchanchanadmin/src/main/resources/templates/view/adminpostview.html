@@ -5,10 +5,10 @@
 <script>
 function checked_delete(chk){
 	$.ajax({
-		url:'[[@{/adminpost/delete}]]',
+		url:'[[@{/admin/delete}]]',
 		data:{"del":chk},
 		success:function(){
-			location.href="/adminpost/list";
+			location.href="/admin/list";
 		},
 		error:function(){
 			alert('데이터 삭제실패');
@@ -18,7 +18,6 @@ function checked_delete(chk){
 };
 
 $(document).ready(function(){
-	
 	$('#delete').click(function(){
 		var result = confirm("선택한 글을 정말 삭제처리하시겠습니까?");
 		if(result){
@@ -57,11 +56,15 @@ $(document).ready(function(){
 							<td th:text="${adminpostView.post_type}"></td>
 						</tr>
 						<tr>
+							<th>작성일</th>
+							<td th:text="${adminpostView.register_date}"></td>
+						</tr>
+						<tr>
 							<th>글제목</th>
 							<td th:text="${adminpostView.post_subject}"></td>
 						</tr>
 						<tr>
-							<th>글내용</th>
+							<th style="height:300px;">글내용</th>
 							<td th:text="${adminpostView.post_content}"></td>
 						</tr>
 						<tr>
@@ -71,10 +74,6 @@ $(document).ready(function(){
 						<tr>
 							<th>첨부파일2</th>
 							<td th:text="${adminpostView.post_attach2}"></td>
-						</tr>
-						<tr>
-							<th>작성일</th>
-							<td th:text="${adminpostView.register_date}"></td>
 						</tr>
 						</tbody>
 					</table>
