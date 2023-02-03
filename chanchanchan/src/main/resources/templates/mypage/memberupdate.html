@@ -1,16 +1,131 @@
 <script>
 $(document).ready(function(){
-	$('#update_form' > a)
+	$('#member_id').keyup(function() {
+		var member_id = $(this).val();
+		$.ajax({
+			url: '[[@{/checkid}]]',
+			data: {"member_id":member_id},
+			success: function(data){
+				if(data == 0){
+					$('#id_span').text("이미 사용중인 아이디입니다.");
+				}else{
+					$('#id_span').text("사용 가능한 아이디입니다.");
+				}
+			}
+		});
+	});
+
+	$('#member_pw').keyup(function() {
+		var member_pw = $('#member_pw').val();
+		if(member_pw == '' || member_pw.length < 4){
+			$('#pwd_span').text("비밀번호는 4자리 이상으로 입력해주세요.");
+		}else{
+			$('#pwd_span').text("사용가능한 비밀번호 입니다.");
+		}
+	});
+	
+	$('#member_pw2').keyup(function() {
+		var member_pw = $('#member_pw').val();
+		var member_pw2 = $('#member_pw2').val();
+		if(member_pw == member_pw2){
+			$('#pwd_span2').text("비밀번호가 일치합니다.");
+		}else{
+			$('#pwd_span2').text("비밀번호가 일치하지 않습니다.");
+		}
+	});
+	
 });
+function formCheck(){
+	if(document.getElementById("member_pw").value == ""){
+		alert("비밀번호를 입력하세요.");
+		return false;
+	}
+	if(document.getElementById("member_pw2").value == ""){
+		alert("비밀번호를 입력하세요.");
+		return false;
+	}
+	if(document.getElementById("member_name").value == ""){
+		alert("이름을 입력하세요.");
+		return false;
+	}
+	if(document.getElementById("member_tel").value == ""){
+		alert("전화번호를 입력하세요.");
+		return false;
+	}
+	alert("글 수정이 완료되었습니다.");
+	return true;
+}
 </script>
-<form id="update_form">
-	ID<input id="member_id" type="text" name="member_id"><span
-		id="id_span"></span><br> PWD1<input id="member_pw"
-		type="password" name="member_pw"><span id="pwd_span"></span><br>
-	PWD2<input id="member_pw2" type="password" name="member_pw2"><span
-		id="pwd_span2"></span><br> NAME<input id="member_name"
-		type="text" name="member_name"><br> 폰번호<input
-		id="member_tel" type="text" name="member_tel"><br> 이메일<input
-		id="member_email" type="text" name="member_email"><br>
-	<button id="registerbtn" class="btn btn-primary" type="button">REGISTER</button>
-</form>
+
+
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-lg-8 col-xl-6">
+        <div class="card rounded-3">
+          <div class="card-body p-4 p-md-5">
+            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">회원가입</h3>
+
+            <form id="update_form" th:action="@{/memberupdateok}" method="post" onsubmit="return formCheck()">
+
+              <div class="form-outline mb-4">
+                아이디<input type="text" id="member_id" name="member_id" class="form-control" th:value="${member.member_id}" readonly>
+                <span id="id_span"></span>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-4">
+
+                  <div class="form-outline">
+                    비밀번호<input type="password" id="member_pw" name="member_pw" class="form-control">
+                    <span id="pwd_span"></span>
+                  </div>
+
+                </div>
+                
+                <div class="col-md-6 mb-4">
+
+                  <div class="form-outline">
+                    비밀번호 확인<input type="password" id="member_pw2" name="member_pw2" class="form-control">
+                    <span id="pwd_span2"></span>
+                  </div>
+
+                </div>              
+              </div>
+              
+             <div class="form-outline mb-4">
+                이름<input type="text" id="member_name" name="member_name" class="form-control">
+                <span id="name_span"></span>
+             </div> 
+             <div class="form-outline mb-4">
+                핸드폰 번호<input type="text" id="member_tel" name="member_tel" class="form-control">
+                <span id="tel_span"></span>
+             </div> 
+             
+             <div class="row">
+                <div class="col-md-6 mb-4">
+
+                  <div class="form-outline">
+                    이메일<input type="text" id="member_email" name="member_email" class="form-control" th:value="${member.member_email}" readonly>                  
+                  </div>
+
+                </div>
+                
+                <div class="col-md-6 mb-4">
+
+                  <div class="form-outline">
+                    <span id="email_span"></span>                  
+                  </div>
+
+                </div>                      
+              </div>              
+
+              
+              <button id="updatebtn" class="btn btn-dark " type="submit">수정</button>
+
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
