@@ -54,4 +54,8 @@ public class ProductService implements MyService<Integer, Product>{
 	public int changeSale(int id, int salerate) throws Exception{
 		return productmapper.changeSale(id,salerate);
 	}
+	
+	public String getName(int id) throws Exception{
+		return productmapper.getName(id);
+	}
 }

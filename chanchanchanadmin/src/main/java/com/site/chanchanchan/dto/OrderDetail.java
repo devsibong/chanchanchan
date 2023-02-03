@@ -2,12 +2,10 @@ package com.site.chanchanchan.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 @AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
 @ToString
@@ -17,5 +15,17 @@ public class OrderDetail {
 	private int order_id;
 	private int orderdetail_count;
 	private int orderdetail_price;
+	
+	private int limit;
+	private int sum;
+	private String product_name;
+	
+	public OrderDetail(){
+		this.limit=10;
+	}
+	
+	public OrderDetail(int limit){
+		this.limit=limit;
+	}
 
 }

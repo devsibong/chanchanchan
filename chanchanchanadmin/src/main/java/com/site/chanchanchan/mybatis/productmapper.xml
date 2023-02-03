@@ -31,6 +31,12 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
  		WHERE ${option} LIKE '%${searchVal}%'
 		</if>
 	</select>
+	
+	<select id="getName" parameterType="Integer" resultType="String">
+		SELECT product_name FROM product
+ 		WHERE product_id= ${id}
+	</select>
+	
 	<select id="getListByPaging" parameterType="Criteria" resultType="Product">
 		SELECT * FROM 
 		<choose> 

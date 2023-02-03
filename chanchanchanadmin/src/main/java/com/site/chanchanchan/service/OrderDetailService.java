@@ -6,23 +6,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.site.chanchanchan.dto.Criteria;
-import com.site.chanchanchan.dto.OrderList;
+import com.site.chanchanchan.dto.OrderDetail;
 import com.site.chanchanchan.frame.MyService;
-import com.site.chanchanchan.mapper.OrderListMapper;
+import com.site.chanchanchan.mapper.OrderDetailMapper;
 
 @Service
-public class OrderDetailService implements MyService<Integer, OrderList>{
+public class OrderDetailService implements MyService<Integer, OrderDetail>{
 
 	@Autowired
-	OrderListMapper olmapper;
+	OrderDetailMapper olmapper;
 	
 	@Override
-	public void register(OrderList v) throws Exception {
+	public void register(OrderDetail v) throws Exception {
 		olmapper.insert(v);
 	}
 
 	@Override
-	public void modify(OrderList v) throws Exception {
+	public void modify(OrderDetail v) throws Exception {
 		olmapper.update(v);
 	}
 
@@ -32,17 +32,17 @@ public class OrderDetailService implements MyService<Integer, OrderList>{
 	}
 
 	@Override
-	public OrderList get(Integer k) throws Exception {
+	public OrderDetail get(Integer k) throws Exception {
 		return olmapper.select(k);
 	}
 
 	@Override
-	public List<OrderList> getall() throws Exception {
+	public List<OrderDetail> getall() throws Exception {
 		return olmapper.selectall();
 	}
 	
 	//Paging
-	public List<OrderList> getListByPaging(Criteria cri) throws Exception{
+	public List<OrderDetail> getListByPaging(Criteria cri) throws Exception{
 		return olmapper.getListByPaging(cri);
 	};
 	
@@ -50,14 +50,10 @@ public class OrderDetailService implements MyService<Integer, OrderList>{
 	public int getTotal(Criteria cri) throws Exception{
 		return olmapper.getTotal(cri);
 	}
-	
-	//배송상태변경
-	public void changeState(OrderList ol) throws Exception{
-		 olmapper.changeState(ol);
-	}
+
 	
 	//월별매출액
-	public int monthsales(Integer month) throws Exception{
-		return olmapper.monthsales(month);
+	public List<OrderDetail> bestProduct(OrderDetail od) throws Exception{
+		return olmapper.bestProduct(od);
 	}
 }
