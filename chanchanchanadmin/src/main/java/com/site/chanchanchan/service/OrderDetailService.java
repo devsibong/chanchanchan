@@ -11,7 +11,7 @@ import com.site.chanchanchan.frame.MyService;
 import com.site.chanchanchan.mapper.OrderListMapper;
 
 @Service
-public class OrderListService implements MyService<Integer, OrderList>{
+public class OrderDetailService implements MyService<Integer, OrderList>{
 
 	@Autowired
 	OrderListMapper olmapper;

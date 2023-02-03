@@ -4,14 +4,20 @@ import java.util.Random;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.site.chanchanchan.service.OrderListService;
+
 @RequestMapping("/chart")
 @Controller
 public class ChartController {	
+	
+	@Autowired
+	OrderListService olservice;
 	
 	String dir ="chart/";
 
@@ -32,28 +38,27 @@ public class ChartController {
 		
 		JSONArray ja1 = new JSONArray();
 		JSONArray ja2 = new JSONArray();
-		JSONArray ja3 = new JSONArray();
 		
 		for(int i = sm; i <= em;i++) {
+			int a=0;
 			ja1.add(i);
 			Random r = new Random();
-			int num1 = r.nextInt(100)+1;
-			int num2 = r.nextInt(100)+1;
-			ja2.add(num1);
-			ja3.add(num2);
+			try {
+				a= olservice.monthsales(i);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				//e.printStackTrace();
+			}
+			ja2.add(Math.round(a/10000));
 		}
 		
 		jo.put("m", ja1);
 		
 		JSONArray ja = new JSONArray();
 		JSONObject jo1 = new JSONObject();
-		jo1.put("name", "Female");
+		jo1.put("name", "매출액");
 		jo1.put("data", ja2);
 		ja.add(jo1);
-		JSONObject jo2 = new JSONObject();
-		jo2.put("name", "Male");
-		jo2.put("data", ja3);
-		ja.add(jo2);
 		
 		jo.put("data", ja);
 		

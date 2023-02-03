@@ -163,4 +163,9 @@ public class ProductController {
 		}
 		return "popup/productmodifyok";
 	}
+	
+	@RequestMapping("/info")
+	public String info() {
+		return "chart/bestproduct";
+	}
 }
