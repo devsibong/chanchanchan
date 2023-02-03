@@ -1,0 +1,19 @@
+<section class="h-100">
+	<div class="container g-0 py-5 h-100">
+		<div class="row d-flex justify-content-center h-100">
+			<div class="col-8 p-3">
+				<div class="p-5 text-center fs-5 text-dark">주문이 완료되었습니다. 감사합니다.</div>
+				<div class="row justify-content-end m-0 mt-3">
+					<button class="col-2 btn btn-outline-primary me-2"
+						th:onclick="|location.href='@{/mypage}'|">마이 페이지</button>
+					<button class="col-2 btn btn-primary" id="payment"
+						th:onclick="|location.href='@{/}'|">메인으로</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<script type="text/javascript" src="js/order.js"></script>
+<script
+	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>

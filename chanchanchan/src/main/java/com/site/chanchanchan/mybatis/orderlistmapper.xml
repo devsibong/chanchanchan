@@ -10,4 +10,9 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<delete id="delete" parameterType="Integer">
 		DELETE FROM order_list WHERE order_id=#{order_id}
 	</delete>
+	<insert id="insert" parameterType="OrderList" useGeneratedKeys="true" keyProperty="order_id">
+		INSERT INTO order_list VALUES
+		(order_id,#{member_index},#{product_totalprice},#{shippingfee}
+		,#{order_totalpayment},#{payment_method},NOW(),#{order_state},#{receiver},#{receiver_tel},#{delivery_info})
+	</insert>
 </mapper>
