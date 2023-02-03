@@ -33,7 +33,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		</if>
 	</select>
 		<select id="bestProduct" parameterType="OrderDetail" resultType="OrderDetail">
-		SELECT product_id, SUM(orderdetail_price*orderdetail_count) AS sum FROM order_detail GROUP BY product_id ORDER BY sum DESC LIMIT ${limit};
+		SELECT product_id, SUM(orderdetail_price*orderdetail_count) AS sum, SUM(orderdetail_count) AS amount FROM order_detail GROUP BY product_id ORDER BY sum DESC LIMIT ${limit};
 	</select>
 	<select id="getListByPaging" parameterType="Criteria" resultType="OrderDetail">
 		SELECT * FROM 

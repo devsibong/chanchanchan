@@ -18,10 +18,12 @@ public class OrderDetail {
 	
 	private int limit;
 	private int sum;
+	private int amount;
 	private String product_name;
+	private int rank;
 	
 	public OrderDetail(){
-		this.limit=10;
+		this.limit=5;
 	}
 	
 	public OrderDetail(int limit){

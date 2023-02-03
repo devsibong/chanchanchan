@@ -17,8 +17,8 @@ public class MainController {
 	AdminService admservice;
 	
 	@RequestMapping("/main")
-	public String main() {
-		return "main";
+	public String main(Model model) {
+		return "redirect:/product/info";
 	}
 	
 	@RequestMapping("/login")
