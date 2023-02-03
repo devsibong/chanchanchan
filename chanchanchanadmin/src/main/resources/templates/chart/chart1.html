@@ -1,13 +1,51 @@
 <style>
-#container{
+#container,#container2{
 	width:90%;
 	height:400px;
 	border: 2px solid black; 
 }
 </style>
-<Script>
+<script>
 function display(data){
 	Highcharts.chart('container', {
+	    chart: {
+	        type: 'column'
+	    },
+	    title: {
+	        text: '월별 매출액'
+	    },
+	    subtitle: {
+	    },
+	    xAxis: {
+	        categories: data.m,
+	        crosshair: true
+	    },
+	    yAxis: {
+	        min: 0,
+	        title: {
+	            text: '단위: 만원'
+	        }
+	    },
+	    tooltip: {
+	        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+	        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+	            '<td style="padding:0"><b>{point.y:.0f} 만원</b></td></tr>',
+	        footerFormat: '</table>',
+	        shared: true,
+	        useHTML: true
+	    },
+	    plotOptions: {
+	        column: {
+	            pointPadding: 0.2,
+	            borderWidth: 0
+	        }
+	    },
+	    series: data.data
+	});
+};
+
+function display2(data){
+	Highcharts.chart('container2', {
 	    chart: {
 	        type: 'column'
 	    },
@@ -53,6 +91,15 @@ function getdata(sm,em){
 		}
 	});
 };
+function getdata2(sm2,em2,id){
+	$.ajax({
+		url:'[[@{/chart/chart2}]]',
+		data:{'sm2':sm2, 'em2':em2,'id':id},
+		success:function(data){
+			display2(data);
+		}
+	});
+};
 
 
 $(document).ready(function(){
@@ -66,9 +113,24 @@ $(document).ready(function(){
 		//alert(sm +' '+em);
 		getdata(sm, em);
 	});
+	$('#btn2').click(function(){
+		var sm2 = $('#sm2').val();
+		var em2 = $('#em2').val();
+		var id = $('#product_id option:selected').val();
+		var name = $('#product_id option:selected').text();
+		$("#chartname2").text(name+' - 월별&상품별 매출액');
+		if(sm2 > em2){
+			alert('다시 입력 하세요');
+			return;
+		}
+		//alert(sm +' '+em);
+		getdata2(sm2, em2, id);
+	});
 });
-</Script>
-<h4 class="m-1 mb-3 font-weight-bold text-dark">월별 매출액</h4>
+</script>
+<div style="height:600px;">
+<div style="width:45%;display:inline-block;float:left;">
+<h4 class="m-1 font-weight-bold text-dark">월별 매출액</h4>
 <div class="mb-3">
 시작 월<select id="sm">
 	<option value="1">1</option>
@@ -101,6 +163,49 @@ $(document).ready(function(){
 <button id="btn">통계 확인</button>
 </div>
 <div id="container"></div>
+</div>
+<div style="width:45%;display:inline-block;">
+<h4 id="chartname2" class="m-1 font-weight-bold text-dark">월별&상품별 매출액</h4>
+<div class="mb-3">
+시작 월<select id="sm2">
+	<option value="1">1</option>
+	<option value="2">2</option>
+	<option value="3">3</option>
+	<option value="4">4</option>
+	<option value="5">5</option>
+	<option value="6">6</option>
+	<option value="7">7</option>
+	<option value="8">8</option>
+	<option value="9">9</option>
+	<option value="10">10</option>
+	<option value="11">11</option>
+	<option value="12">12</option>	
+</select> 
+~ 마지막 월<select id="em2">
+	<option value="1">1</option>
+	<option value="2">2</option>
+	<option value="3">3</option>
+	<option value="4">4</option>
+	<option value="5">5</option>
+	<option value="6">6</option>
+	<option value="7">7</option>
+	<option value="8">8</option>
+	<option value="9">9</option>
+	<option value="10">10</option>
+	<option value="11">11</option>
+	<option value="12">12</option>
+</select>
+&nbsp;&nbsp;상품명
+<select name="product_id" id="product_id">
+	<option th:each="product:${product}" th:value="${product.product_id}"
+	th:text="${product.product_name}"></option>
+</select>
+<button id="btn2">통계 확인</button>
+</div>
+<div id="container2"></div>
+</div>
+</div>	
+
 
 
 

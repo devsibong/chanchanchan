@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.site.chanchanchan.dto.Criteria;
+import com.site.chanchanchan.dto.OrderDetail;
 import com.site.chanchanchan.dto.OrderList;
 import com.site.chanchanchan.frame.MyService;
 import com.site.chanchanchan.mapper.OrderListMapper;
@@ -59,5 +60,10 @@ public class OrderListService implements MyService<Integer, OrderList>{
 	//월별매출액
 	public int monthsales(Integer month) throws Exception{
 		return olmapper.monthsales(month);
+	}
+
+	//월별매출액
+	public int productmonthsales(Integer month,Integer id) throws Exception{
+		return olmapper.productmonthsales(month,id);
 	}
 }
