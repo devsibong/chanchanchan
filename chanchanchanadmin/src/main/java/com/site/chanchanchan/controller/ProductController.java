@@ -172,16 +172,25 @@ public class ProductController {
 	@RequestMapping("/info")
 	public String info(Model model,@RequestParam(value="limit",defaultValue="5") Integer limit) {
 		List<OrderDetail> ods= null;
+		List<OrderDetail> ods2= null;
 		try {
 			ods= odservice.bestProduct(new OrderDetail(limit));
+			ods2= odservice.worstProduct(new OrderDetail(limit));
 			int rank=1;
 		for(OrderDetail od :ods) {
 			int product_id=0;
 			product_id=od.getProduct_id();
-			System.out.println(product_id);
 			String name=productservice.getName(product_id);
 			od.setProduct_name(name);
 			od.setRank(rank++);
+		}
+			int rank2=1;
+		for(OrderDetail od :ods2) {
+			int product_id=0;
+			product_id=od.getProduct_id();
+			String name=productservice.getName(product_id);
+			od.setProduct_name(name);
+			od.setRank(rank2++);
 		}
 		
 		} catch (Exception e) {
@@ -189,8 +198,9 @@ public class ProductController {
 			e.printStackTrace();
 		}
 		model.addAttribute("bestproduct",ods);
+		model.addAttribute("worstproduct",ods2);
 		model.addAttribute("center","chart/bestproduct");
-		model.addAttribute("center2","chart/chart1");
+		model.addAttribute("center2","chart/worstproduct");
 		
 		return "main";
 	}

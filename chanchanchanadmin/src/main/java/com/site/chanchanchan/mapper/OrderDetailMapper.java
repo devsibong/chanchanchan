@@ -15,5 +15,6 @@ public interface OrderDetailMapper extends MyMapper<Integer, OrderDetail>{
 	public List<OrderDetail> getListByPaging(Criteria cri) throws Exception;
 	public int getTotal(Criteria cri) throws Exception;
 	public List<OrderDetail> bestProduct(OrderDetail od) throws Exception;
+	public List<OrderDetail> worstProduct(OrderDetail od) throws Exception;
 
 }

@@ -52,8 +52,12 @@ public class OrderDetailService implements MyService<Integer, OrderDetail>{
 	}
 
 	
-	//월별매출액
+	//월별매출액순 베스트
 	public List<OrderDetail> bestProduct(OrderDetail od) throws Exception{
 		return olmapper.bestProduct(od);
+	}
+	//월별매출액순 워스트
+	public List<OrderDetail> worstProduct(OrderDetail od) throws Exception{
+		return olmapper.worstProduct(od);
 	}
 }

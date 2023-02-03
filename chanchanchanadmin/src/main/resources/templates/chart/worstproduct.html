@@ -26,12 +26,12 @@ function formSubmit(){
 <body>
 	<div class="card shadow mb-3" style="width:85%;">
 		<div class="card-header py-3">
-			<h4 class="m-1 font-weight-bold text-dark d-inline">인기상품</h4>
+			<h4 class="m-1 font-weight-bold text-dark d-inline">비인기상품</h4>
 		<div class="search_box float-right">
 		    <form id="searchForm">
 		        <div class="sch_group fl">
 		            <select id="limit" name="limit">
-    	                <option value="5">5개</option>
+		                <option value="5">5개</option>
 		                <option value="10">10개</option>
 		                <option value="20">20개</option>
 		                <option value="30">30개</option>
@@ -54,11 +54,11 @@ function formSubmit(){
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="bestproduct:${bestproduct}">
-							<th th:text="${bestproduct.rank}+위">
-							<th th:text="${bestproduct.product_name}"></th>
-							<th th:text="${bestproduct.sum}+원"></th>
-							<th th:text="${bestproduct.amount}+개"></th>
+						<tr th:each="worstproduct:${worstproduct}">
+							<th th:text="${worstproduct.rank}+위">
+							<th th:text="${worstproduct.product_name}"></th>
+							<th th:text="${worstproduct.sum}+원"></th>
+							<th th:text="${worstproduct.amount}+개"></th>
 						</tr>
 					</tbody>
 					<tfoot>
