@@ -1,7 +1,5 @@
 package com.site.chanchanchan.dto;
 
-import java.util.Date;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,6 +18,7 @@ public class Post {
 	private String post_content;
 	private String post_attach1;
 	private String post_attach2;
-	private Date register_date;
+	private String register_date;
+	private char answer_existence;
 
 }

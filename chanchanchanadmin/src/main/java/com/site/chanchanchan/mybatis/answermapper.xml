@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.site.chanchanchan.mapper.AnswerMapper">
+	<select id="select" parameterType="Integer" resultType="Answer">
+		SELECT * FROM answer WHERE answer_id=#{answer_id}
+	</select>
+	<select id="selectall" resultType="Answer">
+		SELECT * FROM answer
+	</select>
+	<insert id="insert" parameterType="Answer">
+		INSERT INTO answer VALUES (answer_id,#{post_id},#{admin_no},#{answer_content},NOW())
+	</insert>
+	<update id="update" parameterType="Answer">
+		UPDATE answer SET post_id=#{post_id},
+		admin_no=#{admin_no},answer_content=#{answer_content},register_date=#{register_date} 
+		WHERE answer_id=#{answer_id}
+	</update>
+	<delete id="delete" parameterType="Integer">
+		DELETE FROM answer WHERE answer_id=#{answer_id}
+	</delete>
+	<select id="getTotal" parameterType="Criteria" resultType="Integer">
+		SELECT COUNT(*) FROM answer
+		<if test='!isSearchOk'>
+ 		WHERE ${option} LIKE '%${searchVal}%'
+		</if>
+	</select>
+	<select id="getListByPaging" parameterType="Criteria" resultType="Answer">
+		SELECT * FROM 
+		<choose> 
+			<when test="isSearchOk">answer</when>
+			<otherwise>
+			(SELECT * FROM answer 
+			WHERE ${option} LIKE '%${searchVal}%')search_answer 
+			</otherwise>
+		</choose>
+			ORDER BY answer_id DESC LIMIT #{pageStartNum},#{amount}
+	</select>
+</mapper>

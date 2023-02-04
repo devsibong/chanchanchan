@@ -55,7 +55,6 @@ public class PostController {
 		try {
 			posts= postservice.getListByPaging(cri);
 			total = postservice.getTotal(cri);
-			
 		} catch (Exception e) {
 		}
 		
