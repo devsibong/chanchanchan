@@ -38,8 +38,7 @@
 												th:text="${cart.product_count}" /> <span>개</span>
 										</div>
 										<div class="col-7 text-dark text-end">
-											<span class="mb-0" id="product_sumprice"
-												th:text="${#numbers.formatInteger(cart.product.product_price * cart.product_count, 3, 'COMMA')}" />
+											<span class="mb-0" id="product_sumprice" name="product_sumprice" th:text="${#numbers.formatInteger(cart.product.product_price * cart.product_count, 3, 'COMMA')}" />
 											<span>원</span>
 										</div>
 

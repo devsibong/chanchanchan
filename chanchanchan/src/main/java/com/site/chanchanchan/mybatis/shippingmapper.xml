@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.site.chanchanchan.mapper.ShippingMapper">
+	<select id="select" parameterType="String">
+		SELECT *
+		FROM shipping WHERE shipping_id = #{shipping_id}
+	</select>
+	<select id="selectall">
+		SELECT * FROM shipping
+	</select>
+	<insert id="insert" parameterType="Shipping" useGeneratedKeys="true" keyProperty="shipping_id">
+		INSERT INTO shipping VALUES
+		(shipping_id,#{member_index},#{shipping_title},#{shipping_address},#{shipping_address_detail},#{shipping_zipcode},#{shipping_recent})
+	</insert>
+	<update id="update" parameterType="Shipping">
+		UPDATE shipping SET
+		#{shipping_id},#{member_index},#{shipping_title},#{shipping_address},#{shipping_address_detail},#{shipping_zipcode},#{shipping_recent}
+		WHERE shipping_id
+		= #{shipping_id}
+	</update>
+	<delete id="delete" parameterType="String">
+		DELETE FROM shipping WHERE shipping_id = #{shipping_id}
+	</delete>	
+</mapper>
+
+
+
+

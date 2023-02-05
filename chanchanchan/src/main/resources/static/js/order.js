@@ -6,7 +6,7 @@ $(document).ready(function() {
 //총 상품금액 합계
 function totalPrice() {
 	let totalPrice = 0;
-	$("#product_sumprice").each(function() {
+	$("span[name=product_sumprice]").each(function() {
 		var value = priceNumFormatter($(this).text());
 		totalPrice += parseInt(value);
 	});
@@ -72,14 +72,28 @@ $("select#delivery_info_select").on("change", function() {
 	};
 });
 
+//카카오페이
+$("#payment").on("click", function(){
+	$.ajax({
+		url: "/payment/ready",
+		type: "POST",
+		data: 
+		{
+			"member_index": "100"
+		}
+	})
+		.done(function(data) {
+			window.name="temp";
+			var popup = window.open(data.next_redirect_pc_url,"카카오페이", "width=400, height=700, scrollbars=yes, resizable=no");
+			popup.focus();
+			order();
+		})
+		.fail(function() {
+		});
+});
 
 
-
-
-
-
-// 결제하기 버튼
-$("#payment").on("click", function() {
+function order() {
 	let member_index = $("#member_index").val();
 	let product_totalprice = priceNumFormatter($("#product_sumprice").text());
 	let shippingfee= priceNumFormatter($("#shipping_fee").text());
@@ -115,12 +129,12 @@ $("#payment").on("click", function() {
 		}
 	})
 		.done(function() {
-			location.replace("/ordercomplete")
+//			location.replace("/ordercomplete")
 		})
 		.fail(function() {
 			//alert(request.status+request.responseText+error);
 		});
-});
+};
 
 //daum 주소검색서비스
 var element_layer = document.getElementById('layer');
