@@ -16,7 +16,7 @@ import lombok.ToString;
 public class Answer {
 	private int answer_id;
 	private int post_id;
-	private int admin_no1;
+	private int admin_no;
 	private String answer_content;
 	private Date register_date;
 	
