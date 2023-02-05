@@ -50,7 +50,7 @@ public class ProductController {
 		Product prod = null;
 		try {
 						
-			prod = productservice.get(product_id);
+			prod = productservice.get(product_id);	
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

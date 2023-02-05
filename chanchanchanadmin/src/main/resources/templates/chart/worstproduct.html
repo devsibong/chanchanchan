@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>
+function formSubmit(){
+	var formData={
+		limit:$('select[name=limit]').val()
+	};
+	
+	$.ajax({
+		url:'[[@{/product/info}]]',
+		type:'get',
+		data:formData,
+		success:function(){
+			location.reload();
+		},
+		error:function(){
+			alert('데이터전송 실패');
+			return false;
+		}
+	});
+};
+</script>
+</head>
+<body>
+	<div class="card shadow mb-3" style="width:85%;">
+		<div class="card-header py-3">
+			<h4 class="m-1 font-weight-bold text-dark d-inline">비인기상품</h4>
+		<div class="search_box float-right">
+		    <form id="searchForm">
+		        <div class="sch_group fl">
+		            <select id="limit" name="limit">
+		                <option value="5">5개</option>
+		                <option value="10">10개</option>
+		                <option value="20">20개</option>
+		                <option value="30">30개</option>
+		                <option value="40">40개</option>
+		            </select>
+		            <button type="button" id="submit" class="bt_search ml-2" onclick="return formSubmit()"><span class="skip_info">순위갯수변경</span></button>
+		        </div>
+		    </form>
+		</div>
+		</div>
+		<div class="card-body">
+			<div class="table-responsive">
+				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+					<thead>
+						<tr>
+							<th>상품순위</th>
+							<th>상품이름</th>
+							<th>매출액</th>
+							<th>판매개수</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="worstproduct:${worstproduct}">
+							<th th:text="${worstproduct.rank}+위">
+							<th th:text="${worstproduct.product_name}"></th>
+							<th th:text="${worstproduct.sum}+원"></th>
+							<th th:text="${worstproduct.amount}+개"></th>
+						</tr>
+					</tbody>
+					<tfoot>
+					</tfoot>
+				</table>		
+		</div>
+	</div>
+	</div>
+	</body>
+</html>
