@@ -232,13 +232,31 @@ public class MyPageController {
 	
 	//회원정보 수정
 	@RequestMapping("/memberupdate")
-	public String memberupdate(HttpSession session,Model model) {
+	public String memberupdate(HttpSession session,Model model) throws Exception{
 		Member loginMember = (Member)session.getAttribute("loginmem");
+		
+		if (loginMember == null) {
+			return "redirect:/login";
+		} else {
+		Member member = mservice.get(loginMember.getMember_id());
+		model.addAttribute("member", member);
+		}
 		
 		model.addAttribute("left", "mypageleft");
 		model.addAttribute("center", "/mypage/memberupdate");
 		return "mypage/mypagemain";
+		
 	}
+	
+	//회원정보 수정OK
+		@RequestMapping("/memberupdateok")
+		public String memberupdateok(Model model,Member member) throws Exception {
+			mservice.modify(member);
+			model.addAttribute("left", "mypageleft");
+			model.addAttribute("center", "/mypage/memberupdateok");
+			return "mypage/mypagemain";
+			
+		}
 	
 	@RequestMapping("/coupon")
 	public String coupon(Model model) {

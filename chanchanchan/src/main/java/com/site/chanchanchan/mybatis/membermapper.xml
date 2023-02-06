@@ -7,9 +7,6 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<select id="select" parameterType="String" resultType="Member">
 		SELECT * FROM member WHERE member_id=#{member_id} OR member_email=#{member_email}
 	</select>
-	<select id="selectByIndex" parameterType="String" resultType="Member">
-		SELECT * FROM member WHERE member_index=#{member_index}
-	</select>
 	<select id="selectall" resultType="Member">
 		SELECT * FROM member
 	</select>
@@ -24,5 +21,5 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<delete id="delete" parameterType="String">
 		DELETE FROM member WHERE member_id=#{member_id}
 	</delete>
-
+	
 </mapper>

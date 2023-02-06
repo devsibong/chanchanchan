@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.site.chanchanchan.dto.Criteria;
+import com.site.chanchanchan.dto.OrderDetail;
 import com.site.chanchanchan.dto.Page;
 import com.site.chanchanchan.dto.Product;
+import com.site.chanchanchan.service.OrderDetailService;
 import com.site.chanchanchan.service.ProductService;
 
 @RequestMapping("/product")
@@ -24,6 +26,9 @@ public class ProductController {
 	
 	@Autowired
 	ProductService productservice;
+	
+	@Autowired
+	OrderDetailService odservice;
 	
 	String dir ="list/";
 	
@@ -162,5 +167,41 @@ public class ProductController {
 			return "popup/productmodifyfail";
 		}
 		return "popup/productmodifyok";
+	}
+	
+	@RequestMapping("/info")
+	public String info(Model model,@RequestParam(value="limit",defaultValue="5") Integer limit) {
+		List<OrderDetail> ods= null;
+		List<OrderDetail> ods2= null;
+		try {
+			ods= odservice.bestProduct(new OrderDetail(limit));
+			ods2= odservice.worstProduct(new OrderDetail(limit));
+			int rank=1;
+		for(OrderDetail od :ods) {
+			int product_id=0;
+			product_id=od.getProduct_id();
+			String name=productservice.getName(product_id);
+			od.setProduct_name(name);
+			od.setRank(rank++);
+		}
+			int rank2=1;
+		for(OrderDetail od :ods2) {
+			int product_id=0;
+			product_id=od.getProduct_id();
+			String name=productservice.getName(product_id);
+			od.setProduct_name(name);
+			od.setRank(rank2++);
+		}
+		
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		model.addAttribute("bestproduct",ods);
+		model.addAttribute("worstproduct",ods2);
+		model.addAttribute("center","chart/bestproduct");
+		model.addAttribute("center2","chart/worstproduct");
+		
+		return "main";
 	}
 }

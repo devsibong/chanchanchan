@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.site.chanchanchan.mapper.OrderDetailMapper">
+	<select id="select" parameterType="Integer" resultType="OrderDetail">
+		SELECT * FROM order_detail WHERE orderdetail_id=#{orderdetail_id}
+	</select>
+	<select id="selectall" resultType="OrderDetail">
+		SELECT * FROM order_detail
+	</select>
+	<insert id="insert" parameterType="OrderDetail">
+		INSERT INTO order_detail VALUES (orderdetail_id,#{member_index},#{product_totalprice},#{shippingfee},#{order_totalpayment},
+		#{payment_method},NOW(),#{order_state},#{receiver},#{receiver_tel},#{delivery_info})
+	</insert>
+	<update id="update" parameterType="OrderDetail">
+		UPDATE order_detail SET member_index=#{member_index},product_totalprice=#{product_totalprice},shippingfee=#{shippingfee},
+		order_totalpayment=#{order_totalpayment},payment_method=#{payment_method},order_date=#{order_date},order_state=#{order_state},
+		receiver=#{receiver},receiver_tel=#{receiver_tel},delivery_info=#{delivery_info} 
+		WHERE orderdetail_id=#{orderdetail_id}
+	</update>
+	<update id="changeState" parameterType="OrderDetail">
+		UPDATE order_detail SET order_state=#{order_state}
+		WHERE orderdetail_id=#{orderdetail_id}
+	</update>
+	<delete id="delete" parameterType="Integer">
+		DELETE FROM order_detail WHERE orderdetail_id=#{orderdetail_id}
+	</delete>
+	<select id="getTotal" parameterType="Criteria" resultType="Integer">
+		SELECT COUNT(*) FROM order_detail
+		<if test='!isSearchOk'>
+ 		WHERE ${option} LIKE '%${searchVal}%'
+		</if>
+	</select>
+	<select id="bestProduct" parameterType="OrderDetail" resultType="OrderDetail">
+		SELECT product_id, SUM(orderdetail_price*orderdetail_count) AS sum, SUM(orderdetail_count) AS amount FROM order_detail GROUP BY product_id ORDER BY sum DESC LIMIT ${limit};
+	</select>
+	<select id="worstProduct" parameterType="OrderDetail" resultType="OrderDetail">
+		SELECT product_id, SUM(orderdetail_price*orderdetail_count) AS sum, SUM(orderdetail_count) AS amount FROM order_detail GROUP BY product_id ORDER BY sum ASC LIMIT ${limit};
+	</select>
+	<select id="getListByPaging" parameterType="Criteria" resultType="OrderDetail">
+		SELECT * FROM 
+		<choose> 
+			<when test="isSearchOk">order_detail</when>
+			<otherwise>
+			(SELECT * FROM order_detail 
+			WHERE ${option} LIKE '%${searchVal}%')search_ol
+			</otherwise>
+		</choose>
+			ORDER BY orderdetail_id DESC LIMIT #{pageStartNum},#{amount}
+	</select>
+</mapper>
