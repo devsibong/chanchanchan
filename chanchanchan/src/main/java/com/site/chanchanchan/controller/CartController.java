@@ -1,6 +1,7 @@
 package com.site.chanchanchan.controller;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -33,7 +34,21 @@ public class CartController {
 		} else {
 			model.addAttribute("center", dir + "mycart");
 			List<Cart> cartList = cartService.getByMember(Integer.toString(loginMember.getMember_index()));
+			List<Cart> regularCartList = new ArrayList<Cart>();
+			List<Cart> normalCartList = new ArrayList<Cart>();
+			
+			
+			//정기배송, 일반배송 분리
+			for (Cart cart : cartList) {
+				if (cart.getProduct().getCategory_id() == 153) {
+					regularCartList.add(cart);
+				} else {
+					normalCartList.add(cart);
+				}
+			}
 			model.addAttribute("cartList", cartList);
+			model.addAttribute("regularCartList", regularCartList);
+			model.addAttribute("normalCartList", normalCartList);
 			return "index";
 		}
 	}

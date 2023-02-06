@@ -26,7 +26,15 @@ function totalPrice() {
 		var value = priceNumFormatter($(this).text());
 		totalPrice += parseInt(value);
 	});
+	if(totalPrice == 0){
+		$("#empty_cart").prop("hidden", false);
+		$("#see_more").prop("hidden", true);
+		$("#order").prop("hidden", true);
+		$("#go_main").prop("hidden", false);
+		$("span[name=totalPrice]").text(priceViewFormatter(String(totalPrice)));
+	} else {
 	$("span[name=totalPrice]").text(priceViewFormatter(String(totalPrice)));
+	}
 };
 
 //상품 수량 조절 버튼
