@@ -17,10 +17,12 @@ import com.site.chanchanchan.dto.OrderDetail;
 import com.site.chanchanchan.dto.OrderList;
 import com.site.chanchanchan.dto.Page;
 import com.site.chanchanchan.dto.Post;
+import com.site.chanchanchan.dto.Review;
 import com.site.chanchanchan.service.MemberService;
 import com.site.chanchanchan.service.OrderDetailService;
 import com.site.chanchanchan.service.OrderListService;
 import com.site.chanchanchan.service.PostService;
+import com.site.chanchanchan.service.ReviewService;
 
 @Controller
 public class MyPageController {
@@ -36,6 +38,9 @@ public class MyPageController {
 	
 	@Autowired
 	MemberService mservice;
+	
+	@Autowired
+	ReviewService rvservice;
 	
 	@RequestMapping("/mypage")
 	public String main() {
@@ -98,11 +103,48 @@ public class MyPageController {
 	}
 	
 	@RequestMapping("/review")
-	public String review(Model model) {
+	public String review(HttpSession session,Model model) throws Exception {
+		Member loginMember = (Member)session.getAttribute("loginmem");
+		if (loginMember == null) {
+			return "redirect:/login";
+		} else {
+			List<OrderList> list = olservice.reviewlist(loginMember.getMember_index());
+		
+		
+		model.addAttribute("list", list);
 		model.addAttribute("left", "mypageleft");
 		model.addAttribute("center", "/mypage/review");
 		return "mypage/mypagemain";
+		}
 	}
+	
+	@RequestMapping("/reviewdo")
+	public String reviewdo(HttpSession session,Model model,Integer order_id) throws Exception {
+		Member loginMember = (Member)session.getAttribute("loginmem");
+		if (loginMember == null) {
+			return "redirect:/login";
+		} else {
+			int memdex = loginMember.getMember_index();
+			OrderDetail od = odservice.rvprid(order_id);
+			
+		model.addAttribute("od", od);
+		model.addAttribute("memdex", memdex);
+		model.addAttribute("left", "mypageleft");
+		model.addAttribute("center", "/mypage/reviewdo");
+		return "mypage/mypagemain";
+		}
+	}
+	
+	@RequestMapping("/reviewok")
+	public String reviewok(Model model,Review review) throws Exception {
+		rvservice.register(review);
+		
+		
+		model.addAttribute("left", "mypageleft");
+		model.addAttribute("center", "/mypage/reviewdetail");
+		return "mypage/mypagemain";
+	}
+	
 	
 	@GetMapping("/inquiry")
 	public String get(Model model, HttpSession session,

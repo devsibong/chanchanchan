@@ -25,5 +25,6 @@ public class OrderDetail {
 	private Date order_date;
 	private String order_state;
 	private String receiver;
+	private int member_index;
 	
 }
