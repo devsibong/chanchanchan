@@ -1,5 +1,7 @@
 package com.site.chanchanchan.controller;
 
+import java.util.HashMap;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.site.chanchanchan.dto.Member;
+import com.site.chanchanchan.service.KakaoAPI;
 import com.site.chanchanchan.service.MemberService;
+import com.site.chanchanchan.service.NaverAPI;
 import com.site.chanchanchan.service.SendMailService;
 
 
@@ -23,6 +27,11 @@ public class MemberController {
 	@Autowired
 	SendMailService mailservice;
 	
+	@Autowired
+	KakaoAPI kakao;
+	
+	@Autowired
+	NaverAPI naver;
 	
 	@RequestMapping("/login")
 	public String login(Model model) {
@@ -126,5 +135,48 @@ public class MemberController {
 		model.addAttribute("center", dir + "login");
 		return "redirect:login";
 	}
+	
+	@RequestMapping("/kakaologin")
+	public String kakaologin(Model model, String code, HttpSession session) {
+		String access_Token = kakao.getAccessToken(code);
+		HashMap<String, String> userInfo = kakao.getUserInfo(access_Token);
+		try {
+			Member memexist = memservice.get(userInfo.get("email").substring(0,userInfo.get("email").indexOf("@")));
+
+			if(memexist == null) {
+				Member mem = new Member(0, userInfo.get("email").substring(0,userInfo.get("email").indexOf("@")), userInfo.get("email").substring(0,userInfo.get("email").indexOf("@")), userInfo.get("name"), userInfo.get("email"), "010-1111-2222", 'C',  'Y', null, null);
+				memservice.register(mem);
+				session.setAttribute("loginmem", mem);
+			}else {
+				session.setAttribute("loginmem", memexist);
+			}
+			session.setAttribute("access_Token", access_Token);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 		
+		return "index";
+	}
+	
+	@RequestMapping("/naverlogin")
+	public String naverlogin(Model model, String code, HttpSession session) {
+		String access_Token = naver.getAccessToken(code);
+		HashMap<String, String> userInfo = naver.getUserInfo(access_Token);
+		try {
+			Member memexist = memservice.get(userInfo.get("email").substring(0,userInfo.get("email").indexOf("@")));
+
+			if(memexist == null) {
+				Member mem = new Member(0, userInfo.get("email").substring(0,userInfo.get("email").indexOf("@")), userInfo.get("email").substring(0,userInfo.get("email").indexOf("@")), userInfo.get("name"), userInfo.get("email"), "010-1111-2222", 'C',  'Y', null, null);
+				memservice.register(mem);
+				session.setAttribute("loginmem", mem);
+			}else {
+				session.setAttribute("loginmem", memexist);
+			}
+			session.setAttribute("access_Token", access_Token);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "index";
+	}
 }

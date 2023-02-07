@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.site.chanchanchan.mapper.PostMapper">
+	<select id="select" parameterType="Integer" resultType="Post">
+		SELECT * FROM post WHERE post_id=#{post_id}
+	</select>
+	<select id="selectall" resultType="Post">
+		SELECT * FROM post
+	</select>
+	<insert id="insert" parameterType="Post">
+		INSERT INTO post VALUES (post_id,#{member_index},#{post_subject},#{post_content},
+		#{post_attach1},#{post_attach2},NOW())
+	</insert>
+	<update id="update" parameterType="Post">
+		UPDATE post SET member_index=#{member_index},
+		post_subject=#{post_subject},post_content=#{post_content},post_attach1=#{post_attach1},post_attach2=#{post_attach2},
+		register_date=#{register_date} 
+		WHERE post_id=#{post_id}
+	</update>
+	<delete id="delete" parameterType="Integer">
+		DELETE FROM post WHERE post_id=#{post_id}
+	</delete>
+	<select id="getTotal" parameterType="Criteria" resultType="Integer">
+		SELECT COUNT(*) FROM post
+		<if test='!isSearchOk'>
+ 		WHERE ${option} LIKE '%${searchVal}%'
+		</if>
+	</select>
+	<select id="getListByPaging" parameterType="Criteria" resultType="Post">
+		SELECT * FROM 
+		<choose> 
+			<when test="isSearchOk">post</when>
+			<otherwise>
+			(SELECT * FROM post 
+			WHERE ${option} LIKE '%${searchVal}%')search_post 
+			</otherwise>
+		</choose>
+			ORDER BY post_id DESC LIMIT #{pageStartNum},#{amount}
+	</select>
+</mapper>

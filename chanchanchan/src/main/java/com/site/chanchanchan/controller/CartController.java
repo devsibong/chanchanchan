@@ -1,6 +1,7 @@
 package com.site.chanchanchan.controller;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -8,9 +9,9 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.site.chanchanchan.dto.Cart;
@@ -33,12 +34,26 @@ public class CartController {
 		} else {
 			model.addAttribute("center", dir + "mycart");
 			List<Cart> cartList = cartService.getByMember(Integer.toString(loginMember.getMember_index()));
+			List<Cart> regularCartList = new ArrayList<Cart>();
+			List<Cart> normalCartList = new ArrayList<Cart>();
+			
+			
+			//정기배송, 일반배송 분리
+			for (Cart cart : cartList) {
+				if (cart.getProduct().getCategory_id() == 153) {
+					regularCartList.add(cart);
+				} else {
+					normalCartList.add(cart);
+				}
+			}
 			model.addAttribute("cartList", cartList);
+			model.addAttribute("regularCartList", regularCartList);
+			model.addAttribute("normalCartList", normalCartList);
 			return "index";
 		}
 	}
 	
-	@RequestMapping(value = "/updatecart", method = { RequestMethod.POST })
+	@PostMapping("/updatecart")
 	@ResponseBody
     public Cart changeCartCount(@RequestBody Cart cart) throws Exception {
 		cartService.modifyCount(cart);
@@ -46,7 +61,7 @@ public class CartController {
         return resultCart;
     }
 	
-	@RequestMapping(value = "/deletecart", method = { RequestMethod.POST })
+	@PostMapping("/deletecart")
     public String deleteCart(@RequestBody Cart cart) throws Exception {
 		String temp = Integer.toString(cart.getCart_id());
 		cartService.remove(temp);

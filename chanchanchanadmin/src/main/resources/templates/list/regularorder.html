@@ -101,7 +101,7 @@ $(document).ready(function(){
 							<th><input type="checkbox" name="checkbox"></input></th>
 							<th th:text="${regularorder.regular_orderdetail_id}"></th>
 							<th><a th:text="${regularorder.product_id}" th:href="@{/product/view(id=${regularorder.product_id})}"></a></th>
-							<th><a th:text="${regularorder.order_id}" th:href="@{/regularorder/view(id=${order_id})}"></a></th>
+							<th><a th:text="${regularorder.order_id}" th:href="@{/orderlist/view(id=${regularorder.order_id})}"></a></th>
 							<th th:text="${regularorder.regular_price}+'원'"></th>
 							<th><a th:href="@{/regularorderschedule/list(option=regular_orderdetail_id,searchVal=${regularorder.regular_orderdetail_id})}">정기배송 일정확인</a></th>
 						</tr>

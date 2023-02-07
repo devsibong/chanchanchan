@@ -15,4 +15,5 @@ public interface ProductMapper extends MyMapper<Integer, Product>{
 	public List<Product> getListByPaging(Criteria cri) throws Exception;
 	public int getTotal(Criteria cri) throws Exception;
 	public int changeSale(int id, int salerate) throws Exception;
+	public String getName(int id) throws Exception;
 }

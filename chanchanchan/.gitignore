@@ -31,3 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+
+### Dummy Data ###
+**/static/images/products/
+**/static/images/productdetails/

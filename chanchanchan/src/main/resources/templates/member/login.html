@@ -57,16 +57,14 @@ $(document).ready(function() {
 
 						<hr class="my-4">
 						<div class="d-grid mb-2">
-							<button class="btn btn-naver btn-login text-uppercase fw-bold"
-								type="submit">네이버로 로그인하기</button>
+							<a class="btn btn-naver btn-login fw-bold" href="https://nid.naver.com/oauth2.0/authorize?client_id=OBNHNeQKA0hyyjGZdRrl&state=STATE&redirect_uri=http://127.0.0.1/naverlogin&response_type=code">
+							<img src="/images/btnG_navericon.png" height="25">  네이버로 로그인하기</a>
 						</div>
 						<div class="d-grid">
-							<button class="btn btn-kakao btn-login text-uppercase fw-bold"
-								type="submit">
-								<!--<i class="fab fa-facebook-f me-2"></i>-->
-								카카오로 로그인하기
-							</button>
-						</div>
+						<a class="btn btn-kakao btn-login fw-bold" href="https://kauth.kakao.com/oauth/authorize?client_id=0becf6999b53baa2934ce8bc9f1ac2d1&redirect_uri=http://127.0.0.1/kakaologin&response_type=code">
+						<img src="/images/kakao_icon.png" style="border-radius:4px;" height="25">  카카오로 로그인하기</a>
+						</div>									
+						
 					</form>
 				</div>
 			</div>

@@ -32,6 +32,26 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
  		WHERE ${option} LIKE '%${searchVal}%'
 		</if>
 	</select>
+		<select id="monthsales" parameterType="Integer" resultType="Integer">
+		SELECT SUM(order_totalpayment) FROM order_list
+		<if test='month lt 10'>
+ 		WHERE DATE_FORMAT(order_date,'%Y-%m') ='2023-0${month}'
+		</if>
+		<if test='month gte 10'>
+ 		WHERE DATE_FORMAT(order_date,'%Y-%m') ='2023-${month}'
+		</if>
+	</select>
+	<select id="productmonthsales" parameterType="Integer" resultType="Integer">
+		SELECT SUM(orderdetail_count*orderdetail_price) AS sum FROM order_detail
+ 		JOIN order_list ON order_detail.order_id = order_list.order_id
+ 		<if test='month lt 10'>
+ 		AND DATE_FORMAT(order_list.order_date,'%Y-%m') ='2023-0${month}'
+		</if>
+		<if test='month gte 10'>
+ 		ADN DATE_FORMAT(order_list.order_date,'%Y-%m') ='2023-${month}'
+		</if>
+		GROUP BY product_id HAVING product_id=${id}
+	</select>
 	<select id="getListByPaging" parameterType="Criteria" resultType="OrderList">
 		SELECT * FROM 
 		<choose> 

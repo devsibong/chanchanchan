@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html class="no-js"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmls:th="http://www.thymeleaf.org" lang="ko">
+<head>
+<meta charset="utf-8" />
+<script>
+	function auto_close() {
+		setTimeout("", 2990);
+		setTimeout("close()", 3000);
+
+	}
+
+	function closed() {
+
+		self.close();
+
+	}
+
+	window.open("http://localhost/ordercomplete", "temp");
+	window.close();
+</script>
+<body>잠시후 창이 닫힙니다...
+</body>
+</head>
+</html>

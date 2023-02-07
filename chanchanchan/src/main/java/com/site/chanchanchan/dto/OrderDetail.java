@@ -3,6 +3,7 @@ package com.site.chanchanchan.dto;
 import java.util.Date;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,11 +14,13 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
+@Builder
 public class OrderDetail {
 	private int orderdetail_id;
 	private int product_id;
 	private int order_id;
 	private int orderdetail_price;
+
 	
 	private String product_name;
 	private int order_totalpayment;
@@ -27,4 +30,7 @@ public class OrderDetail {
 	private String receiver;
 	private int member_index;
 	
+
+	private int orderdetail_count;
+
 }
