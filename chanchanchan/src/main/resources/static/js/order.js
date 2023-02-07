@@ -17,6 +17,9 @@ function totalPrice() {
 function totalPayment() {
 	var total_price = parseInt(priceNumFormatter($("#total_price").text()));
 	var shipping_fee = parseInt(priceNumFormatter($("#shipping_fee").text()));
+	if ($("#shipping_fee").text()=="무료"){
+		shipping_fee = 0;
+	}
 	var total_payment = total_price + shipping_fee;
 	$("#total_payment").text(priceViewFormatter(String(total_payment)));
 }

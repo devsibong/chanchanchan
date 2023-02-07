@@ -4,19 +4,22 @@
 			<div class="col-8 p-0">
 				<div class="m-0">
 					<div class="clearfix">
-						<button class="border border-bottom-0 p-3 m-0 bg-white" id="normal_product"> 일반배송
-							<span th:text="'(' + ${#lists.size(normalCartList)} + ')'"></span>
-						
+						<button class="border border-bottom-0 p-3 m-0" id="normal_product"> 일반배송
+							<span>(</span>
+							<span id="normal_cart" th:text="${#lists.size(normalCartList)}"></span>
+							<span>)</span>
 						</button>
 						<button class="border border-bottom-0 p-3 m-0" id="regular_product"> 정기배송
-							<span th:text="'(' + ${#lists.size(regularCartList)} + ')'"></span>
+							<span>(</span>
+							<span id="regular_cart" th:text="${#lists.size(regularCartList)}"></span>
+							<span>)</span>
 						</button>
 					</div>
 				</div>
 
 				<div class="border m-0">
 					<!-- 일반상품 리스트 -->
-					<div class="p-3" id="cart_list">
+					<div class="p-3" id="cart_list" text="hi">
 						<div
 							class="row mb-4 d-flex justify-content-between align-items-center text-center text-dark">
 							<div class="col-5 ">상품정보</div>
@@ -61,12 +64,12 @@
 											</button>
 										</div>
 										<div class="col-6 text-dark text-end">
-											<span class="mb-0" name="product_sumprice"
+											<span class="mb-0" name="product_sumprice" id="normal_sumprice"
 												th:text="${#numbers.formatInteger(cart.product.product_price * cart.product_count, 3, 'COMMA')}" />
 											<span>원</span>
 										</div>
 										<div class="col-1 text-end">
-											<a href="#!" name="close"><i class="lni lni-close"></i></a>
+											<a href="#!" name="close" id="normal_close"><i class="lni lni-close"></i></a>
 										</div>
 										<!-- Hidden -->
 										<input th:value="${cart.product.product_price}" type="text"
@@ -83,7 +86,7 @@
 						<hr class="my-4">
 
 						<div class="pt-1 text-end">
-							<span class="mb-0"> 총 합계 </span> <span name="totalPrice"></span>
+							<span class="mb-0"> 총 합계 </span> <span name="normalTotalPrice"></span>
 							<span> 원</span>
 						</div>
 
@@ -138,12 +141,12 @@
 											</button>
 										</div>
 										<div class="col-6 text-dark text-end">
-											<span class="mb-0" name="product_sumprice"
+											<span class="mb-0" name="product_sumprice" id="regular_sumprice"
 												th:text="${#numbers.formatInteger(cart.product.product_price * cart.product_count, 3, 'COMMA')}" />
 											<span>원</span>
 										</div>
 										<div class="col-1 text-end">
-											<a href="#!" name="close"><i class="lni lni-close"></i></a>
+											<a href="#!" name="close" id="regular_close"><i class="lni lni-close"></i></a>
 										</div>
 										<!-- Hidden -->
 										<input th:value="${cart.product.product_price}" type="text"
@@ -160,7 +163,7 @@
 						<hr class="my-4">
 
 						<div class="pt-1 text-end">
-							<span class="mb-0"> 총 합계 </span> <span name="totalPrice"></span>
+							<span class="mb-0"> 총 합계 </span> <span name="regularTotalPrice"></span>
 							<span> 원</span>
 						</div>
 
@@ -174,7 +177,7 @@
 					<button id="see_more" class="col-2 btn btn-outline-primary me-2" th:onclick="|location.href='@{/}'|">
 						더 둘러보기
 					</button>
-					<button id="order" class="col-2 btn btn-primary" th:onclick="|location.href='@{/order}'|">
+					<button id="order" class="col-2 btn btn-primary">
 						주문하기
 					</button>
 					<button id="go_main" class="col-2 btn btn-primary" th:onclick="|location.href='@{/}'|" hidden="true">
@@ -185,4 +188,13 @@
 		</div>
 	</div>
 </section>
-<script type="text/javascript" src="js/cart.js"></script>
+<script th:inline="javascript">
+/*<![CDATA[*/
+	let cartCount = /*[[${#lists.size(cartList)}]]*/'0';
+	let normalCartCount = /*[[${#lists.size(normalCartList)}]]*/'0';
+	let regularCartCount = /*[[${#lists.size(regularCartList)}]]*/'0';
+/*]]>*/
+</script>
+
+<script type="text/javascript" src="js/cart.js">
+</script>

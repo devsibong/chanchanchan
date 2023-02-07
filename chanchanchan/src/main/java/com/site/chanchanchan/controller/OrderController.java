@@ -1,6 +1,7 @@
 	package com.site.chanchanchan.controller;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -47,15 +48,52 @@ public class OrderController {
 	@Autowired
 	OrderDetailService orderDetailService;
 
-	@RequestMapping("/order")
-	public String myCart(HttpSession session, Model model) throws Exception {
+	@RequestMapping("/normalorder")
+	public String normalOrder(HttpSession session, Model model) throws Exception {
 		Member loginMember = (Member)session.getAttribute("loginmem");
 		if (loginMember == null) {
 			return "redirect:/login";
 		} else {
 			model.addAttribute("center", dir + "order");
 			List<Cart> cartList = cartService.getByMember(Integer.toString(loginMember.getMember_index()));
-			model.addAttribute("cartList", cartList);
+			List<Cart> regularCartList = new ArrayList<Cart>();
+			List<Cart> normalCartList = new ArrayList<Cart>();
+			
+			
+			//정기배송, 일반배송 분리
+			for (Cart cart : cartList) {
+				if (cart.getProduct().getCategory_id() == 153) {
+					regularCartList.add(cart);
+				} else {
+					normalCartList.add(cart);
+				}
+			}
+			model.addAttribute("normalCartList", normalCartList);
+			return "index";
+		}
+	}
+	
+	@RequestMapping("/regularorder")
+	public String regularOrder(HttpSession session, Model model) throws Exception {
+		Member loginMember = (Member)session.getAttribute("loginmem");
+		if (loginMember == null) {
+			return "redirect:/login";
+		} else {
+			model.addAttribute("center", dir + "regularorder");
+			List<Cart> cartList = cartService.getByMember(Integer.toString(loginMember.getMember_index()));
+			List<Cart> regularCartList = new ArrayList<Cart>();
+			List<Cart> normalCartList = new ArrayList<Cart>();
+			
+			
+			//정기배송, 일반배송 분리
+			for (Cart cart : cartList) {
+				if (cart.getProduct().getCategory_id() == 153) {
+					regularCartList.add(cart);
+				} else {
+					normalCartList.add(cart);
+				}
+			}
+			model.addAttribute("regularCartList", regularCartList);
 			return "index";
 		}
 	}
