@@ -75,31 +75,50 @@ $("select#delivery_info_select").on("change", function() {
 	};
 });
 
-//카카오페이
 $("#payment").on("click", function(){
-	$.ajax({
-		url: "/payment/ready",
-		type: "POST",
-		data: 
-		{
-			"member_index": "100"
-		}
-	})
-		.done(function(data) {
-			window.name="temp";
-			var popup = window.open(data.next_redirect_pc_url,"카카오페이", "width=400, height=700, scrollbars=yes, resizable=no");
-			popup.focus();
-			order();
-		})
-		.fail(function() {
-		});
+	if(
+		$("#receiver").val() != ""
+		&& $("#receiver_tel").val() != ""
+		&& $("#shipping_zipcode").val() != ""
+		&& $("#shipping_address").val() != ""
+		&& $("#shipping_address_detail").val() != ""
+		&& $("#delivery_info").val() != "") {
+		kakaopay();		
+		} else{
+			alert("필수 정보를 입력하세요.");
+		};
 });
 
 
+//카카오페이
+function kakaopay() {
+	$.ajax({
+			url: "/payment/ready",
+			type: "POST",
+			data: 
+			{
+				"member_index": "100"
+			}
+		})
+			.done(function(data) {
+				window.name="temp";
+				var popup = window.open(data.next_redirect_pc_url,"카카오페이", "width=400, height=700, scrollbars=yes, resizable=no");
+				popup.focus();
+				order();
+			})
+			.fail(function() {
+			});
+	
+}
+
+//결제완료
 function order() {
 	let member_index = $("#member_index").val();
 	let product_totalprice = priceNumFormatter($("#product_sumprice").text());
-	let shippingfee= priceNumFormatter($("#shipping_fee").text());
+	let shipping_fee= priceNumFormatter($("#shipping_fee").text());
+	if ($("#shipping_fee").text()=="무료"){
+		shipping_fee = "0";
+	}
 	let order_totalpayment= priceNumFormatter($("#total_payment").text());
 	let payment_method= $("input[name=payment_check]:checked").next().text();
 	let order_state= "배송준비";
@@ -110,6 +129,7 @@ function order() {
 	let shipping_address = $("#shipping_address").val();
 	let shipping_address_detail = $("#shipping_address_detail").val();
 	let shipping_zipcode = $("#shipping_zipcode").val();
+	let regular_orderdate = $("#regular_shippingdate").val();
 	
 	$.ajax({
 		url: "/payment",
@@ -118,7 +138,7 @@ function order() {
 		{
 			"member_index": member_index,	
 			"product_totalprice": product_totalprice,	
-			"shippingfee": shippingfee,	
+			"shipping_fee": shipping_fee,	
 			"order_totalpayment": order_totalpayment,	
 			"payment_method": payment_method,	
 			"order_state": order_state,	
@@ -128,7 +148,8 @@ function order() {
 			"shipping_title": shipping_title,	
 			"shipping_address": shipping_address,	
 			"shipping_address_detail": shipping_address_detail,	
-			"shipping_zipcode": shipping_zipcode
+			"shipping_zipcode": shipping_zipcode,
+			"regular_orderdate": regular_orderdate
 		}
 	})
 		.done(function() {

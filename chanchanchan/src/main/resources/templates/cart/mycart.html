@@ -35,8 +35,8 @@
 							<div
 								class="row mb-4 d-flex justify-content-between align-items-center">
 								<div class="col-2">
-									<img src="images/products/product-1.jpg"
-										class="img-fluid rounded-3" alt="Cotton T-shirt">
+									<img th:src="|images/products/${cart.product.product_thumbnail_imgpath}|"
+										class="img-fluid rounded-3">
 								</div>
 								<div class="col-3">
 									<h6 class="text-muted"
@@ -112,8 +112,8 @@
 							<div
 								class="row mb-4 d-flex justify-content-between align-items-center">
 								<div class="col-2">
-									<img src="images/products/product-1.jpg"
-										class="img-fluid rounded-3" alt="Cotton T-shirt">
+									<img th:src="|images/products/${cart.product.product_thumbnail_imgpath}|"
+										class="img-fluid rounded-3">
 								</div>
 								<div class="col-3">
 									<h6 class="text-muted"

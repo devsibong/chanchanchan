@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.site.chanchanchan.mapper.RegularOrderDetailMapper">
+
+	<select id="select" parameterType="String">
+		SELECT *
+		FROM cart WHERE regular_orderdetail_id = #{regular_orderdetail_id}
+	</select>
+
+	<insert id="insert" parameterType="OrderDetail" useGeneratedKeys="true"
+		keyProperty="regular_orderdetail_id">
+		INSERT INTO regular_orderdetail VALUES
+		(regular_orderdetail_id,#{product_id},#{order_id},#{regular_price})
+	</insert>
+	
+	<update id="update" parameterType="Cart">
+		UPDATE regular_orderdetail SET
+		#{regular_orderdetail_id},#{product_id},#{order_id},#{regular_price}
+		WHERE regular_orderdetail_id
+		= #{regular_orderdetail_id}
+	</update>
+	
+	<delete id="delete" parameterType="String">
+		DELETE FROM regular_orderdetail WHERE regular_orderdetail_id
+		= #{regular_orderdetail_id}
+	</delete>
+
+</mapper>

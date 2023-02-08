@@ -12,4 +12,6 @@ import com.site.chanchanchan.frame.MyMapper;
 @Repository
 public interface OrderListMapper extends MyMapper<Integer, OrderList>{
 	public List<OrderList> list(Integer k) throws Exception;
+	public List<OrderList> reviewlist(Integer k) throws Exception;
+	public OrderList rvprid(Integer order_id) throws Exception;
 }
