@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.site.chanchanchan.mapper.RegularOrderScheduleMapper">
+
+	<select id="select" parameterType="String">
+		SELECT *
+		FROM cart WHERE regular_orderschedule_id = #{regular_orderschedule_id}
+	</select>
+
+	<insert id="insert" parameterType="RegularOrderSchedule" useGeneratedKeys="true"
+		keyProperty="regular_orderschedule_id">
+		INSERT INTO regular_orderschedule VALUES
+		(regular_orderschedule_id,#{regular_orderdetail_id},#{regular_shippingdate},#{regular_shipping_state})
+	</insert>
+	
+	<update id="update" parameterType="RegularOrderSchedule">
+		UPDATE regular_orderschedule SET
+		#{regular_orderdetail_id},#{regular_orderdetail_id},#{regular_shippingdate},#{regular_shipping_state}
+		WHERE regular_orderdetail_id
+		= #{regular_orderdetail_id}
+	</update>
+	
+	<delete id="delete" parameterType="String">
+		DELETE FROM regular_orderschedule WHERE regular_orderschedule_id
+		= #{regular_orderschedule_id}
+	</delete>
+
+</mapper>

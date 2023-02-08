@@ -96,10 +96,18 @@ $("#payment").on("click", function(){
 });
 
 
+////결제
+//$("#payment").on("click", function(){
+//	order();
+//});
+
 function order() {
 	let member_index = $("#member_index").val();
 	let product_totalprice = priceNumFormatter($("#product_sumprice").text());
-	let shippingfee= priceNumFormatter($("#shipping_fee").text());
+	let shipping_fee= priceNumFormatter($("#shipping_fee").text());
+	if ($("#shipping_fee").text()=="무료"){
+		shipping_fee = "0";
+	}
 	let order_totalpayment= priceNumFormatter($("#total_payment").text());
 	let payment_method= $("input[name=payment_check]:checked").next().text();
 	let order_state= "배송준비";
@@ -110,6 +118,7 @@ function order() {
 	let shipping_address = $("#shipping_address").val();
 	let shipping_address_detail = $("#shipping_address_detail").val();
 	let shipping_zipcode = $("#shipping_zipcode").val();
+	let regular_orderdate = $("#regular_shippingdate").val();
 	
 	$.ajax({
 		url: "/payment",
@@ -118,7 +127,7 @@ function order() {
 		{
 			"member_index": member_index,	
 			"product_totalprice": product_totalprice,	
-			"shippingfee": shippingfee,	
+			"shipping_fee": shipping_fee,	
 			"order_totalpayment": order_totalpayment,	
 			"payment_method": payment_method,	
 			"order_state": order_state,	
@@ -128,7 +137,8 @@ function order() {
 			"shipping_title": shipping_title,	
 			"shipping_address": shipping_address,	
 			"shipping_address_detail": shipping_address_detail,	
-			"shipping_zipcode": shipping_zipcode
+			"shipping_zipcode": shipping_zipcode,
+			"regular_orderdate": regular_orderdate
 		}
 	})
 		.done(function() {
