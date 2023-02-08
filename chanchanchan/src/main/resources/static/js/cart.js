@@ -58,16 +58,16 @@ function regularTotalPrice() {
 
 //일반배송
 function selectNormalProduct() {
-	$("#normal_product").css("background-color","white");
-	$("#regular_product").css("background-color","lightgray");
+	$("#normal_product").css("background-color","#0e4478").css("color","white");
+	$("#regular_product").css("background-color","lightgray").css("color","gray");
 	$("#regular_cart_list").prop("hidden", true);
 	$("#cart_list").prop("hidden", false);
 }
 
 //정기배송
 function selectRegularProduct() {
-	$("#regular_product").css("background-color","white");
-	$("#normal_product").css("background-color","lightgray");
+	$("#regular_product").css("background-color","#0e4478").css("color","white");
+	$("#normal_product").css("background-color","lightgray").css("color","gray");
 	$("#cart_list").prop("hidden", true);
 	$("#regular_cart_list").prop("hidden", false);
 }
