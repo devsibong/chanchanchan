@@ -4,9 +4,7 @@
 		<div class="row">
 			<div class="col-12">
 				<div class="section-title">
-					<h2 th:text="${ca.category_title}"></h2>
-					<p>There are many variations of passages of Lorem Ipsum
-						available, but the majority have suffered alteration in some form.</p>
+					<h2 th:text="${ca.category_title}"></h2>					
 				</div>
 			</div>
 		</div>
@@ -15,10 +13,11 @@
 				<!-- Start Single Product -->
 				<div class="single-product">
 					<div class="product-image">
-						<img src="images/products/product-1.jpg" alt="#">
+						<img th:src="@{/images/products/}+${pr.product_thumbnail_imgpath}" alt="#">
+						<span class="sale-tag" th:text="|${pr.product_discount}%|" th:style="${pr.product_discount} == '0' ? 'display:none' : 'display:block'"></span>
 						<div class="button">
-							<a href="product-details.html" class="btn"><i
-								class="lni lni-cart"></i> Add to Cart</a>
+							<a th:href="@{/productdetails(product_id=${pr.product_id})}" class="btn">
+							<i class="lni lni-cart"></i> Add to Cart</a>
 						</div>
 					</div>
 					<div class="product-info">
@@ -35,225 +34,12 @@
 							<li><span>4.0 Review(s)</span></li>
 						</ul>
 						<div class="price">
-							<span>$199.00</span>
+							<span th:text="|${#numbers.formatInteger(pr.product_price*(1-pr.product_discount/100.0),3,'COMMA')}원|"></span><span class="discount-price" th:text="|${#numbers.formatInteger(pr.product_price,3,'COMMA')}원|" th:style="${pr.product_discount} == '0' ? 'display:none' : 'display:block'"></span>
 						</div>
 					</div>
 				</div>
 				<!-- End Single Product -->
-			</div>
-			<div class="col-lg-3 col-md-6 col-12">
-				<!-- Start Single Product -->
-				<div class="single-product">
-					<div class="product-image">
-						<img src="images/products/product-2.jpg" alt="#"> <span
-							class="sale-tag">-25%</span>
-						<div class="button">
-							<a href="product-details.html" class="btn"><i
-								class="lni lni-cart"></i> Add to Cart</a>
-						</div>
-					</div>
-					<div class="product-info">
-						<span class="category">Speaker</span>
-						<h4 class="title">
-							<a href="product-grids.html">Big Power Sound Speaker</a>
-						</h4>
-						<ul class="review">
-							<li><i class="lni lni-star-filled"></i></li>
-							<li><i class="lni lni-star-filled"></i></li>
-							<li><i class="lni lni-star-filled"></i></li>
-							<li><i class="lni lni-star-filled"></i></li>
-							<li><i class="lni lni-star-filled"></i></li>
-							<li><span>5.0 Review(s)</span></li>
-						</ul>
-						<div class="price">
-							<span>$275.00</span> <span class="discount-price">$300.00</span>
-						</div>
-					</div>
-				</div>
-				<!-- End Single Product -->
-			</div>
-			<div class="col-lg-3 col-md-6 col-12">
-				<!-- Start Single Product -->
-				<div class="single-product">
-					<div class="product-image">
-						<img src="images/products/product-3.jpg" alt="#">
-						<div class="button">
-							<a href="product-details.html" class="btn"><i
-								class="lni lni-cart"></i> Add to Cart</a>
-						</div>
-					</div>
-					<div class="product-info">
-						<span class="category">Camera</span>
-						<h4 class="title">
-							<a href="product-grids.html">WiFi Security Camera</a>
-						</h4>
-						<ul class="review">
-							<li><i class="lni lni-star-filled"></i></li>
-							<li><i class="lni lni-star-filled"></i></li>
-							<li><i class="lni lni-star-filled"></i></li>
-							<li><i class="lni lni-star-filled"></i></li>
-							<li><i class="lni lni-star-filled"></i></li>
-							<li><span>5.0 Review(s)</span></li>
-						</ul>
-						<div class="price">
-							<span>$399.00</span>
-						</div>
-					</div>
-				</div>
-				<!-- End Single Product -->
-			</div>
-			<div class="col-lg-3 col-md-6 col-12">
-				<!-- Start Single Product -->
-				<div class="single-product">
-					<div class="product-image">
-						<img src="images/products/product-4.jpg" alt="#"> <span
-							class="new-tag">New</span>
-						<div class="button">
-							<a href="product-details.html" class="btn"><i
-								class="lni lni-cart"></i> Add to Cart</a>
-						</div>
-					</div>
-					<div class="product-info">
-						<span class="category">Phones</span>
-						<h4 class="title">
-							<a href="product-grids.html">iphone 6x plus</a>
-						</h4>
-						<ul class="review">
-							<li><i class="lni lni-star-filled"></i></li>
-							<li><i class="lni lni-star-filled"></i></li>
-							<li><i class="lni lni-star-filled"></i></li>
-							<li><i class="lni lni-star-filled"></i></li>
-							<li><i class="lni lni-star-filled"></i></li>
-							<li><span>5.0 Review(s)</span></li>
-						</ul>
-						<div class="price">
-							<span>$400.00</span>
-						</div>
-					</div>
-				</div>
-				<!-- End Single Product -->
-			</div>
-			<div class="col-lg-3 col-md-6 col-12">
-				<!-- Start Single Product -->
-				<div class="single-product">
-					<div class="product-image">
-						<img src="images/products/product-5.jpg" alt="#">
-						<div class="button">
-							<a href="product-details.html" class="btn"><i
-								class="lni lni-cart"></i> Add to Cart</a>
-						</div>
-					</div>
-					<div class="product-info">
-						<span class="category">Headphones</span>
-						<h4 class="title">
-							<a href="product-grids.html">Wireless Headphones</a>
-						</h4>
-						<ul class="review">
-							<li><i class="lni lni-star-filled"></i></li>
-							<li><i class="lni lni-star-filled"></i></li>
-							<li><i class="lni lni-star-filled"></i></li>
-							<li><i class="lni lni-star-filled"></i></li>
-							<li><i class="lni lni-star-filled"></i></li>
-							<li><span>5.0 Review(s)</span></li>
-						</ul>
-						<div class="price">
-							<span>$350.00</span>
-						</div>
-					</div>
-				</div>
-				<!-- End Single Product -->
-			</div>
-			<div class="col-lg-3 col-md-6 col-12">
-				<!-- Start Single Product -->
-				<div class="single-product">
-					<div class="product-image">
-						<img src="images/products/product-6.jpg" alt="#">
-						<div class="button">
-							<a href="product-details.html" class="btn"><i
-								class="lni lni-cart"></i> Add to Cart</a>
-						</div>
-					</div>
-					<div class="product-info">
-						<span class="category">Speaker</span>
-						<h4 class="title">
-							<a href="product-grids.html">Mini Bluetooth Speaker</a>
-						</h4>
-						<ul class="review">
-							<li><i class="lni lni-star-filled"></i></li>
-							<li><i class="lni lni-star-filled"></i></li>
-							<li><i class="lni lni-star-filled"></i></li>
-							<li><i class="lni lni-star-filled"></i></li>
-							<li><i class="lni lni-star"></i></li>
-							<li><span>4.0 Review(s)</span></li>
-						</ul>
-						<div class="price">
-							<span>$70.00</span>
-						</div>
-					</div>
-				</div>
-				<!-- End Single Product -->
-			</div>
-			<div class="col-lg-3 col-md-6 col-12">
-				<!-- Start Single Product -->
-				<div class="single-product">
-					<div class="product-image">
-						<img src="images/products/product-7.jpg" alt="#"> <span
-							class="sale-tag">-50%</span>
-						<div class="button">
-							<a href="product-details.html" class="btn"><i
-								class="lni lni-cart"></i> Add to Cart</a>
-						</div>
-					</div>
-					<div class="product-info">
-						<span class="category">Headphones</span>
-						<h4 class="title">
-							<a href="product-grids.html">PX7 Wireless Headphones</a>
-						</h4>
-						<ul class="review">
-							<li><i class="lni lni-star-filled"></i></li>
-							<li><i class="lni lni-star-filled"></i></li>
-							<li><i class="lni lni-star-filled"></i></li>
-							<li><i class="lni lni-star-filled"></i></li>
-							<li><i class="lni lni-star"></i></li>
-							<li><span>4.0 Review(s)</span></li>
-						</ul>
-						<div class="price">
-							<span>$100.00</span> <span class="discount-price">$200.00</span>
-						</div>
-					</div>
-				</div>
-				<!-- End Single Product -->
-			</div>
-			<div class="col-lg-3 col-md-6 col-12">
-				<!-- Start Single Product -->
-				<div class="single-product">
-					<div class="product-image">
-						<img src="images/products/product-8.jpg" alt="#">
-						<div class="button">
-							<a href="product-details.html" class="btn"><i
-								class="lni lni-cart"></i> Add to Cart</a>
-						</div>
-					</div>
-					<div class="product-info">
-						<span class="category">Laptop</span>
-						<h4 class="title">
-							<a href="product-grids.html">Apple MacBook Air</a>
-						</h4>
-						<ul class="review">
-							<li><i class="lni lni-star-filled"></i></li>
-							<li><i class="lni lni-star-filled"></i></li>
-							<li><i class="lni lni-star-filled"></i></li>
-							<li><i class="lni lni-star-filled"></i></li>
-							<li><i class="lni lni-star-filled"></i></li>
-							<li><span>5.0 Review(s)</span></li>
-						</ul>
-						<div class="price">
-							<span>$899.00</span>
-						</div>
-					</div>
-				</div>
-				<!-- End Single Product -->
-			</div>
+			</div>						
 		</div>
 	</div>
 </section>
