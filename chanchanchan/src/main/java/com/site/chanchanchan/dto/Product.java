@@ -20,4 +20,5 @@ public class Product {
 	private String product_detail_imgpath;
 	private int product_price;
 	private String product_essential;
+	private int product_discount;
 }

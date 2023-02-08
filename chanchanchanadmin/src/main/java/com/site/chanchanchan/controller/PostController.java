@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.site.chanchanchan.dto.Answer;
 import com.site.chanchanchan.dto.Criteria;
 import com.site.chanchanchan.dto.Page;
 import com.site.chanchanchan.dto.Post;
+import com.site.chanchanchan.service.AnswerService;
 import com.site.chanchanchan.service.PostService;
 
 @RequestMapping("/post")
@@ -24,6 +26,9 @@ public class PostController {
 	
 	@Autowired
 	PostService postservice;
+	
+	@Autowired
+	AnswerService answerservice;
 	
 	String dir ="list/";
 	
@@ -99,57 +104,71 @@ public class PostController {
 	public String get(Model model, HttpSession session, 
 			@RequestParam(value="id", defaultValue="0") Integer id){
 		Post post = null;
+		Answer answer = null;
+		int existence=0;
+		
 		try {
 			post= postservice.get(id);
+			existence=postservice.answer_existence(id);
+			if(existence>0) {
+				post.setAnswer_existence("Y");
+				answer= answerservice.select_post_id(id);
+				model.addAttribute("answerView",answer);
+				model.addAttribute("center2","view/answerview");
+			}else {
+			post.setAnswer_existence("N");
+			}
 		} catch (Exception e) {
 //			e.printStackTrace();
 		}
+		
 		model.addAttribute("postView",post);
 		model.addAttribute("center","view/postview");
 		return "main";
 	}
 	
 	@RequestMapping("/register")
-	public String register(Model model) {
+	public String register(Model model, @RequestParam(value="post_id", defaultValue="0") Integer post_id) {
 
-		model.addAttribute("center","view/postregister");
-		model.addAttribute("post_container", new Post());
+		model.addAttribute("center","view/answerregister");
+		model.addAttribute("post_id",post_id);
+		model.addAttribute("answer_container", new Answer());
 		return "main";
 	}
 	
 	@RequestMapping("/registerform")
-	public String registerForm(@ModelAttribute("post_container") Post post) {
+	public String registerForm(@ModelAttribute("answer_container") Answer answer) {
 		try {
-			postservice.register(post);
+			answerservice.register(answer);
 		} catch (Exception e) {
 			// e.printStackTrace();
-			return "popup/postregisterfail";
+			return "popup/answerregisterfail";
 		}
-		return "popup/postregisterok";
+		return "popup/answerregisterok";
 	}
 	
 	@RequestMapping("/modify")
-	public String modify(Model model, @RequestParam(value="id", defaultValue="0") Integer post_id ){
-		Post post = null;
+	public String modify(Model model, @RequestParam(value="id", defaultValue="0") Integer id ){
+		Answer answer = null;
 		try {
-			post= postservice.get(post_id);
+			answer= answerservice.get(id);
 		} catch (Exception e) {
-			//e.printStackTrace();
+			e.printStackTrace();
 		}
-		model.addAttribute("post",post);
-		model.addAttribute("center","view/postmodify");
-		model.addAttribute("post_container", new Post());
+		model.addAttribute("answer",answer);
+		model.addAttribute("center","view/answermodify");
+		model.addAttribute("answer_container", new Answer());
 		return "main";
 	}
 	
 	@RequestMapping("/modifyform")
-	public String modifyForm(@ModelAttribute("post_container") Post post) {
+	public String modifyForm(@ModelAttribute("answer_container") Answer answer) {
 		try {
-			postservice.modify(post);
+			answerservice.modify(answer);
 		} catch (Exception e) {
-			// e.printStackTrace();
-			return "popup/postmodifyfail";
+			 e.printStackTrace();
+			return "popup/answermodifyfail";
 		}
-		return "popup/postmodifyok";
+		return "popup/answermodifyok";
 	}
 }

@@ -51,4 +51,8 @@ public class AnswerService implements MyService<Integer, Answer>{
 		return answermapper.getTotal(cri);
 	}
 	
+	public Answer select_post_id(Integer post_id) throws Exception{
+		return answermapper.select_post_id(post_id);
+	}
+	
 }

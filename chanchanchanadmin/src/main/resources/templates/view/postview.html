@@ -5,10 +5,10 @@
 <script>
 function checked_delete(chk){
 	$.ajax({
-		url:'[[@{/admin/delete}]]',
+		url:'[[@{/post/delete}]]',
 		data:{"del":chk},
 		success:function(){
-			location.href="/admin/list";
+			location.href="/post/list";
 		},
 		error:function(){
 			alert('데이터 삭제실패');
@@ -30,21 +30,23 @@ $(document).ready(function(){
 	});
 	
 	$('#go_list').click(function(){
-		window.history.go(-1);
+		location.href="/post/list";
 	});
 });
 
 </script>
 </head>
 <body>
-	<div class="card shadow mb-3" style="width:90%;">
-		<div class="card-body">
+	<div class="card shadow mr-3" style="width:48%;display:inline-block;float:left;">
+		<div class="card-header py-3">
+			<h4 class="m-1 font-weight-bold text-dark d-inline" >1대1문의 내용</h4>
+		<div class="card-body bg-gray-100">
 			<div class="table-responsive">
 				<form> 
-				<table class="table table-bordered" id="dataTable" width="90%" cellspacing="0">
+				<table class="table table-bordered" id="dataTable">
 					<tbody>
 						<tr>
-							<th>글 번호</th>
+							<th style="width:15%;">글 번호</th>
 							<td id="post_id" th:text="${postView.post_id}"></td>
 						</tr>
 						<tr>
@@ -78,12 +80,13 @@ $(document).ready(function(){
 			
 			<div class="d-grid gap-3 d-md-flex justify-content-md-end mt-3">
 				<button type="button" id="go_list" class="btn btn-secondary btn-sm float-right mr-3">목록으로</button>
-				<a th:href="@{/post/register}"><button type="button" id="register" class="btn btn-primary btn-sm float-right mr-3">답변등록</button></a>
-			<!-- 	<th:block th:if="${postView.admin_index==session.loginadm.admin_index}"> -->
-				<!-- </th:block> -->
+				<th:block th:if="${#strings.equals(postView.answer_existence, 'N')}"> 
+				<a th:href="@{/post/register(post_id=${postView.post_id})}"><button type="button" id="register" class="btn btn-primary btn-sm float-right mr-3">답변등록</button></a>
+				</th:block>
 				<button type="button" id="delete" class="btn btn-danger btn-sm mr-3">삭제</button>
-			</div>
+			</div>	
 		</div>
+	</div>
 	</div>
 	</body>
 </html>

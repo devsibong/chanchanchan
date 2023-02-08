@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.site.chanchanchan.dto.Criteria;
 import com.site.chanchanchan.dto.Post;
 import com.site.chanchanchan.frame.MyService;
+import com.site.chanchanchan.mapper.AnswerMapper;
 import com.site.chanchanchan.mapper.PostMapper;
 
 @Service
@@ -15,6 +16,9 @@ public class PostService implements MyService<Integer, Post>{
 
 	@Autowired
 	PostMapper postmapper;
+	
+	@Autowired
+	AnswerMapper answermapper;
 	
 	@Override
 	public void register(Post v) throws Exception {
@@ -51,4 +55,7 @@ public class PostService implements MyService<Integer, Post>{
 		return postmapper.getTotal(cri);
 	}
 	
+	public int answer_existence(Integer id) throws Exception{
+		return answermapper.answer_existence(id);
+	}
 }
