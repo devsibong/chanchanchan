@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>ShopGrids - Bootstrap 5 eCommerce HTML Template.</title>
+    <title>ChanChanChan</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="shortcut icon" type="image/x-icon" href="images/favicon.svg" />
@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="css/glightbox.min.css" />
     <link rel="stylesheet" href="css/main.css" />
     <link rel="stylesheet" href="css/calenderstyle.css">
+    
     
 
 <script>
@@ -36,14 +37,6 @@ $(document).ready(function() {
 
 </head>
 <body>
-    <!--[if lte IE 9]>
-      <p class="browserupgrade">
-        You are using an <strong>outdated</strong> browser. Please
-        <a href="https://browsehappy.com/">upgrade your browser</a> to improve
-        your experience and security.
-      </p>
-    <![endif]-->
-
     <!-- Preloader -->
     <div class="preloader">
         <div class="preloader-inner">
@@ -57,106 +50,19 @@ $(document).ready(function() {
 
     <!-- Start Header Area -->
     <header class="header navbar-area">
-        <!-- Start Topbar -->
-        <div class="topbar">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-4 col-md-4 col-12">
-                        <div class="top-left">
-                            <ul class="menu-top-link">
-                                <li>
-                                    <div class="select-position">
-                                        <select id="select4">
-                                            <option value="0" selected>$ USD</option>
-                                            <option value="1">€ EURO</option>
-                                            <option value="2">$ CAD</option>
-                                            <option value="3">₹ INR</option>
-                                            <option value="4">¥ CNY</option>
-                                            <option value="5">৳ BDT</option>
-                                        </select>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="select-position">
-                                        <select id="select5">
-                                            <option value="0" selected>English</option>
-                                            <option value="1">Español</option>
-                                            <option value="2">Filipino</option>
-                                            <option value="3">Français</option>
-                                            <option value="4">العربية</option>
-                                            <option value="5">हिन्दी</option>
-                                            <option value="6">বাংলা</option>
-                                        </select>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-12">
-                        <div class="top-middle">
-                            <ul class="useful-links">
-                                <li><a th:href="@{/}">Home</a></li>
-                                <li><a href="about-us.html">About Us</a></li>
-                                <li><a href="contact.html">Contact Us</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-12">
-                        <div class="top-end">
-                            <div class="user">
-                            	
-                                <i class="lni lni-user"></i>
-                                Hello
-                            </div>
-                            <ul class="user-login">
-                            	<li>
-                            		<a th:href="@{/mypage}" th:if="${session.loginmem != null}">마이페이지</a>
-                            	</li>
-                                <li>
-                                    <a th:href="@{/login}" th:if="${session.loginmem == null}">로그인</a>
-									<a th:href="@{/logout}" th:if="${session.loginmem != null}">로그아웃</a>
-                                </li>
-                                <li>
-                                    <a th:href="@{/register}">회원가입</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- End Topbar -->
         <!-- Start Header Middle -->
         <div class="header-middle">
             <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-3 col-md-3 col-7">
-                        <!-- Start Header Logo -->
-                        <a class="navbar-brand" th:href="@{/}">
-                            <img src="images/logo/logo.svg" alt="Logo">
-                        </a>
-                        <!-- End Header Logo -->
-                    </div>
-                    <div class="col-lg-5 col-md-7 d-xs-none">
+                <div class="row align-items-end">
+                    
+                    <div class="col-5">
                         <!-- Start Main Menu Search -->
                         <form id="search_form">
-                        <div class="main-menu-search">
+                        <div class="main-menu-search col-6 d-flex">
                             <!-- navbar search start -->                           
                             <div class="navbar-search search-style-5">
-                                <div class="search-select">
-                                    <div class="select-position">
-                                        <select id="select1">
-                                            <option selected>All</option>
-                                            <option value="1">option 01</option>
-                                            <option value="2">option 02</option>
-                                            <option value="3">option 03</option>
-                                            <option value="4">option 04</option>
-                                            <option value="5">option 05</option>
-                                        </select>
-                                    </div>
-                                </div>
                                 <div class="search-input">
-                                    <input id="search_input" name="txt" type="text" placeholder="Search">
+                                    <input id="search_input" name="txt" type="text" placeholder="반찬은 찬찬찬">
                                 </div>
                                 <div id="search_btn" class="search-btn">
                                     <button><i class="lni lni-search-alt"></i></button>
@@ -167,15 +73,41 @@ $(document).ready(function() {
                         </form>
                         <!-- End Main Menu Search -->
                     </div>
-                    <div class="col-lg-4 col-md-2 col-5">
-                        <div class="middle-right-area">
-                            <div class="nav-hotline">
-                                <i class="lni lni-phone"></i>
-                                <h3>Hotline:
-                                    <span>(+100) 123 456 7890</span>
-                                </h3>
-                            </div>
-                            <div class="navbar-cart">
+                    <div class="col-3">
+                        <!-- Start Header Logo -->
+                        <a class="navbar-brand" th:href="@{/}">
+                            <img src="images/logo/logo.svg" alt="Logo">
+                        </a>
+                        <!-- End Header Logo -->
+                    </div>
+                    <div class="col-4 ">
+                    	<div class=" middle-right-area justify-content-end m-3 user-login">
+							<ul class = "nav justify-content-end">
+                                <li>
+                                    <a th:href="@{/login}" th:if="${session.loginmem == null}">로그인</a>
+									<a th:href="@{/logout}" th:if="${session.loginmem != null}">로그아웃</a>
+                                </li>
+                                <li>
+                                    <a th:href="@{/register}">회원가입</a>
+                                </li>
+                                <li>
+                                    <a th:href="@{/register}">고객센터</a>
+                                </li>
+                                <li>
+                                    <a th:href="@{/register}">배송조회</a>
+                                </li>
+                            </ul>
+						</div>
+                        <div class="middle-right-area justify-content-end">
+                        	<div class="navbar-cart">
+                        		<div class="cart-items me-3">
+                                    <a th:href="@{/cart}" class="main-btn">
+                                        <i class="lni lni-user"></i>
+                                    </a>
+                                    <a th:href="@{/mypage}">
+                                   	 <span class = "m-2 text-dark fs-6">마이페이지</span>
+                                    </a>
+                                </div>
                                 <div class="cart-items">
                                     <a th:href="@{/cart}" class="main-btn">
                                         <i class="lni lni-cart"></i>
@@ -183,8 +115,13 @@ $(document).ready(function() {
                                         	<span class="total-items" name="cartCount" th:text="${#lists.size(cartList)}"></span>
                                         </span>
                                     </a>
+                                    <a th:href="@{/cart}">
+                                   	 <span class = "m-2 text-dark fs-6">장바구니</span>
+                                    </a>
                                 </div>
+                                
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -215,48 +152,17 @@ $(document).ready(function() {
                             </button>
                             <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                                 <ul id="nav" class="navbar-nav ms-auto">
-                                    <li class="nav-item">
-                                        <a th:href="@{/}" class="active" aria-label="Toggle navigation">Home</a>
+                                    <li class="nav-item">                                       
+                                        <a href="contact.html" aria-label="Toggle navigation">할인특가</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse"
-                                            data-bs-target="#submenu-1-2" aria-controls="navbarSupportedContent"
-                                            aria-expanded="false" aria-label="Toggle navigation">Pages</a>
-                                        <ul class="sub-menu collapse" id="submenu-1-2">
-                                            <li class="nav-item"><a href="about-us.html">About Us</a></li>
-                                            <li class="nav-item"><a href="faq.html">Faq</a></li>
-                                            <li class="nav-item"><a href="login.html">Login</a></li>
-                                            <li class="nav-item"><a href="register.html">Register</a></li>
-                                            <li class="nav-item"><a href="mail-success.html">Mail Success</a></li>
-                                            <li class="nav-item"><a href="404.html">404 Error</a></li>
-                                        </ul>
+                                        <a href="contact.html" aria-label="Toggle navigation">신상품</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse"
-                                            data-bs-target="#submenu-1-3" aria-controls="navbarSupportedContent"
-                                            aria-expanded="false" aria-label="Toggle navigation">Shop</a>
-                                        <ul class="sub-menu collapse" id="submenu-1-3">
-                                            <li class="nav-item"><a href="product-grids.html">Shop Grid</a></li>
-                                            <li class="nav-item"><a href="product-list.html">Shop List</a></li>
-                                            <li class="nav-item"><a href="product-details.html">shop Single</a></li>
-                                            <li class="nav-item"><a href="cart.html">Cart</a></li>
-                                            <li class="nav-item"><a href="checkout.html">Checkout</a></li>
-                                        </ul>
+                                        <a href="contact.html" aria-label="Toggle navigation">베스트</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse"
-                                            data-bs-target="#submenu-1-4" aria-controls="navbarSupportedContent"
-                                            aria-expanded="false" aria-label="Toggle navigation">Blog</a>
-                                        <ul class="sub-menu collapse" id="submenu-1-4">
-                                            <li class="nav-item"><a href="blog-grid-sidebar.html">Blog Grid Sidebar</a>
-                                            </li>
-                                            <li class="nav-item"><a href="blog-single.html">Blog Single</a></li>
-                                            <li class="nav-item"><a href="blog-single-sidebar.html">Blog Single
-                                                    Sibebar</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="contact.html" aria-label="Toggle navigation">Contact Us</a>
+                                        <a href="contact.html" aria-label="Toggle navigation">정기배송</a>
                                     </li>
                                 </ul>
                             </div> <!-- navbar collapse -->
@@ -267,21 +173,8 @@ $(document).ready(function() {
                 <div class="col-lg-4 col-md-6 col-12">
                     <!-- Start Nav Social -->
                     <div class="nav-social">
-                        <h5 class="title">Follow Us:</h5>
-                        <ul>
-                            <li>
-                                <a href="javascript:void(0)"><i class="lni lni-facebook-filled"></i></a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)"><i class="lni lni-twitter-original"></i></a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)"><i class="lni lni-instagram"></i></a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)"><i class="lni lni-skype"></i></a>
-                            </li>
-                        </ul>
+                        <h5 class="title">공지사항</h5>
+                        <h5 class="title">자주 묻는 질문</h5>
                     </div>
                     <!-- End Nav Social -->
                 </div>
@@ -302,11 +195,22 @@ $(document).ready(function() {
                     <div class="row">
 						<div class="col-lg-3 col-md-4 col-12">
 							<div class="footer-logo">
-								<a th:href="@{/}"> <img src="images/logo/white-logo.svg"
-									alt="#">
-								</a>
-							</div>
-							 <div class="single-footer f-link">                                
+								<a th:href="@{/}"> <img src="images/logo/white-logo.svg" alt="#"></a>
+							</div>								
+							 <div class="single-footer f-link">                             
+                                <ul>
+                                	<li><a href="javascript:void(0)">개인정보처리방침</a></li> 
+                                    <li><a href="javascript:void(0)">이용약관</a></li> 
+                                    <li><a href="javascript:void(0)">청소년보호정책</a></li>
+                                    <li>여기는 주소 어쩌구 저쩌구</li>
+                                    <li><a href="javascript:void(0)">support@chanchanchan.com</a></li>									                                                                     
+                                </ul>
+                            </div>
+						</div>						
+                       <div class="col-lg-3 col-md-6 col-12">
+                            <!-- Single Widget -->
+                            <div class="single-footer f-link">
+                                <h3>커뮤니티</h3>
                                 <ul>
                                     <li><a href="javascript:void(0)">공지사항</a></li>
                                     <li><a href="javascript:void(0)">이벤트</a></li>
@@ -315,8 +219,8 @@ $(document).ready(function() {
                                     
                                 </ul>
                             </div>
-						</div>						
-                            
+                            <!-- End Single Widget -->
+                        </div>     
                         						
 						<div class="col-lg-3 col-md-6 col-12">
                             <!-- Single Widget -->
@@ -341,20 +245,7 @@ $(document).ready(function() {
                             </div>
                             <!-- End Single Widget -->
                         </div>
-						<div class="col-lg-3 col-md-6 col-12">
-                            <!-- Single Widget -->
-                            <div class="single-footer f-link">
-                                <h3>커뮤니티</h3>
-                                <ul>
-                                    <li><a href="javascript:void(0)">공지사항</a></li>
-                                    <li><a href="javascript:void(0)">이벤트</a></li>
-                                    <li><a href="javascript:void(0)">자주묻는 질문</a></li>
-                                    <li><a href="javascript:void(0)">1:1문의</a></li>
-                                    <li><a href="javascript:void(0)">FAQs Page</a></li>
-                                </ul>
-                            </div>
-                            <!-- End Single Widget -->
-                        </div>
+						
 						<div class="col-lg-3 col-md-6 col-12">
                             <!-- Single Widget -->
                             <div class="single-footer f-contact">
@@ -364,9 +255,7 @@ $(document).ready(function() {
                                     <li><span>월요일-금요일: </span> 9.00 am - 8.00 pm</li>
                                     <li><span>토요일: </span> 10.00 am - 6.00 pm</li>
                                 </ul>
-                                <p class="mail">
-                                    <a href="mailto:support@shopgrids.com">support@chanchanchan.com</a>
-                                </p>
+                                
                             </div>
                             <!-- End Single Widget -->
                         </div>                                                                      
@@ -375,39 +264,6 @@ $(document).ready(function() {
             </div>
         </div>
         <!-- End Footer Middle -->
-        <!-- Start Footer Bottom -->
-        <div class="footer-bottom">
-            <div class="container">
-                <div class="inner-content">
-                    <div class="row align-items-center">
-                        <div class="col-lg-4 col-12">
-                            <div class="payment-gateway">
-                                <span>We Accept:</span>
-                                <img src="images/footer/credit-cards-footer.png" alt="#">
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-12">
-                            <div class="copyright">
-                                <p>Designed and Developed by<a href="https://graygrids.com/" rel="nofollow"
-                                        target="_blank">GrayGrids</a></p>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-12">
-                            <ul class="socila">
-                                <li>
-                                    <span>Follow Us On:</span>
-                                </li>
-                                <li><a href="javascript:void(0)"><i class="lni lni-facebook-filled"></i></a></li>
-                                <li><a href="javascript:void(0)"><i class="lni lni-twitter-original"></i></a></li>
-                                <li><a href="javascript:void(0)"><i class="lni lni-instagram"></i></a></li>
-                                <li><a href="javascript:void(0)"><i class="lni lni-google"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- End Footer Bottom -->
     </footer>
     <!--/ End Footer Area -->
 
