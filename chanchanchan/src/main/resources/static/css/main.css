@@ -1270,12 +1270,12 @@ top: -1px;
   font-size: 14px;
   font-weight: 600;
   padding: 13px 30px;
-  background-color: #0167F3;
+  background-color: #0e4478;
   color: #fff;
   border: none;
   -webkit-transition: 0.2s;
   transition: 0.2s;
-  border-radius: 3px;
+  border-radius: 1px;
   position: relative;
   z-index: 1;
   margin-right: 7px;
@@ -4402,42 +4402,33 @@ top: 2px;
 	Footer CSS
 ========================================*/
 .footer {
-  background-color: #081828;
+  background-color: #0e4478;
   position: relative;
   /* Single Footer */
   /* End Single Footer */
 }
 
-.footer .footer-top .inner-content {
+/*.footer .footer-middle .bottom-inner {
   padding: 60px 0;
   border-bottom: 1px solid #ffffff26;
-}
+}*/
 
-@media only screen and (min-width: 768px) and (max-width: 991px) {
-  .footer .footer-top .inner-content {
-    padding: 50px 0;
-  }
-}
 
-@media (max-width: 767px) {
-  .footer .footer-top .inner-content {
-    padding: 40px 0;
-    text-align: center;
-  }
-}
 
-.footer .footer-top .footer-logo a img {
+.footer .footer-middle .footer-logo a img {
   width: 200px;
+  padding: 10px 0px;
+  margin-top: 20px;
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
-  .footer .footer-top .footer-logo a img {
+  .footer .footer-middle .footer-logo a img {
     width: 190px;
   }
 }
 
 @media (max-width: 767px) {
-  .footer .footer-top .footer-logo a img {
+  .footer .footer-middle .footer-logo a img {
     width: 180px;
   }
 }
@@ -4640,6 +4631,7 @@ top: 2px;
   line-height: 24px;
 }
 
+
 .footer .single-footer h3::before {
   display: block;
   position: absolute;
@@ -4682,6 +4674,8 @@ top: 2px;
 
 .footer .single-footer.f-contact .phone {
   color: #d6d6d6;
+  font-size: 30px;
+  margin-bottom: 20px;
 }
 
 .footer .single-footer.f-contact ul {
