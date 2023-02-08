@@ -75,32 +75,43 @@ $("select#delivery_info_select").on("change", function() {
 	};
 });
 
-//카카오페이
 $("#payment").on("click", function(){
-	$.ajax({
-		url: "/payment/ready",
-		type: "POST",
-		data: 
-		{
-			"member_index": "100"
-		}
-	})
-		.done(function(data) {
-			window.name="temp";
-			var popup = window.open(data.next_redirect_pc_url,"카카오페이", "width=400, height=700, scrollbars=yes, resizable=no");
-			popup.focus();
-			order();
-		})
-		.fail(function() {
-		});
+	if(
+		$("#receiver").val() != ""
+		&& $("#receiver_tel").val() != ""
+		&& $("#shipping_zipcode").val() != ""
+		&& $("#shipping_address").val() != ""
+		&& $("#shipping_address_detail").val() != ""
+		&& $("#delivery_info").val() != "") {
+		kakaopay();		
+		} else{
+			alert("필수 정보를 입력하세요.");
+		};
 });
 
 
-////결제
-//$("#payment").on("click", function(){
-//	order();
-//});
+//카카오페이
+function kakaopay() {
+	$.ajax({
+			url: "/payment/ready",
+			type: "POST",
+			data: 
+			{
+				"member_index": "100"
+			}
+		})
+			.done(function(data) {
+				window.name="temp";
+				var popup = window.open(data.next_redirect_pc_url,"카카오페이", "width=400, height=700, scrollbars=yes, resizable=no");
+				popup.focus();
+				order();
+			})
+			.fail(function() {
+			});
+	
+}
 
+//결제완료
 function order() {
 	let member_index = $("#member_index").val();
 	let product_totalprice = priceNumFormatter($("#product_sumprice").text());

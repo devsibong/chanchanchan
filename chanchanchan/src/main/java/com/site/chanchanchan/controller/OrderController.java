@@ -69,9 +69,7 @@ public class OrderController {
 			List<Cart> cartList = cartService.getByMember(Integer.toString(loginMember.getMember_index()));
 			List<Cart> regularCartList = new ArrayList<Cart>();
 			List<Cart> normalCartList = new ArrayList<Cart>();
-			
-			
-			//정기배송, 일반배송 분리
+
 			for (Cart cart : cartList) {
 				if (cart.getProduct().getCategory_id() == 153) {
 					regularCartList.add(cart);
@@ -95,8 +93,7 @@ public class OrderController {
 			List<Cart> regularCartList = new ArrayList<Cart>();
 			List<Cart> normalCartList = new ArrayList<Cart>();
 			
-			
-			//정기배송, 일반배송 분리
+
 			for (Cart cart : cartList) {
 				if (cart.getProduct().getCategory_id() == 153) {
 					regularCartList.add(cart);
@@ -117,6 +114,7 @@ public class OrderController {
     }
 	
 	@PostMapping("/payment")
+	@ResponseBody
     public void payment(Model model, @RequestParam Map<String, Object> param) throws Exception {
 		
 		int member_index = Integer.parseInt(String.valueOf(param.get("member_index")));
@@ -133,11 +131,23 @@ public class OrderController {
 		String shipping_zipcode = (String)param.get("shipping_zipcode");
 		List<Cart> cartList = cartService.getByMember(Integer.toString(member_index));
 		String regular_orderdate = (String) param.get("regular_orderdate");
-		String temp = regular_orderdate.replace("년 ", "").replace("월 ", "").replace("일 ", "")
-										.replace("월요일", "").replace("화요일", "").replace("수요일", "")
-										.replace("목요일", "").replace("금요일", "").replace("토요일", "").replace("일요일", "");
-		String[] regular_order = temp.split("\n");
+		if(regular_orderdate != null) {
+			String temp = regular_orderdate.replace("년 ", "").replace("월 ", "").replace("일 ", "")
+											.replace("월요일", "").replace("화요일", "").replace("수요일", "")
+											.replace("목요일", "").replace("금요일", "").replace("토요일", "").replace("일요일", "");
+			String[] regular_order = temp.split("\n");
+		}
 		
+		
+		List<Cart> regularCartList = new ArrayList<Cart>();
+		List<Cart> normalCartList = new ArrayList<Cart>();
+		for (Cart cart : cartList) {
+			if (cart.getProduct().getCategory_id() == 153) {
+				regularCartList.add(cart);
+			} else {
+				normalCartList.add(cart);
+			}
+		}
 		
 		//OrderList 객체 생성
 		OrderList orderList = OrderList.builder()
@@ -169,7 +179,7 @@ public class OrderController {
 		//cartList -> orderDetail 데이터 이동(일반배송)
 		if(regular_orderdate == null) {
 			System.out.println("normal order");
-			for(Cart cart : cartList) {
+			for(Cart cart : normalCartList) {
 				int cart_id = cart.getCart_id();
 				int product_id = cart.getProduct_id();
 				int orderdetail_count = cart.getProduct_count();
@@ -184,8 +194,12 @@ public class OrderController {
 				cartService.remove(Integer.toString(cart_id));
 			}
 		} else { // 정기배송
+			String temp = regular_orderdate.replace("년 ", "").replace("월 ", "").replace("일 ", "")
+					.replace("월요일", "").replace("화요일", "").replace("수요일", "")
+					.replace("목요일", "").replace("금요일", "").replace("토요일", "").replace("일요일", "");
+			String[] regular_order = temp.split("\n");
 			System.out.println("regular order");
-			for(Cart cart : cartList) {
+			for(Cart cart : regularCartList) {
 				int cart_id = cart.getCart_id();
 				int product_id = cart.getProduct_id();
 				int regular_price = cart.getProduct().getProduct_price();
@@ -196,6 +210,7 @@ public class OrderController {
 						.build();
 				regularOrderDetailService.register(regularorderDetail);
 				cartService.remove(Integer.toString(cart_id));
+
 				for (String orderschedule : regular_order) {
 					int regular_orderdetail_id = regularorderDetail.getRegular_orderdetail_id();
 					String regular_shippingdate = orderschedule + "000000";
@@ -208,7 +223,7 @@ public class OrderController {
 					regularOrderScheduleService.register(regularorderSchedule);
 				}
 				
-			}
+		}
 		}
     }
 	
