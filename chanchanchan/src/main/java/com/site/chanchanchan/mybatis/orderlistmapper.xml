@@ -10,9 +10,25 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<delete id="delete" parameterType="Integer">
 		DELETE FROM order_list WHERE order_id=#{order_id}
 	</delete>
+
+	<select id="reviewlist" parameterType="Integer" resultType="OrderList">
+		SELECT ol.order_id AS order_id,ol.order_totalpayment AS order_totalpayment,ol.order_state AS order_state,
+		ol.order_date AS order_date,od.product_id AS product_id
+		FROM order_list AS ol
+		INNER JOIN order_detail AS od ON ol.order_id = od.order_id
+		WHERE member_index = #{member_index} ORDER BY order_id desc
+	</select>
+	<select id="rvprid" parameterType="Integer" resultType="OrderList">
+		SELECT od.product_id AS product_id
+		FROM oder_list AS ol
+		INNER JOIN oder_detail AS od ON ol.order_id = od.order_id
+		WHERE order_id = #{order_id}
+	</select>
+
 	<insert id="insert" parameterType="OrderList" useGeneratedKeys="true" keyProperty="order_id">
 		INSERT INTO order_list VALUES
 		(order_id,#{member_index},#{product_totalprice},#{shippingfee}
 		,#{order_totalpayment},#{payment_method},NOW(),#{order_state},#{receiver},#{receiver_tel},#{delivery_info})
 	</insert>
+
 </mapper>

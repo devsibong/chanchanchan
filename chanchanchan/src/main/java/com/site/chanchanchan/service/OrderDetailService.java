@@ -41,13 +41,17 @@ public class OrderDetailService implements MyService<Integer, OrderDetail>{
 	}
 	
 	//주문내역 리스트
-		public List<OrderDetail> list() throws Exception {
-			return mapper.list();
+		public List<OrderDetail> list(Integer k) throws Exception {
+			return mapper.list(k);
 		}
 		
 	//주문내역 상세
 	public OrderDetail orddetail(Integer order_id) throws Exception {
 		return mapper.orddetail(order_id);
+	}
+	//리뷰 상품아이디
+	public OrderDetail rvprid(Integer order_id) throws Exception {
+		return mapper.rvprid(order_id);
 	}
 	
 }
