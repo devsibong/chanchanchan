@@ -89,8 +89,19 @@ public class PostController {
 	
 	//삭제버튼
 	@ResponseBody
-	@RequestMapping("/delete")
+	@RequestMapping("/answer/delete")
 	public String delete(int del) {
+		try {
+			answerservice.remove(del);
+		} catch (Exception e) {
+//			e.printStackTrace();
+		}
+		return "main";
+	}
+	//삭제버튼
+	@ResponseBody
+	@RequestMapping("/delete")
+	public String postdelete(int del) {
 		try {
 			postservice.remove(del);
 		} catch (Exception e) {
