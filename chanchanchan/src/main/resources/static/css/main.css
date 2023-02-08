@@ -1559,36 +1559,36 @@ top: -1px;
   margin-right: 5px;
 }
 
-.header .topbar .top-end .user-login {
+.user-login {
   display: inline-block;
   white-space: nowrap;
 }
 
-.header .topbar .top-end .user-login li {
+.user-login li {
   display: inline-block;
-  border-right: 1px solid rgba(255, 255, 255, 0.459);
+  border-right: 1px solid rgb(128, 128, 128);
   padding: 0px 10px;
   white-space: nowrap;
 }
 
-.header .topbar .top-end .user-login li:first-child {
+.user-login li:first-child {
   padding-right: 12px;
 }
 
-.header .topbar .top-end .user-login li:last-child {
+.user-login li:last-child {
   margin-right: 0;
   padding-right: 0;
   border-right: none;
 }
 
-.header .topbar .top-end .user-login li a {
-  color: #fff;
+.user-login li a {
+  color: rgb(128, 128, 128);
   font-weight: 500;
-  font-size: 14px;
+  font-size: 13px;
   white-space: nowrap;
 }
 
-.header .topbar .top-end .user-login li a:hover {
+.user-login li a:hover {
   color: #0167F3;
 }
 
@@ -1742,7 +1742,7 @@ top: -1px;
 
 .header .navbar-cart .cart-items:hover .main-btn {
   color: #fff;
-  background-color: #0167F3;
+  background-color: #0e4478;
   border-color: transparent;
 }
 
@@ -2050,7 +2050,7 @@ top: -1px;
 }
 
 .header .main-menu-search .search-btn button {
-  background-color: #0167F3;
+  background-color: #0e4478;
   color: #fff;
   width: 45px;
   height: 45px;
@@ -2524,7 +2524,7 @@ top: 2px;
 }
 
 .header .navbar-brand img {
-  width: 200px;
+  width: 250px;
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
