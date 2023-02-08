@@ -1,7 +1,5 @@
 package com.site.chanchanchan.dto;
 
-import java.util.Date;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,10 +13,8 @@ import lombok.ToString;
 @Getter
 @ToString
 @Builder
-public class OrderDetail {
-	private int orderdetail_id;
-	private int product_id;
-	private int order_id;
-	private int orderdetail_price;
-	private int orderdetail_count;
+public class KakaoPayReady {
+	private String tid;
+	private String next_redirect_pc_url;
+	private String partner_order_id;
 }

@@ -19,6 +19,6 @@ public class Post {
 	private String post_attach1;
 	private String post_attach2;
 	private String register_date;
-	private char answer_existence;
+	private String answer_existence;
 
 }

@@ -3,12 +3,27 @@ $(document).ready(function() {
 	totalPayment();
 });
 
+//총 상품금액 합계
+function totalPrice() {
+	let totalPrice = 0;
+	$("span[name=product_sumprice]").each(function() {
+		var value = priceNumFormatter($(this).text());
+		totalPrice += parseInt(value);
+	});
+	$("#total_price").text(priceViewFormatter(String(totalPrice)));
+};
+
+//총 결제금액
 function totalPayment() {
-	var total_price = parseInt(priceNumFormatter($("#totalPrice").text()));
+	var total_price = parseInt(priceNumFormatter($("#total_price").text()));
 	var shipping_fee = parseInt(priceNumFormatter($("#shipping_fee").text()));
+	if ($("#shipping_fee").text()=="무료"){
+		shipping_fee = 0;
+	}
 	var total_payment = total_price + shipping_fee;
 	$("#total_payment").text(priceViewFormatter(String(total_payment)));
 }
+
 //금액 formatter
 function priceViewFormatter(value) {
 	value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -20,15 +35,6 @@ function priceNumFormatter(value) {
 	return value;
 }
 
-//총 상품금액 합계
-function totalPrice() {
-	let totalPrice = 0;
-	$("span[name=product_sumprice]").each(function() {
-		var value = priceNumFormatter($(this).text());
-		totalPrice += parseInt(value);
-	});
-	$("span[name=totalPrice]").text(priceViewFormatter(String(totalPrice)));
-};
 
 //주문자와 동일
 $("input#reciever_equals_member").on("click", function() {
@@ -48,9 +54,90 @@ $("input#reciever_equals_member").on("click", function() {
 			
 		})
 		.fail(function() {
-			alert("fail");
+			alert(request.status+request.responseText+error);
 		});
 });
+
+//요청사항
+$("select#delivery_info_select").on("change", function() {
+	switch($(this).val()) {
+		case "0":
+			$("#delivery_info").removeAttr("disabled");
+			$("#delivery_info").val("");
+			break;
+		case "3":
+			$("#delivery_info").removeAttr("disabled");
+			$("#delivery_info").val("");
+			break;
+		default:
+			$("#delivery_info").val($("#delivery_info_select option:selected").text());
+			$("#delivery_info").attr("disabled",true); 
+	};
+});
+
+//카카오페이
+$("#payment").on("click", function(){
+	$.ajax({
+		url: "/payment/ready",
+		type: "POST",
+		data: 
+		{
+			"member_index": "100"
+		}
+	})
+		.done(function(data) {
+			window.name="temp";
+			var popup = window.open(data.next_redirect_pc_url,"카카오페이", "width=400, height=700, scrollbars=yes, resizable=no");
+			popup.focus();
+			order();
+		})
+		.fail(function() {
+		});
+});
+
+
+function order() {
+	let member_index = $("#member_index").val();
+	let product_totalprice = priceNumFormatter($("#product_sumprice").text());
+	let shippingfee= priceNumFormatter($("#shipping_fee").text());
+	let order_totalpayment= priceNumFormatter($("#total_payment").text());
+	let payment_method= $("input[name=payment_check]:checked").next().text();
+	let order_state= "배송준비";
+	let receiver= $("#receiver").val();
+	let receiver_tel= $("#receiver_tel").val();
+	let delivery_info= $("#delivery_info").val();
+	let shipping_title = "배송지";
+	let shipping_address = $("#shipping_address").val();
+	let shipping_address_detail = $("#shipping_address_detail").val();
+	let shipping_zipcode = $("#shipping_zipcode").val();
+	
+	$.ajax({
+		url: "/payment",
+		type: "POST",
+		data: 
+		{
+			"member_index": member_index,	
+			"product_totalprice": product_totalprice,	
+			"shippingfee": shippingfee,	
+			"order_totalpayment": order_totalpayment,	
+			"payment_method": payment_method,	
+			"order_state": order_state,	
+			"receiver": receiver,	
+			"receiver_tel": receiver_tel,	
+			"delivery_info": delivery_info,	
+			"shipping_title": shipping_title,	
+			"shipping_address": shipping_address,	
+			"shipping_address_detail": shipping_address_detail,	
+			"shipping_zipcode": shipping_zipcode
+		}
+	})
+		.done(function() {
+//			location.replace("/ordercomplete")
+		})
+		.fail(function() {
+			//alert(request.status+request.responseText+error);
+		});
+};
 
 //daum 주소검색서비스
 var element_layer = document.getElementById('layer');
@@ -135,4 +222,23 @@ function initLayerPosition() {
 	element_layer.style.left = (((window.innerWidth || document.documentElement.clientWidth) - width) / 2 - borderWidth) + 'px';
 	element_layer.style.top = (((window.innerHeight || document.documentElement.clientHeight) - height) / 2 - borderWidth) + 'px';
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

@@ -1,7 +1,5 @@
 package com.site.chanchanchan.dto;
 
-import java.util.Date;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,10 +13,12 @@ import lombok.ToString;
 @Getter
 @ToString
 @Builder
-public class OrderDetail {
-	private int orderdetail_id;
-	private int product_id;
-	private int order_id;
-	private int orderdetail_price;
-	private int orderdetail_count;
+public class Shipping {
+	private int shipping_id;
+	private int member_index;
+	private String shipping_title;
+	private String shipping_address;
+	private String shipping_address_detail;
+	private String shipping_zipcode;
+	private char shipping_recent;
 }
