@@ -44,6 +44,7 @@ $(document).ready(function() {
 		selectDates(selected);
 
 		clickedElement = calendar.datesBody.find('div');
+		
 		clickedElement.on("click", function() {
 			clicked = $(this);
 			var whichCalendar = calendar.name;
@@ -51,97 +52,28 @@ $(document).ready(function() {
 			var clickedMonth = i[passed_month];
 			var clickedYear = passed_year;
 			var clickedDateObj = new Date(clickedYear, clickedMonth-1, clickedDate);
-			var regDate1 = new Date(clickedDateObj.setDate(clickedDateObj.getDate()+7));
-			var regDate2 = new Date(clickedDateObj.setDate(clickedDateObj.getDate()+14));
-			var regDate3 = new Date(clickedDateObj.setDate(clickedDateObj.getDate()+21));
+			var clickedDateObjVal = new Date(clickedDateObj.valueOf());
+			var regDate1 = new Date((clickedDateObjVal.setDate(clickedDateObjVal.getDate()+7)).valueOf());
+			var regDate2 = new Date((clickedDateObjVal.setDate(clickedDateObjVal.getDate()+7)).valueOf());
+			var regDate3 = new Date((clickedDateObjVal.setDate(clickedDateObjVal.getDate()+7)).valueOf());
 			if(temp < clickedDateObj) {
+				clicked.parent().find(".today").removeClass("today");
 				clicked.addClass("today");
-				$("#regular_shippingdate").val(dateObjView(clickedDateObj) + dateObjView(regDate1) + dateObjView(regDate2) + dateObjView(regDate3));
+				$("#regular_shippingdate").val(dateObjView(clickedDateObj) +"\n"+ dateObjView(regDate1) +"\n"+ dateObjView(regDate2) +"\n"+ dateObjView(regDate3));
 			} else {
 				alert("유효한 날짜가 아닙니다.");
 			};
-			
-			
-			
-//			if (firstClick && secondClick) {
-//				thirdClicked = getClickedInfo(clicked, calendar);
-//				var firstClickDateObj = new Date(firstClicked.year,
-//					firstClicked.month,
-//					firstClicked.date);
-//				var secondClickDateObj = new Date(secondClicked.year,
-//					secondClicked.month,
-//					secondClicked.date);
-//				var thirdClickDateObj = new Date(thirdClicked.year,
-//					thirdClicked.month,
-//					thirdClicked.date);
-//				if (secondClickDateObj > thirdClickDateObj && thirdClickDateObj > firstClickDateObj) {
-//					secondClicked = thirdClicked;
-//					// then choose dates again from the start :)
-//					bothCals.find(".calendar_content").find("div").each(function() {
-//						$(this).removeClass("selected");
-//					});
-//					selected = {};
-//					selected[firstClicked.year] = {};
-//					selected[firstClicked.year][firstClicked.month] = [firstClicked.date];
-//					selected = addChosenDates(firstClicked, secondClicked, selected);
-//				} else { // reset clicks
-//					selected = {};
-//					firstClicked = [];
-//					secondClicked = [];
-//					firstClick = false;
-//					secondClick = false;
-//					bothCals.find(".calendar_content").find("div").each(function() {
-//						$(this).removeClass("selected");
-//					});
-//				}
-//			}
-//			if (!firstClick) {
-//				firstClick = true;
-//				firstClicked = getClickedInfo(clicked, calendar);
-//				selected[firstClicked.year] = {};
-//				selected[firstClicked.year][firstClicked.month] = [firstClicked.date];
-//			} else {
-//				secondClick = true;
-//				secondClicked = getClickedInfo(clicked, calendar);
-//
-//				// what if second clicked date is before the first clicked?
-//				var firstClickDateObj = new Date(firstClicked.year,
-//					firstClicked.month,
-//					firstClicked.date);
-//				var secondClickDateObj = new Date(secondClicked.year,
-//					secondClicked.month,
-//					secondClicked.date);
-//
-//				if (firstClickDateObj > secondClickDateObj) {
-//
-//					var cachedClickedInfo = secondClicked;
-//					secondClicked = firstClicked;
-//					firstClicked = cachedClickedInfo;
-//					selected = {};
-//					selected[firstClicked.year] = {};
-//					selected[firstClicked.year][firstClicked.month] = [firstClicked.date];
-//
-//				} else if (firstClickDateObj.getTime() == secondClickDateObj.getTime()) {
-//					selected = {};
-//					firstClicked = [];
-//					secondClicked = [];
-//					firstClick = false;
-//					secondClick = false;
-//					$(this).removeClass("selected");
-//				}
-//
-//
-//				// add between dates to [selected]
-//				selected = addChosenDates(firstClicked, secondClicked, selected);
-//			}
-//			selectDates(selected);
 		});
 
 	}
+	
 	function dateObjView(obj) {
 		var year = obj.getFullYear();
-		var month = obj.getMonth()+1;
+		var month = i[obj.getMonth()+1];
 		var date = obj.getDate();
+			if(date < 10) {
+				date = "0" + obj.getDate();
+			}
 		var day = obj.getDay();
 		var weekday = new Array(7);
 			weekday[0] = "일요일";
@@ -245,15 +177,15 @@ $(document).ready(function() {
 
 	var r = [];
 	var i = [
-		"1",
-		"2",
-		"3",
-		"4",
-		"5",
-		"6",
-		"7",
-		"8",
-		"9",
+		"01",
+		"02",
+		"03",
+		"04",
+		"05",
+		"06",
+		"07",
+		"08",
+		"09",
 		"10",
 		"11",
 		"12"];
@@ -348,80 +280,4 @@ $(document).ready(function() {
 	}
 
 
-	// Finding between dates MADNESS. Needs refactoring and smartening up :)
-	function addChosenDates(firstClicked, secondClicked, selected) {
-		if (secondClicked.date > firstClicked.date || secondClicked.month > firstClicked.month || secondClicked.year > firstClicked.year) {
-
-			var added_year = secondClicked.year;
-			var added_month = secondClicked.month;
-			var added_date = secondClicked.date;
-
-			if (added_year > firstClicked.year) {
-				// first add all dates from all months of Second-Clicked-Year
-				selected[added_year] = {};
-				selected[added_year][added_month] = [];
-				for (var i = 1;
-					i <= secondClicked.date;
-					i++) {
-					selected[added_year][added_month].push(i);
-				}
-
-				added_month = added_month - 1;
-				while (added_month >= 0) {
-					selected[added_year][added_month] = [];
-					for (var i = 1;
-						i <= getDaysInMonth(added_year, added_month);
-						i++) {
-						selected[added_year][added_month].push(i);
-					}
-					added_month = added_month - 1;
-				}
-
-				added_year = added_year - 1;
-				added_month = 11; // reset month to Dec because we decreased year
-				added_date = getDaysInMonth(added_year, added_month); // reset date as well
-
-				// Now add all dates from all months of inbetween years
-				while (added_year > firstClicked.year) {
-					selected[added_year] = {};
-					for (var i = 0; i < 12; i++) {
-						selected[added_year][i] = [];
-						for (var d = 1; d <= getDaysInMonth(added_year, i); d++) {
-							selected[added_year][i].push(d);
-						}
-					}
-					added_year = added_year - 1;
-				}
-			}
-
-			if (added_month > firstClicked.month) {
-				if (firstClicked.year == secondClicked.year) {
-					selected[added_year][added_month] = [];
-					for (var i = 1;
-						i <= secondClicked.date;
-						i++) {
-						selected[added_year][added_month].push(i);
-					}
-					added_month = added_month - 1;
-				}
-				while (added_month > firstClicked.month) {
-					selected[added_year][added_month] = [];
-					for (var i = 1;
-						i <= getDaysInMonth(added_year, added_month);
-						i++) {
-						selected[added_year][added_month].push(i);
-					}
-					added_month = added_month - 1;
-				}
-				added_date = getDaysInMonth(added_year, added_month);
-			}
-
-			for (var i = firstClicked.date + 1;
-				i <= added_date;
-				i++) {
-				selected[added_year][added_month].push(i);
-			}
-		}
-		return selected;
-	}
 });

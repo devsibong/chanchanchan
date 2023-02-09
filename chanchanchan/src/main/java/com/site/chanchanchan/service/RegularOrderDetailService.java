@@ -43,7 +43,6 @@ public class RegularOrderDetailService implements MyService<Integer, RegularOrde
 	//주문내역 리스트
 	public List<RegularOrderDetail> list(Integer k) throws Exception {
 		return mapper.list(k);
-	}
-	
-	
+	}	
+
 }

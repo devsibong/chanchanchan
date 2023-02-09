@@ -32,10 +32,10 @@
 							<li><i class="lni lni-star-filled"></i></li>
 							<li><i class="lni lni-star"></i></li>
 							<li><span>4.0 Review(s)</span></li>
-						</ul>
+						</ul>			
 						<div class="price">
-							<span th:text="|${#numbers.formatInteger(pr.product_price*(1-pr.product_discount/100.0),3,'COMMA')}원|"></span><span class="discount-price" th:text="|${#numbers.formatInteger(pr.product_price,3,'COMMA')}원|" th:style="${pr.product_discount} == '0' ? 'display:none' : 'display:block'"></span>
-						</div>
+							<span th:text="|${#numbers.formatInteger(pr.product_price*(1-pr.product_discount/100.0),3,'COMMA')}원|"></span><span class="discount-price" th:text="|${#numbers.formatInteger(pr.product_price,3,'COMMA')}원|" th:style="${pr.product_discount} == '0' ? 'display:none' : 'display:inline-block'"></span>
+						</div>					
 					</div>
 				</div>
 				<!-- End Single Product -->

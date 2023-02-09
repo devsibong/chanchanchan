@@ -48,8 +48,13 @@ public class MyPageController {
 	RegularOrderDetailService rodservice;
 	
 	@RequestMapping("/mypage")
-	public String main() {
-		return "mypage/mypagemain";
+	public String main(HttpSession session) {
+		Member loginMember = (Member)session.getAttribute("loginmem");
+		if (loginMember == null) {
+			return "redirect:/login";
+		} else {
+			return "mypage/mypagemain";
+		}
 	}
 	
 	//주문내역

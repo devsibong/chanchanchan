@@ -2,6 +2,7 @@
 <!DOCTYPE mapper 
 PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<<<<<<< HEAD
 <mapper namespace="com.site.chanchanchan.mapper.RegularOrderDetailMapper">
 	
 	<select id="list" parameterType="Integer" resultType="RegularOrderDetail">
@@ -13,5 +14,32 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		INNER JOIN product pr ON rod.product_id = pr.product_id
 		WHERE ol.member_index = #{member_index} ORDER BY rod.regular_orderdetail_id desc
 	</select>
+=======
+<mapper
+	namespace="com.site.chanchanchan.mapper.RegularOrderDetailMapper">
+
+	<select id="select" parameterType="String">
+		SELECT *
+		FROM cart WHERE regular_orderdetail_id = #{regular_orderdetail_id}
+	</select>
+
+	<insert id="insert" parameterType="OrderDetail" useGeneratedKeys="true"
+		keyProperty="regular_orderdetail_id">
+		INSERT INTO regular_orderdetail VALUES
+		(regular_orderdetail_id,#{product_id},#{order_id},#{regular_price})
+	</insert>
+	
+	<update id="update" parameterType="Cart">
+		UPDATE regular_orderdetail SET
+		#{regular_orderdetail_id},#{product_id},#{order_id},#{regular_price}
+		WHERE regular_orderdetail_id
+		= #{regular_orderdetail_id}
+	</update>
+	
+	<delete id="delete" parameterType="String">
+		DELETE FROM regular_orderdetail WHERE regular_orderdetail_id
+		= #{regular_orderdetail_id}
+	</delete>
+>>>>>>> branch 'master' of https://github.com/devsibong/chanchanchan.git
 
 </mapper>

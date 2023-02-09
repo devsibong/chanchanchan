@@ -35,7 +35,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<insert id="insert" parameterType="OrderDetail" useGeneratedKeys="true"
 		keyProperty="orderdetail_id">
 		INSERT INTO order_detail VALUES
-		(orderdetail_id,#{product_id},#{product_id},#{orderdetail_count},#{orderdetail_price})
+		(orderdetail_id,#{product_id},#{order_id},#{orderdetail_count},#{orderdetail_price})
 	</insert>
 
 </mapper>
