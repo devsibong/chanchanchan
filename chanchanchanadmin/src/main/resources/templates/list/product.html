@@ -136,8 +136,8 @@ $(document).ready(function(){
 							<th th:text="${product.category_id}"></th>
 							<th><a th:text="${product.product_name}" th:href="@{/product/view(id=${product.product_id})}"></a></th>
 							<th th:text="${product.product_description}"></th>
-							<th th:text="${product.product_thumbnail_imgpath}"></th>
-							<th th:text="${product.product_detail_imgpath}"></th>
+							<th><img th:src="@{/images/products/}+${product.product_thumbnail_imgpath}" alt="#" style="width:50px;"></th>							
+							<th><img th:src="@{/images/products/}+${product.product_detail_imgpath}" alt="#" style="width:50px;"></th>							
 							<th th:text="${product.product_price}"></th>
 							<th th:text="${product.product_essential}"></th>
 							<th><input type="text" name="salerate" th:value="${product.product_discount}" style="width:50px;"></input></th>

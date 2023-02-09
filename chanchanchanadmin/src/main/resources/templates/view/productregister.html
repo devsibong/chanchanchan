@@ -38,11 +38,13 @@ th{width:16%}
 						</tr>
 						<tr>
 							<th>대표이미지</th>
-							<td><input type="text" style="width:90%;" name="product_thumbnail_imgpath"></td>
+							<td><img th:src="@{/images/products/}+${product.product_thumbnail_imgpath}" alt="#" style="width:10%;">							
+							<input type="text" style="width:90%;" name="product_thumbnail_imgpath"></td>
 						</tr>
 						<tr>
 							<th>상세이미지</th>
-							<td><input type="text" style="width:90%;" name="product_detail_imgpath"></td>
+							<td><img th:src="@{/images/products/}+${product.product_detail_imgpath}" alt="#" style="width:10%;">							
+							<input type="text" style="width:90%;" name="product_detail_imgpath"></td>
 						</tr>
 						<tr>
 							<th>상품가격</th>
