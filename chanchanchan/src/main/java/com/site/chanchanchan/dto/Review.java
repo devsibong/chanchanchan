@@ -20,4 +20,7 @@ public class Review {
 	private int review_rank;
 	private String review_content;
 	private Date review_date;
+	
+	private String member_id;
+	private String product_name;
 }

@@ -6,7 +6,33 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<select id="select" parameterType="Integer" resultType="Review">
 		SELECT * FROM review WHERE product_id = #{product_id}
 	</select>
+	<select id="listByIndex" parameterType="Integer" resultType="Review">
+		SELECT r.review_id review_id,m.member_id member_id,p.product_name product_name,r.review_rank review_rank,
+		r.review_content review_content,r.review_date review_date
+		FROM review r
+		INNER JOIN member m ON r.member_index = m.member_index
+		INNER JOIN product p ON r.product_id = p.product_id 
+		WHERE r.product_id = #{product_id}
+		ORDER BY r.review_id desc
+	</select>
 	<insert id="insert" parameterType="Review">
 		INSERT INTO review VALUES (review_id,#{member_index},#{product_id},#{review_rank},#{review_content},NOW())
-	</insert>	
+	</insert>
+	<select id="getTotal" parameterType="Criteria" resultType="Integer">
+		SELECT COUNT(*) FROM review
+		<if test='!isSearchOk'>
+ 		WHERE ${option} LIKE '%${searchVal}%'
+		</if>
+	</select>
+	<select id="getListByPaging" parameterType="Criteria" resultType="Review">
+		SELECT * FROM 
+		<choose> 
+			<when test="isSearchOk">review</when>
+			<otherwise>
+			(SELECT * FROM review 
+			WHERE ${option} LIKE '%${searchVal}%')search_post 
+			</otherwise>
+		</choose>
+			ORDER BY post_id DESC LIMIT #{pageStartNum},#{amount}
+	</select>
 </mapper>
