@@ -36,5 +36,6 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		INNER JOIN product pr ON rod.product_id = pr.product_id
 		WHERE ol.member_index = #{member_index} ORDER BY rod.regular_orderdetail_id desc
 	</select>
+	
 
 </mapper>
