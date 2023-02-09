@@ -1,7 +1,32 @@
-$(document).ready(function() {
+$(document).ready(function() {	  
 	totalPrice();
 	totalPayment();
 });
+
+
+// 결제창 호출
+  function requestPay() {
+	IMP.init("imp72800335");
+    IMP.request_pay({
+      pg: "html5_inicis.INIpayTest",
+      pay_method: "card",
+      merchant_uid: "ORD20180131-0000011",   // 주문번호
+      name: "노르웨이 회전 의자",
+      amount: 64900,                         // 숫자 타입
+      buyer_email: "gildong@gmail.com",
+      buyer_name: "홍길동",
+      buyer_tel: "010-4242-4242",
+      buyer_addr: "서울특별시 강남구 신사동",
+      buyer_postcode: "01181"
+    }, function (rsp) { // callback
+      if (rsp.success) {
+        // 결제 성공 시 로직
+      } else {
+        // 결제 실패 시 로직
+      }
+    });
+  }
+
 
 //총 상품금액 합계
 function totalPrice() {
@@ -75,18 +100,20 @@ $("select#delivery_info_select").on("change", function() {
 	};
 });
 
-$("#payment").on("click", function(){
-	if(
-		$("#receiver").val() != ""
-		&& $("#receiver_tel").val() != ""
-		&& $("#shipping_zipcode").val() != ""
-		&& $("#shipping_address").val() != ""
-		&& $("#shipping_address_detail").val() != ""
-		&& $("#delivery_info").val() != "") {
-		kakaopay();		
-		} else{
-			alert("필수 정보를 입력하세요.");
-		};
+$("#payment").click(function(){
+	requestPay();
+//	if(
+//		$("#receiver").val() != ""
+//		&& $("#receiver_tel").val() != ""
+//		&& $("#shipping_zipcode").val() != ""
+//		&& $("#shipping_address").val() != ""
+//		&& $("#shipping_address_detail").val() != ""
+//		&& $("#delivery_info").val() != "") {
+//			requestPay();
+//		kakaopay();		
+//		} else{
+//			alert("필수 정보를 입력하세요.");
+//		};
 });
 
 
