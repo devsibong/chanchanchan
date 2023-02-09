@@ -2,21 +2,7 @@
 <!DOCTYPE mapper 
 PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<<<<<<< HEAD
 <mapper namespace="com.site.chanchanchan.mapper.RegularOrderDetailMapper">
-	
-	<select id="list" parameterType="Integer" resultType="RegularOrderDetail">
-		SELECT rod.order_id,rod.product_id AS product_id,ol.order_totalpayment AS order_totalpayment,
-		ol.payment_method AS payment_method,ol.order_date AS order_date,pr.product_name AS product_name,
-		ol.order_state AS order_state,ol.receiver AS receiver
-		FROM regular_orderdetail rod
-		INNER JOIN order_list ol ON rod.order_id = ol.order_id 
-		INNER JOIN product pr ON rod.product_id = pr.product_id
-		WHERE ol.member_index = #{member_index} ORDER BY rod.regular_orderdetail_id desc
-	</select>
-=======
-<mapper
-	namespace="com.site.chanchanchan.mapper.RegularOrderDetailMapper">
 
 	<select id="select" parameterType="String">
 		SELECT *
@@ -40,6 +26,15 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		DELETE FROM regular_orderdetail WHERE regular_orderdetail_id
 		= #{regular_orderdetail_id}
 	</delete>
->>>>>>> branch 'master' of https://github.com/devsibong/chanchanchan.git
+	
+	<select id="list" parameterType="Integer" resultType="RegularOrderDetail">
+		SELECT rod.order_id,rod.product_id AS product_id,ol.order_totalpayment AS order_totalpayment,
+		ol.payment_method AS payment_method,ol.order_date AS order_date,pr.product_name AS product_name,
+		ol.order_state AS order_state,ol.receiver AS receiver
+		FROM regular_orderdetail rod
+		INNER JOIN order_list ol ON rod.order_id = ol.order_id 
+		INNER JOIN product pr ON rod.product_id = pr.product_id
+		WHERE ol.member_index = #{member_index} ORDER BY rod.regular_orderdetail_id desc
+	</select>
 
 </mapper>
