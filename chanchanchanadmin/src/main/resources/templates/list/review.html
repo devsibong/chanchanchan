@@ -5,7 +5,7 @@
 <script>
 function checked_delete(chk){
 	$.ajax({
-		url:'[[@{/product/delete}]]',
+		url:'[[@{/review/delete}]]',
 		data:{"del":chk},
 		success:function(){
 			location.reload();
@@ -17,43 +17,23 @@ function checked_delete(chk){
 	});
 };
 
-function formSubmit(){
-	var formData={
-		option:$('select[name=option]').val(),
-		searchVal:$('#keyword').val()
-	};
-	
+
+function getdata(id){
 	$.ajax({
-		url:'[[@{/product/searchlist}]]',
-		type:'get',
-		data:formData,
+		url:'[[@{/review/searchlist}]]',
+		data:{'option':'product_id',
+			'searchVal':id
+		},
 		success:function(){
 			location.reload();
 		},
 		error:function(){
-			alert('데이터전송 실패');
+			alert('검색 실패');
 			return false;
 		}
 	});
 };
 
-var cnt=0;
-function changeSale(salerate,id){
-	$.ajax({
-		url:'[[@{/product/changesale}]]',
-		type:'get',
-		data:{product_id:id
-			,product_discount:salerate},
-		success:function(){
-			location.reload();
-		},
-		error:function(){
-			alert(id+'번 상품 할인율 수정 실패');
-			cnt+=1;
-			return false;
-		}
-	});
-};
 
 $(document).ready(function(){
 	$('#selectall').click(function(){
@@ -77,18 +57,9 @@ $(document).ready(function(){
 		}
 	});
 	
-	$('#salerate').click(function(){
-		$("input[name='salerate']").each(function(){
-				var salerate = $(this).val();
-				var id= $(this).closest("th").parent().children().first().next().text();
-				changeSale(salerate,id);
-		});
-		
-		if(cnt>0){
-			alert(cnt+'번 수정에 실패했습니다');
-		}else{
-			alert('할인율 수정 성공!');
-		}
+	$('#btn').click(function(){
+		var id = $('#product_id option:selected').val();
+		getdata(id);
 	});
 });
 
@@ -97,17 +68,15 @@ $(document).ready(function(){
 <body>
 	<div class="card shadow mb-3" style="width:95%;">
 		<div class="card-header py-3">
-			<h4 class="m-1 font-weight-bold text-dark d-inline">상품정보</h4>
+			<h4 class="m-1 font-weight-bold text-dark d-inline">리뷰정보</h4>
 		<div class="search_box float-right">
 		    <form id="searchForm">
 		        <div class="sch_group fl">
-		            <select id="searchOption" name="option" title="검색 유형 선택">
-		                <option value="product_id">상품고유번호</option>
-		                <option value="category_id">카테고리번호</option>
-		                <option value="product_name">상품명</option>
-		            </select>
-		            <input type="text" name="searchVal" id="keyword" placeholder="검색어를 입력하세요." title="키워드 입력"  autocomplete="off" />
-		            <button type="button" id="submit" class="bt_search" onclick="return formSubmit()"><i class="fas fa-search"></i><span class="skip_info">검색</span></button>
+					<select name="product_id" id="product_id">
+						<option th:each="product:${product}" th:value="${product.product_id}"
+						th:text="${product.product_name}"></option>
+					</select>
+					<button id="btn">상품별 리뷰 확인</button>
 		        </div>
 		    </form>
 		</div>
@@ -118,29 +87,23 @@ $(document).ready(function(){
 					<thead>
 						<tr>
 							<th></th>
-							<th style="width:8%;">상품고유번호</th>
-							<th style="width:8%;">카테고리번호</th>
-							<th>상품명</th>
-							<th>상품설명</th>
-							<th>상품대표이미지</th>
-							<th>상품상세이미지</th>
-							<th>상품가격</th>
-							<th>필수정보고시</th>
-							<th>할인율</th>
+							<th style="width:8%;">리뷰번호</th>
+							<th style="width:8%;">회원번호</th>
+							<th>상품번호</th>
+							<th>별점</th>
+							<th>리뷰내용</th>
+							<th>등록일</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="product:${product}">
+						<tr th:each="review:${review}">
 							<th><input type="checkbox" name="checkbox"></input></th>
-							<th th:text="${product.product_id}"></th>
-							<th th:text="${product.category_id}"></th>
-							<th><a th:text="${product.product_name}" th:href="@{/product/view(id=${product.product_id})}"></a></th>
-							<th th:text="${product.product_description}"></th>
-							<th th:text="${product.product_thumbnail_imgpath}"></th>
-							<th th:text="${product.product_detail_imgpath}"></th>
-							<th th:text="${product.product_price}"></th>
-							<th th:text="${product.product_essential}"></th>
-							<th><input type="text" name="salerate" th:value="${product.product_discount}" style="width:50px;"></input></th>
+							<th><a th:text="${review.review_id}" th:href="@{/review/view(id=${review.review_id})}"></a></th>
+							<th th:text="${review.member_index}"></th>
+							<th><a th:text="${review.product_id}" th:href="@{/product/view(id=${review.product_id})}"></a></th>
+							<th th:text="${review.review_rank}"></th>
+							<th th:text="${review.review_content}"></th>
+							<th th:text="${review.review_date}"></th>
 						</tr>
 					</tbody>
 					<tfoot>
@@ -152,15 +115,15 @@ $(document).ready(function(){
 			  <th:block th:if="${pageMaker.endPage!=0}">
 				   <th:block th:if="${pageMaker.prev}">
 				    	<li class="page-item previous"><a class="page-link" 
-				    	th:href="@{/product/list(pageNum=${pageMaker.startPage-1},amount=${pageMaker.cri.amount},option=${pageMaker.cri.option},searchVal=${pageMaker.cri.searchVal})}">이전</a></li>
+				    	th:href="@{/review/list(pageNum=${pageMaker.startPage-1},amount=${pageMaker.cri.amount},option=${pageMaker.cri.option},searchVal=${pageMaker.cri.searchVal})}">이전</a></li>
 				   </th:block>	
 				   <th:block th:each="num : ${#numbers.sequence(pageMaker.startPage	,pageMaker.endPage)}">
 				    	<li class="page-item"><a class="page-link num" 
-				    	th:href="@{/product/list(pageNum=${num},amount=${pageMaker.cri.amount},option=${pageMaker.cri.option},searchVal=${pageMaker.cri.searchVal})}" th:text="${num}"></a></li>
+				    	th:href="@{/review/list(pageNum=${num},amount=${pageMaker.cri.amount},option=${pageMaker.cri.option},searchVal=${pageMaker.cri.searchVal})}" th:text="${num}"></a></li>
 				   </th:block>
 			   	   <th:block th:if="${pageMaker.next}">
 				  		<li class="page-item next"><a class="page-link" 
-				   		th:href="@{/product/list(pageNum=${pageMaker.endPage+1},amount=${pageMaker.cri.amount},option=${pageMaker.cri.option},searchVal=${pageMaker.cri.searchVal})}">다음</a></li>
+				   		th:href="@{/review/list(pageNum=${pageMaker.endPage+1},amount=${pageMaker.cri.amount},option=${pageMaker.cri.option},searchVal=${pageMaker.cri.searchVal})}">다음</a></li>
 			   		</th:block>
 			  </th:block>
 			  </ul>
@@ -172,7 +135,6 @@ $(document).ready(function(){
 				<button type="button" id="salerate" class="btn btn-primary btn-sm float-right mr-3">할인율 수정</button>
 			</div>
 			<div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
-				<a th:href="@{/product/register}"><button type="button" id="register" class="btn btn-success btn-sm float-right mr-3">등록</button></a>
 				<button type="button" id="delete" class="btn btn-danger btn-sm mr-3">삭제</button>
 			</div>
 		</div>

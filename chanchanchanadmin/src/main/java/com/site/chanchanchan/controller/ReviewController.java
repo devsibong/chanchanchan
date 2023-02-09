@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.site.chanchanchan.dto.Criteria;
 import com.site.chanchanchan.dto.OrderDetail;
 import com.site.chanchanchan.dto.Page;
+import com.site.chanchanchan.dto.Product;
 import com.site.chanchanchan.dto.Review;
 import com.site.chanchanchan.service.OrderDetailService;
+import com.site.chanchanchan.service.ProductService;
 import com.site.chanchanchan.service.ReviewService;
 
 @RequestMapping("/review")
@@ -26,6 +28,9 @@ public class ReviewController {
 	
 	@Autowired
 	ReviewService reviewservice;
+	
+	@Autowired
+	ProductService productservice;
 	
 	String dir ="list/";
 	
@@ -52,10 +57,12 @@ public class ReviewController {
 		
 		int total=0;
 		List<Review> reviews=null;
+		List<Product> products=null;
 		
 		try {
 			reviews= reviewservice.getListByPaging(cri);
 			total = reviewservice.getTotal(cri);
+			products = productservice.getall();
 			
 		} catch (Exception e) {
 		}
@@ -63,11 +70,12 @@ public class ReviewController {
 		Page page = new Page(cri,total);
 		
 		model.addAttribute("review",reviews);
+		model.addAttribute("product",products);
 		model.addAttribute("pageMaker", page);
 		session.removeAttribute("option");
 		session.removeAttribute("searchVal");
 		
-		model.addAttribute("center",dir+"Review");
+		model.addAttribute("center",dir+"review");
 		
 		return "main";
 	}
@@ -75,7 +83,9 @@ public class ReviewController {
 	// 
 	@ResponseBody
 	@RequestMapping("/searchlist")
-	public String searchlist(String option, String searchVal,Model model, HttpSession session) {
+	public String searchlist(String option, String searchVal, Model model, HttpSession session) {
+		
+		
 		session.setAttribute("option",option);
 		session.setAttribute("searchVal",searchVal);
 		
@@ -105,7 +115,7 @@ public class ReviewController {
 		} catch (Exception e) {
 //			e.printStackTrace();
 		}
-		model.addAttribute("ReviewView",review);
+		model.addAttribute("reviewView",review);
 		model.addAttribute("center","view/reviewview");
 		return "main";
 	}

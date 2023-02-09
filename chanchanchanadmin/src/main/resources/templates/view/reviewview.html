@@ -5,10 +5,10 @@
 <script>
 function checked_delete(chk){
 	$.ajax({
-		url:'[[@{/product/delete}]]',
+		url:'[[@{/review/delete}]]',
 		data:{"del":chk},
 		success:function(){
-			location.href="/product/list";
+			location.href="/review/list";
 		},
 		error:function(){
 			alert('데이터 삭제실패');
@@ -22,7 +22,7 @@ $(document).ready(function(){
 	$('#delete').click(function(){
 		var result = confirm("선택한 상품을 정말 삭제처리하시겠습니까?");
 		if(result){
-			$("#product_id").text();
+			$("#review_id").text();
 	  	    checked_delete(chk);	
 		}else{ 
 			alert('취소!');
@@ -44,40 +44,28 @@ $(document).ready(function(){
 				<table class="table table-bordered" id="dataTable" width="90%" cellspacing="0">
 						<tbody>
 						<tr>
-							<th>상품고유번호</th>
-							<td id="product_id" th:text="${productView.product_id}" style="width:20%; border:none;"></td>
+							<th>리뷰번호</th>
+							<td id="review_id" th:text="${reviewView.review_id}" style="width:20%; border:none;"></td>
 						</tr>
 						<tr>
-							<th>카테고리번호</th>
-							<td th:text="${productView.category_id}" style="width:20%;"></td>
+							<th>등록일</th>
+							<td th:text="${reviewView.review_date}" style="width:20%;"></td>
 						</tr>
 						<tr>
-							<th>상품명</th>
-							<td th:text="${productView.product_name}" style="width:20%;"></td>
+							<th>회원번호</th>
+							<td th:text="${reviewView.member_index}" style="width:20%;"></td>
 						</tr>
 						<tr>
-							<th>상품설명</th>
-							<td th:text="${productView.product_description}" style="width:90%; height:200px;"></td>
+							<th>상품번호</th>
+							<td th:text="${reviewView.product_id}" style="width:20%;"></td>
 						</tr>
 						<tr>
-							<th>대표이미지</th>
-							<td th:text="${productView.product_thumbnail_imgpath}" style="width:90%;"></td>
+							<th>별점</th>
+							<td th:text="${reviewView.review_rank}" style="width:20%;"></td>
 						</tr>
 						<tr>
-							<th>상세이미지</th>
-							<td th:text="${productView.product_detail_imgpath}" style="width:90%;"></td>
-						</tr>
-						<tr>
-							<th>상품가격</th>
-							<td th:text="${productView.product_price}+(원)" style="width:90%;"></td>
-						</tr>
-						<tr>
-							<th>필수정보고시</th>
-							<td th:text="${productView.product_essential}" style="width:90%; height:200px;"></td>
-						</tr>
-						<tr>
-							<th>할인율</th>
-							<td th:text="${productView.product_discount}" style="width:90%;"></td>
+							<th>리뷰내용</th>
+							<td th:text="${reviewView.review_content}" style="width:90%; height:200px;"></td>
 						</tr>
 						</tbody>
 					</table>
@@ -86,8 +74,6 @@ $(document).ready(function(){
 			
 			<div class="d-grid gap-3 d-md-flex justify-content-md-end mt-3">
 				<button type="button" id="list" class="btn btn-secondary btn-sm float-right mr-3">목록으로</button>
-				<a th:href="@{/product/register}"><button type="button" id="register" class="btn btn-primary btn-sm float-right mr-3">등록</button></a>
-				<a th:href="@{/product/modify(id=${productView.product_id})}"><button type="button" id="modify" class="btn btn-success btn-sm float-right mr-3">수정</button></a>
 				<button type="button" id="delete" class="btn btn-danger btn-sm mr-3">삭제</button>
 			</div>
 		</div>
