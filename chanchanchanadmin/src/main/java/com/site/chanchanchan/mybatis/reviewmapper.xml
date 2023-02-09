@@ -4,26 +4,25 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.site.chanchanchan.mapper.ReviewMapper">
 	<select id="select" parameterType="Integer" resultType="Review">
-		SELECT * FROM post WHERE review_id=#{review_id}
+		SELECT * FROM review WHERE review_id=#{review_id}
 	</select>
 	<select id="selectall" resultType="Review">
-		SELECT * FROM post
+		SELECT * FROM review
 	</select>
 	<insert id="insert" parameterType="Review">
-		INSERT INTO post VALUES (review_id,#{member_index},#{post_subject},#{post_content},
-		#{post_attach1},#{post_attach2},NOW())
+		INSERT INTO review VALUES (review_id,#{member_index},#{product_id},#{review_rank},
+		#{review_content},NOW())
 	</insert>
 	<update id="update" parameterType="Review">
-		UPDATE post SET member_index=#{member_index},
-		post_subject=#{post_subject},post_content=#{post_content},post_attach1=#{post_attach1},post_attach2=#{post_attach2},
-		register_date=#{register_date} 
+		UPDATE review SET member_index=#{member_index},
+		product_id=#{product_id},review_rank=#{review_rank},review_content=#{review_content},review_date=#{review_date}
 		WHERE review_id=#{review_id}
 	</update>
 	<delete id="delete" parameterType="Integer">
-		DELETE FROM post WHERE review_id=#{review_id}
+		DELETE FROM review WHERE review_id=#{review_id}
 	</delete>
 	<select id="getTotal" parameterType="Criteria" resultType="Integer">
-		SELECT COUNT(*) FROM post
+		SELECT COUNT(*) FROM review
 		<if test='!isSearchOk'>
  		WHERE ${option} LIKE '%${searchVal}%'
 		</if>
@@ -31,10 +30,10 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<select id="getListByPaging" parameterType="Criteria" resultType="Review">
 		SELECT * FROM 
 		<choose> 
-			<when test="isSearchOk">post</when>
+			<when test="isSearchOk">review</when>
 			<otherwise>
-			(SELECT * FROM post 
-			WHERE ${option} LIKE '%${searchVal}%')search_post 
+			(SELECT * FROM review 
+			WHERE ${option} LIKE '%${searchVal}%')search_review 
 			</otherwise>
 		</choose>
 			ORDER BY review_id DESC LIMIT #{pageStartNum},#{amount}
