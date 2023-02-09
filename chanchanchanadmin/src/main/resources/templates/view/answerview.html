@@ -5,7 +5,7 @@
 <script>
 function checked_delete(chk){
 	$.ajax({
-		url:'[[@{/answer/delete}]]',
+		url:'[[@{/post/answer/delete}]]',
 		data:{"del":chk},
 		success:function(){
 			location.href="/post/list";
