@@ -21,10 +21,11 @@
 						</div>
 					</div>
 					<div class="product-info">
-						<span class="category">Watches</span>
+						
 						<h4 class="title">
 							<a th:href="@{/productdetails(product_id=${pr.product_id})}" th:text="${pr.product_name}"></a>
 						</h4>
+						<span class="category" th:text="${pr.product_description}"></span>
 						<ul class="review">
 							<li><i class="lni lni-star-filled"></i></li>
 							<li><i class="lni lni-star-filled"></i></li>

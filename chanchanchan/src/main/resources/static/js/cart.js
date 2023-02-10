@@ -39,7 +39,7 @@ function cartCountRefresh() {
 //총 상품금액 합계
 function normalTotalPrice() {
 	let totalPrice = 0;
-	$("#normal_sumprice").each(function() {
+	$("span[name=normal_sumprice]").each(function() {
 		var value = priceNumFormatter($(this).text());
 		totalPrice += parseInt(value);
 	});
@@ -49,7 +49,7 @@ function normalTotalPrice() {
 //총 상품금액 합계
 function regularTotalPrice() {
 	let totalPrice = 0;
-	$("#regular_sumprice").each(function() {
+	$("span[name=regular_sumprice]").each(function() {
 		var value = priceNumFormatter($(this).text());
 		totalPrice += parseInt(value);
 	});
@@ -77,7 +77,8 @@ $("button[name=plus_btn]").on("click", function() {
 	let price = $(this).parent().parent("div").find("input[name=product_price]").val();
 	let count = $(this).parent().parent("div").find("input[name=count]").val();
 	$(this).parent().parent("div").find("input[name=count]").val(++count);
-	$(this).parent().parent("div").find("span[name=product_sumprice]").text(priceViewFormatter(String(count * price)));
+	$(this).parent().parent("div").find("span[name=normal_sumprice]").text(priceViewFormatter(String(count * price)));
+	$(this).parent().parent("div").find("span[name=regular_sumprice]").text(priceViewFormatter(String(count * price)));
 	normalTotalPrice();
 	regularTotalPrice();
 	var cart = {
@@ -103,7 +104,8 @@ $("button[name=minus_btn]").on("click", function() {
 	let count = $(this).parent().parent("div").find("input[name=count]").val();
 	if (count > 1) {
 		$(this).parent().parent("div").find("input[name=count]").val(--count);
-		$(this).parent().parent().parent("div").find("span[name=product_sumprice]").text(priceViewFormatter(String(count * price)));
+		$(this).parent().parent().parent("div").find("span[name=normal_sumprice]").text(priceViewFormatter(String(count * price)));
+		$(this).parent().parent().parent("div").find("span[name=regular_sumprice]").text(priceViewFormatter(String(count * price)));
 		normalTotalPrice();
 		regularTotalPrice();
 		var cart = {

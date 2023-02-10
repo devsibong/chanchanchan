@@ -1,6 +1,7 @@
 package com.site.chanchanchan.controller;
 
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.site.chanchanchan.dto.Cart;
 import com.site.chanchanchan.dto.Member;
+import com.site.chanchanchan.dto.OrderList;
+import com.site.chanchanchan.dto.Product;
 import com.site.chanchanchan.service.CartService;
 
 @Controller
@@ -67,6 +70,23 @@ public class CartController {
 		cartService.remove(temp);
 		return "index";
     }
+	
+	@RequestMapping("/addtocart")
+	@ResponseBody
+	public String addToCart(HttpSession session, @RequestBody Product product) throws Exception {
+		Member loginMember = (Member)session.getAttribute("loginmem");
+		if (loginMember == null) {
+			return "redirect:/login";
+		} else {
+			Cart cart = Cart.builder()
+					.member_index(loginMember.getMember_index())
+					.product_id(product.getProduct_id())
+					.product_count(1)
+					.build();
+			cartService.register(cart);
+			return "index";
+		}
+	}
 	
 	
 

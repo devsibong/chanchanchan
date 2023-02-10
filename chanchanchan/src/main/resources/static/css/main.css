@@ -3307,7 +3307,7 @@ top: 2px;
   padding: 12px 20px;
   font-size: 13px;
   font-weight: 600;
-  width: 140px;
+  width: 160px;
 }
 
 .single-product .product-image .button .btn i {
@@ -3340,7 +3340,7 @@ top: 2px;
 
 .single-product .product-info .category {
   color: #888;
-  font-size: 13px;
+  font-size: 12px;
   display: block;
   margin-bottom: 2px;
 }
@@ -3349,6 +3349,7 @@ top: 2px;
   font-size: 16px;
   font-weight: 700;
   color: #081828;
+  margin-bottom:10px;
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px),
