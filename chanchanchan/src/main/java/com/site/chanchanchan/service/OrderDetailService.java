@@ -46,8 +46,8 @@ public class OrderDetailService implements MyService<Integer, OrderDetail>{
 		}
 		
 	//주문내역 상세
-	public OrderDetail orddetail(Integer order_id) throws Exception {
-		return mapper.orddetail(order_id);
+	public OrderDetail orddetail(Integer orderdetail_id) throws Exception {
+		return mapper.orddetail(orderdetail_id);
 	}
 	//리뷰 상품아이디
 	public OrderDetail rvprid(Integer order_id) throws Exception {

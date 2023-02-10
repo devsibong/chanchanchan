@@ -30,4 +30,7 @@ public class OrderList {
 	
 	private int product_id;
 	private int orderdetail_id;
+	private String product_name;
+	private String product_thumbnail_imgpath;
+	private String product_detail_imgpath;
 }
