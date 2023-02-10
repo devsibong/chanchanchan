@@ -76,8 +76,9 @@ public class MyPageController {
 	
 	//주문내역 삭제
 		@RequestMapping("/orderdel")  
-		public String  orderdel(Model model, Integer order_id) {
+		public String orderdel(Model model, Integer order_id) {
 			try {
+				odservice.remove(order_id);
 				olservice.remove(order_id);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -90,11 +91,11 @@ public class MyPageController {
 	
 	//주문내역 상세페이지
 	@RequestMapping("/orddetail")
-	public String orddetail(Model model,Integer order_id) {
+	public String orddetail(Model model,Integer orderdetail_id) {
 		OrderDetail orderdetail = null;
-		System.out.println(order_id);
+		
 		try {
-			orderdetail = odservice.orddetail(order_id);
+			orderdetail = odservice.orddetail(orderdetail_id);
 			model.addAttribute("orderdetail", orderdetail);
 			System.out.println(orderdetail);
 		} catch (Exception e) {
@@ -105,6 +106,7 @@ public class MyPageController {
 		return "mypage/mypagemain";
 	}
 	
+	//정기주문 내역
 	@RequestMapping("/regordshipselupd")
 	public String regordshipselupd(HttpSession session,Model model) throws Exception {
 		Member loginMember = (Member)session.getAttribute("loginmem");
@@ -120,6 +122,41 @@ public class MyPageController {
 		return "mypage/mypagemain";
 		}
 	}
+	
+	//정기주문내역 삭제
+		@RequestMapping("/regorderdel")  
+		public String regorderdel(Model model, Integer order_id) {
+			try {
+				rodservice.remove(order_id);
+				olservice.remove(order_id);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			model.addAttribute("left", "mypageleft");
+			model.addAttribute("center", "/mypage/regorderdel");
+			return "redirect:/regordshipselupd";
+		}
+	
+	//정기 주문내역 상세페이지
+	@RequestMapping("/regorddetail")
+	public String regorddetail(Model model,Integer regular_orderdetail_id) {
+		RegularOrderDetail regorderdetail = null;
+		
+		try {
+			regorderdetail = rodservice.regorddetail(regular_orderdetail_id);
+			model.addAttribute("regorderdetail", regorderdetail);
+			System.out.println(regorderdetail);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("left", "mypageleft");
+		model.addAttribute("center", "/mypage/regorddetail");
+		return "mypage/mypagemain";
+	}
+			
+	
+	
 	
 	@RequestMapping("/review")
 	public String review(HttpSession session,Model model) throws Exception {
@@ -302,18 +339,18 @@ public class MyPageController {
 	@RequestMapping("/memuploginok")
 	public String memuploginok(Model model,HttpSession session,String member_pw) throws Exception{
 		Member loginMember = (Member)session.getAttribute("loginmem");
-		System.out.println(loginMember);
+		String pw = loginMember.getMember_pw();
+		model.addAttribute("pw", pw);
 		if(member_pw.equals(loginMember.getMember_pw())) {
 			model.addAttribute("member", loginMember);
 			model.addAttribute("left", "mypageleft");
 			model.addAttribute("center", "/mypage/memberupdate");
 			
 			return "mypage/mypagemain";
-		}else {
-		
+		}else {	
 			model.addAttribute("left", "mypageleft");
 			
-			return "redirect:/";
+			return "redirect:/memuplogin";
 		}
 	}
 	

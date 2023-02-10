@@ -40,9 +40,14 @@ public class RegularOrderDetailService implements MyService<Integer, RegularOrde
 		return mapper.selectall();
 	}
 	
-	//주문내역 리스트
+	//정기주문내역 리스트
 	public List<RegularOrderDetail> list(Integer k) throws Exception {
 		return mapper.list(k);
-	}	
+	}
+	
+	//정기주문내역 상세
+	public RegularOrderDetail regorddetail(Integer regular_orderdetail_id) throws Exception {
+		return mapper.regorddetail(regular_orderdetail_id);
+	}
 
 }

@@ -51,4 +51,12 @@ public class OrderListService implements MyService<Integer, OrderList>{
 		public OrderList rvprid(Integer order_id) throws Exception {
 			return mapper.rvprid(order_id);
 		}
+	//일반 주문내역	
+	public List<OrderList> ordlist(Integer k) throws Exception{
+		return mapper.list(k);
+	}
+	//정기 주문내역	
+	public List<OrderList> regordlist(Integer k) throws Exception{
+		return mapper.list(k);
+	}
 }

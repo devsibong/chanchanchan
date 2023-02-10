@@ -5,6 +5,13 @@ $(document).ready(function() {
 			'method' : 'post',
 			'action' : '[[@{/memuploginok}]]'
 		});
+		var pw = '${pw}';
+		if($('#member_pw').text != pw){
+			alert("비밀번호 틀림");
+		}
+		if($('#member_pw').text == pw){
+			alert("확인");
+		}
 		$('#login_form').submit();
 	});
 });

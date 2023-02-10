@@ -29,6 +29,8 @@ public class RegularOrderDetail {
 	private String order_state;
 	private String receiver;
 	private int member_index;
+	private Product product;
+	private OrderList orderlist;
 
 	private int regular_price;	
 	private RegularOrderSchedule regularOrderSchedule;

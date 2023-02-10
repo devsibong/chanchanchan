@@ -30,6 +30,9 @@ public class OrderDetail {
 	private String receiver;
 	private int member_index;
 	
+	private Product product;
+	private OrderList orderlist;
+	
 
 	private int orderdetail_count;
 

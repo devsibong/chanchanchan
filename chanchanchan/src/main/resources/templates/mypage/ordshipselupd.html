@@ -15,7 +15,7 @@
   <tbody>
     <tr th:each="li:${list}">
         <td th:text="${li.order_id}"></td>
-        <td><a th:href="@{/orddetail(order_id=${li.order_id})}">상품상세보기</a></td>
+        <td><a th:href="@{/orddetail(orderdetail_id=${li.orderdetail_id})}">상품상세보기</a></td>
         <td th:text="${li.order_totalpayment}"></td>
         <td th:text="${#dates.format(li.order_date, 'yyyy-MM-dd')}"></td>
         <td><a th:text="${li.order_state}"></a></td>
