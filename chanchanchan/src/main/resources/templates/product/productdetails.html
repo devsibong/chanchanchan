@@ -1,34 +1,21 @@
-<style>
-	.pagenum{
-		text-align:center;
-	}
-	ul{
-		display:inline-block;
-	}
-	li{
-		margin-left:15px;
-		float:left;
-	}
-</style>
-
 <!-- Start Item Details -->
-<section class="item-details section">
-	<div class="container">
+<section class="item-details section p-3">
+	<div class="container col-7">
 		<div class="top-area">
-			<div class="row align-items-center">
+			<div class="row align-items-end">
 				<div class="col-lg-6 col-md-12 col-12">
 					<div class="product-images">
 						<main id="gallery">
 							<div class="main-img">
 								<img th:src="@{/images/products/}+${pr.product_thumbnail_imgpath}" id="current"
-									alt="#">								
+									alt="#" class="border border-0">								
 							</div>
 							
 						</main>
 					</div>
 				</div>
 				<div class="col-lg-6 col-md-12 col-12">
-					<div class="product-info">
+					<div class="product-info mt-2">
 					
 						<h2 class="title" th:text="${pr.product_name}"></h2>
 						<span></span>
@@ -38,7 +25,7 @@
 						<div class="row">														
 							<div class="col-lg-4 col-md-4 col-12">
 								<div class="form-group quantity">
-									<label for="color">Quantity</label> <select
+									<label for="color">수량</label> <select
 										class="form-control">
 										<option>1</option>
 										<option>2</option>
@@ -215,24 +202,5 @@
                             </div>
                             
                         </div>
-			         <nav aria-label="Page navigation example">
-						  <ul class="pagenum">
-						  <th:block th:if="${pageMaker.endPage!=0}">
-							   <th:block th:if="${pageMaker.prev}">
-							    	<li class="page-item previous"><a class="page-link" 
-							    	th:href="@{/productdetails(pageNum=${pageMaker.startPage-1},amount=${pageMaker.cri.amount},option=${pageMaker.cri.option},searchVal=${pageMaker.cri.searchVal})}">이전</a></li>
-							   </th:block>	
-							   <th:block th:each="num : ${#numbers.sequence(pageMaker.startPage	,pageMaker.endPage)}">
-							    	<li class="page-item"><a class="page-link num" 
-							    	th:href="@{/productdetails(pageNum=${num},amount=${pageMaker.cri.amount},option=${pageMaker.cri.option},searchVal=${pageMaker.cri.searchVal})}" th:text="${num}"></a></li>
-							   </th:block>
-						   	   <th:block th:if="${pageMaker.next}">
-							  		<li class="page-item next"><a class="page-link" 
-							   		th:href="@{/productdetails(pageNum=${pageMaker.endPage+1},amount=${pageMaker.cri.amount},option=${pageMaker.cri.option},searchVal=${pageMaker.cri.searchVal})}">다음</a></li>
-						   		</th:block>
-						  </th:block>
-						  </ul>
-					</nav>
                 </div>
             </div>
-            <!-- /.container-fluid -->
