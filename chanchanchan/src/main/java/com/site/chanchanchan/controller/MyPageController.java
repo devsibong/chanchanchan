@@ -349,8 +349,26 @@ public class MyPageController {
 			return "mypage/mypagemain";
 		}else {	
 			model.addAttribute("left", "mypageleft");
+			model.addAttribute("center", "/mypage/memuploginfail");
+			return "mypage/mypagemain";
+		}
+	}
+	
+	@RequestMapping("/memuploginfail")
+	public String memuploginfail(Model model,HttpSession session,String member_pw) throws Exception{
+		Member loginMember = (Member)session.getAttribute("loginmem");
+		String pw = loginMember.getMember_pw();
+		model.addAttribute("pw", pw);
+		if(member_pw.equals(loginMember.getMember_pw())) {
+			model.addAttribute("member", loginMember);
+			model.addAttribute("left", "mypageleft");
+			model.addAttribute("center", "/mypage/memberupdate");
 			
-			return "redirect:/memuplogin";
+			return "mypage/mypagemain";
+		}else {	
+			model.addAttribute("left", "mypageleft");
+			model.addAttribute("center", "/mypage/memuploginfail");
+			return "mypage/mypagemain";
 		}
 	}
 	
