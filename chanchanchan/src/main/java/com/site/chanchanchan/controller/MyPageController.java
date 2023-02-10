@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.site.chanchanchan.dto.Criteria;
 import com.site.chanchanchan.dto.Member;
 import com.site.chanchanchan.dto.OrderDetail;
-import com.site.chanchanchan.dto.OrderList;
 import com.site.chanchanchan.dto.Page;
 import com.site.chanchanchan.dto.Post;
 import com.site.chanchanchan.dto.RegularOrderDetail;
@@ -66,7 +65,7 @@ public class MyPageController {
 		} else {
 			List<OrderDetail> list = odservice.list(loginMember.getMember_index());
 		
-		
+		System.out.println(list);
 		model.addAttribute("list", list);
 		model.addAttribute("left", "mypageleft");
 		model.addAttribute("center", "/mypage/ordshipselupd");
@@ -157,14 +156,14 @@ public class MyPageController {
 			
 	
 	
-	
+	// 리뷰 목록
 	@RequestMapping("/review")
 	public String review(HttpSession session,Model model) throws Exception {
 		Member loginMember = (Member)session.getAttribute("loginmem");
 		if (loginMember == null) {
 			return "redirect:/login";
 		} else {
-			List<OrderList> list = olservice.reviewlist(loginMember.getMember_index());
+			List<OrderDetail> list = odservice.list(loginMember.getMember_index());
 		
 		
 		model.addAttribute("list", list);
@@ -173,7 +172,7 @@ public class MyPageController {
 		return "mypage/mypagemain";
 		}
 	}
-	
+	//리뷰작성폼
 	@RequestMapping("/reviewdo")
 	public String reviewdo(HttpSession session,Model model,Integer order_id) throws Exception {
 		Member loginMember = (Member)session.getAttribute("loginmem");
@@ -191,6 +190,7 @@ public class MyPageController {
 		}
 	}
 	
+	//리뷰작성 ok
 	@RequestMapping("/reviewok")
 	public String reviewok(Model model,Review review) throws Exception {
 		rvservice.register(review);

@@ -29,6 +29,8 @@ public class OrderDetail {
 	private String order_state;
 	private String receiver;
 	private int member_index;
+	private String product_thumbnail_imgpath;
+	private String product_detail_imgpath;
 	
 	private Product product;
 	private OrderList orderlist;

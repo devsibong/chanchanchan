@@ -12,10 +12,9 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	</delete>
 
 	<select id="reviewlist" parameterType="Integer" resultType="OrderList">
-		SELECT ol.order_id AS order_id,ol.order_totalpayment AS order_totalpayment,ol.order_state AS order_state,
-		ol.order_date AS order_date,od.product_id AS product_id
-		FROM order_list AS ol
-		INNER JOIN order_detail AS od ON ol.order_id = od.order_id
+		SELECT *
+		FROM order_list ol
+		INNER JOIN order_detail od ON ol.order_id = od.order_id
 		WHERE member_index = #{member_index} ORDER BY order_id desc
 	</select>
 	<select id="rvprid" parameterType="Integer" resultType="OrderList">

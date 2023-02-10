@@ -31,6 +31,8 @@ public class RegularOrderDetail {
 	private int member_index;
 	private Product product;
 	private OrderList orderlist;
+	private String product_thumbnail_imgpath;
+	private String product_detail_imgpath;
 
 	private int regular_price;	
 	private RegularOrderSchedule regularOrderSchedule;
