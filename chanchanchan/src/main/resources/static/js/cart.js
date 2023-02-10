@@ -79,14 +79,17 @@ function checkCart() {
 			$("#normal_product").attr("disabled", true);
 			$("#regular_empty_cart").prop("hidden", true);
 			$("#normal_empty_cart").prop("hidden", true);
-			};
+			}
 		//일반상품만 있을 때
-		if(regularCartCount == 0) {
+		else if(regularCartCount == 0) {
 			$("#regular_product").attr("disabled", true);
 			$("#regular_empty_cart").prop("hidden", true);
 			$("#normal_empty_cart").prop("hidden", true);
 			selectNormalProduct();
-		};	
+		}
+		else {
+			selectNormalProduct();
+		}
 	};
 			
 	}

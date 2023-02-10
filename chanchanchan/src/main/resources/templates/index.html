@@ -112,6 +112,9 @@ $(document).ready(function() {
                                 <div class="cart-items">
                                     <a th:href="@{/cart}" class="main-btn">
                                         <i class="lni lni-cart"></i>
+                                        <span th:if="${#lists.isEmpty(cartList)}">
+                                        	<span class="total-items" name="cartCount">0</span>
+                                        </span>
                                         <span th:if="${not #lists.isEmpty(cartList)}">
                                         	<span class="total-items" name="cartCount" th:text="${#lists.size(cartList)}"></span>
                                         </span>
@@ -154,16 +157,16 @@ $(document).ready(function() {
                             <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                                 <ul id="nav" class="navbar-nav ms-auto">
                                     <li class="nav-item">                                       
-                                        <a href="contact.html" aria-label="Toggle navigation">할인특가</a>
+                                        <a href="product?category_id=151" aria-label="Toggle navigation">할인특가</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="contact.html" aria-label="Toggle navigation">신상품</a>
+                                        <a href="product?category_id=150" aria-label="Toggle navigation">신상품</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="contact.html" aria-label="Toggle navigation">베스트</a>
+                                        <a href="product?category_id=151" aria-label="Toggle navigation">베스트</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="contact.html" aria-label="Toggle navigation">정기배송</a>
+                                        <a href="product?category_id=153" aria-label="Toggle navigation">정기배송</a>
                                     </li>
                                 </ul>
                             </div> <!-- navbar collapse -->

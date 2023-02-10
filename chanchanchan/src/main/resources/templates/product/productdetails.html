@@ -1,52 +1,73 @@
 <!-- Start Item Details -->
 <section class="item-details section p-3">
+	<input th:value="${pr.product_id}" type="text"	name="detail_product_id" hidden="true" />
+	<input th:value="${pr.product_price}" type="text"	name="detail_product_price" hidden="true" />
 	<div class="container col-7">
-		<div class="top-area">
+		<div class="top-area row">
 			<div class="row align-items-end">
 				<div class="col-lg-6 col-md-12 col-12">
 					<div class="product-images">
 						<main id="gallery">
 							<div class="main-img">
 								<img th:src="@{/images/products/}+${pr.product_thumbnail_imgpath}" id="current"
-									alt="#" class="border border-0">								
+									alt="#" class="border border-0 p-0">								
 							</div>
 							
 						</main>
 					</div>
 				</div>
 				<div class="col-lg-6 col-md-12 col-12">
-					<div class="product-info mt-2">
-					
-						<h2 class="title" th:text="${pr.product_name}"></h2>
-						<span></span>
-						<h3 class="price" th:text="|${#numbers.formatInteger(pr.product_price*(1-pr.product_discount/100.0),3,'COMMA')}원|">
-						</h3>
-						<p class="info-text" th:text="${pr.product_description}"></p>
-						<div class="row">														
-							<div class="col-lg-4 col-md-4 col-12">
-								<div class="form-group quantity">
-									<label for="color">수량</label> <select
-										class="form-control">
-										<option>1</option>
-										<option>2</option>
-										<option>3</option>
-										<option>4</option>
-										<option>5</option>
-									</select>
+					<div class="product-info mt-5">
+						<h2 class="title mb-3" th:text="${pr.product_name}"></h2>
+						<p class="mb-5" th:text="${pr.product_description}"></p>
+						<h3 class="price mb-3" th:text="|${#numbers.formatInteger(pr.product_price*(1-pr.product_discount/100.0),3,'COMMA')}원|">	</h3>
+						<hr>
+						<div class="row justify-content-between align-items-center mt-4 mb-4">
+							<div class="col-6">
+								상품 수량
+							</div>
+							<div class="col-6">
+								<div class="row justify-content-end align-items-center text-center">
+									<div class="col-2 m-0 p-0">
+										<button class="btn btn-link p-0 m-0" name="detail_minus_btn">
+											<i class="lni lni-circle-minus"></i>
+										</button>
+									</div>
+									<div class="col-2 p-0 m-0">
+										<input id="form1" name="count"
+											class="form-control bg-white text-center p-0 m-0"
+											value="1" readonly />
+									</div>
+									<div class="col-2 p-0 m-0">
+										<button class="btn btn-link p-0 m-0" name="detail_plus_btn">
+											<i class="lni lni-circle-plus"></i>
+										</button>
+									</div>
 								</div>
 							</div>
 						</div>
+						<hr>
+						<div class="row justify-content-between mt-5 mb-5">
+							<div class="col">총 상품 금액</div>
+							<div class="col text-end">
+								<span class="fs-5 text-danger" name="total_price"></span>
+								<span>원</span>
+								
+							</div>
+						</div>
+					</div>
+					<div class="product-info">
 						<div class="bottom-content">
-							<div class="row align-items-end">
-								<div class="col-lg-4 col-md-4 col-12">
-									<div class="button cart-button">
-										<button class="btn" style="width: 100%;">Add to Cart</button>
+							<div class="row">
+								<div class="col-lg-6 col-md-4 col-12">
+									<div>
+										<button class="btn btn-outline-primary" style="height: 50px; width: 100%;" name="add_cart">장바구니 추가</button>
 									</div>
 								</div>								
-								<div class="col-lg-4 col-md-4 col-12">
-									<div class="wish-button">
-										<button class="btn">
-											<i class="lni lni-heart"></i> To Wishlist
+								<div class="col-lg-6 col-md-4 col-12">
+									<div >
+										<button class="btn btn-primary" style="height: 50px; width: 100%;">
+											바로 구매
 										</button>
 									</div>
 								</div>
@@ -56,44 +77,32 @@
 				</div>
 			</div>
 		</div>
-		<div class="product-details-info">
-			<div class="single-block">
-				<div class="row">
-					<div class="col-lg-6 col-12">
-						<div class="info-body custom-responsive-margin">
-							<h4>Details</h4>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-								sed do eiusmod tempor incididunt ut labore et dolore magna
-								aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-								ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
-								aute irure dolor in reprehenderit in voluptate velit esse cillum
-								dolore eu fugiat.</p>
-							<h4>Features</h4>
-							<ul class="features">
-								<li>Capture 4K30 Video and 12MP Photos</li>
-								<li>Game-Style Controller with Touchscreen</li>
-								<li>View Live Camera Feed</li>
-								<li>Full Control of HERO6 Black</li>
-								<li>Use App for Dedicated Camera Operation</li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-lg-6 col-12">
+		<hr>
+		<div class="mt-5">
+			<div class="text-center">
+				<img src="/images/productdetails/1.jpg" class="border border-0 p-0">								
+			</div>
+			
+		</div>
+		<div class="row justify-content-center">
+			<div class="product-details-info col-8">
+				<div class="single-block">
+					<div class="col-8 ">
 						<div class="info-body">
-							<h4>Specifications</h4>
+							<h4>제품정보고시</h4>
 							<ul class="normal-list">
-								<li><span>Weight:</span> 35.5oz (1006g)</li>
-								<li><span>Maximum Speed:</span> 35 mph (15 m/s)</li>
-								<li><span>Maximum Distance:</span> Up to 9,840ft (3,000m)</li>
-								<li><span>Operating Frequency:</span> 2.4GHz</li>
-								<li><span>Manufacturer:</span> GoPro, USA</li>
-							</ul>
-							<h4>Shipping Options:</h4>
-							<ul class="normal-list">
-								<li><span>Courier:</span> 2 - 4 days, $22.50</li>
-								<li><span>Local Shipping:</span> up to one week, $10.00</li>
-								<li><span>UPS Ground Shipping:</span> 4 - 6 days, $18.00</li>
-								<li><span>Unishop Global Export:</span> 3 - 4 days, $25.00</li>
+								<li><span>제품명:</span> <span th:text="${pr.product_name}"/></li>
+								<li><span>용량:</span> 160g</li>
+								<li><span>소비기한:</span> 제조일로부터 냉장 6일</li>
+								<li><span>원재료명 및 함량:</span> 돼지고기(국내산),두부[대두(국내산),혼합제제(두부응고제,식물성유지,올리브유)],계란(국내산),양파(국내산),당근(국내산),밀가루[밀(국내산)],현미유[미강원유(국내산)],부추(국내산),태움용융소금(국내산),후추가루/돼지고기,밀,계란,대두 함유</li>
+								<li><span>보관방법(취급방법):</span> 0~10℃ 냉장보관</li>
+								<li><span>식품의 유형:</span> 기타가공품</li>
+								<li><span>포장재질:</span> 용기(PP),실링(PE)</li>
+								<li><span>제조원 및 판매원:</span> (주)찬찬찬</li>
+								<li><span>알레르기식품:</span> 본 제품은 게,새우,고등어,땅콩,우유,메밀,복숭아,토마토,호두,닭고기,쇠고기,오징어,조개류(굴,전복,홍합 포함),잣을 사용한 제품과 같은 제조시설에서 제조하고 있습니다.</li>
+								<li><span>부정/불량식품 신고표시:</span> 부정·불량식품 신고번호는 국번없이 1399</li>
+								<li><span>소비자분쟁해결기준:</span> 본 제품은 공정거래위원회 고시 소비자분쟁해결기준에 의거 교환 또는 환불 보상받으실 수 있습니다.</li>
+								<li><span>소비자 상담실:</span> 0000-0000</li>
 							</ul>
 						</div>
 					</div>
@@ -104,103 +113,43 @@
 </section>
 <!-- End Item Details -->
 
-<!-- Review Modal -->
-<div class="modal fade review-modal" id="exampleModal" tabindex="-1"
-	aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Leave a Review</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal"
-					aria-label="Close"></button>
-			</div>
-			<div class="modal-body">
-				<div class="row">
-					<div class="col-sm-6">
-						<div class="form-group">
-							<label for="review-name">Your Name</label> <input
-								class="form-control" type="text" id="review-name" required>
-						</div>
-					</div>
-					<div class="col-sm-6">
-						<div class="form-group">
-							<label for="review-email">Your Email</label> <input
-								class="form-control" type="email" id="review-email" required>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-sm-6">
-						<div class="form-group">
-							<label for="review-subject">Subject</label> <input
-								class="form-control" type="text" id="review-subject" required>
-						</div>
-					</div>
-					<div class="col-sm-6">
-						<div class="form-group">
-							<label for="review-rating">Rating</label> <select
-								class="form-control" id="review-rating">
-								<option>5 Stars</option>
-								<option>4 Stars</option>
-								<option>3 Stars</option>
-								<option>2 Stars</option>
-								<option>1 Star</option>
-							</select>
-						</div>
-					</div>
-				</div>
-				<div class="form-group">
-					<label for="review-message">Review</label>
-					<textarea class="form-control" id="review-message" rows="8"
-						required></textarea>
-				</div>
-			</div>
-			<div class="modal-footer button">
-				<button type="button" class="btn">Submit Review</button>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- End Review Modal -->
-
  <!-- Begin Page Content -->
-                <div class="container-fluid">
-
-                    
-
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">리뷰</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>리뷰번호</th>
-                                            <th>아이디</th>
-                                            <th>상품명</th>
-                                            <th>평점(1~5)</th>
-                                            <th>글내용</th>
-                                            <th>등록일</th>                                          
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr th:each="li:${list}">
-                                            <td th:text="${li.review_id}"></td>
-                                            <td th:text="${li.member_id}"></td>
-                                            <td th:text="${li.product_name}"></td>
-                                            <td th:text="${li.review_rank}"></td>
-                                            <td th:text="${li.review_content}"></td>
-                                            <td th:text="${#dates.format(li.review_date, 'yyyy-MM-dd')}"></td>
-                                        </tr>               
-                                    </tbody>
-                                    
-                                </table>
-                                
-                            </div>
-                            
-                        </div>
-                </div>
+    <div class="container">
+        <!-- DataTales Example -->
+        <div class="card mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">리뷰</h6>
             </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>리뷰번호</th>
+                                <th>아이디</th>
+                                <th>상품명</th>
+                                <th>평점(1~5)</th>
+                                <th>글내용</th>
+                                <th>등록일</th>                                          
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="li:${list}">
+                                <td th:text="${li.review_id}"></td>
+                                <td th:text="${li.member_id}"></td>
+                                <td th:text="${li.product_name}"></td>
+                                <td th:text="${li.review_rank}"></td>
+                                <td th:text="${li.review_content}"></td>
+                                <td th:text="${#dates.format(li.review_date, 'yyyy-MM-dd')}"></td>
+                            </tr>               
+                        </tbody>
+                        
+                    </table>
+                    
+                </div>
+                
+            </div>
+    </div>
+</div>
+            
+<script type="text/javascript" src="js/productdetails.js"></script>

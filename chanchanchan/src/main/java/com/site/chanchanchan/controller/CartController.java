@@ -75,19 +75,39 @@ public class CartController {
 	@ResponseBody
 	public String addToCart(HttpSession session, @RequestBody Product product) throws Exception {
 		Member loginMember = (Member)session.getAttribute("loginmem");
-		if (loginMember == null) {
-			return "redirect:/login";
-		} else {
-			Cart cart = Cart.builder()
-					.member_index(loginMember.getMember_index())
-					.product_id(product.getProduct_id())
-					.product_count(1)
-					.build();
-			cartService.register(cart);
-			return "index";
+		List<Cart> cartList = cartService.getByMember(Integer.toString(loginMember.getMember_index()));
+		Cart cart = Cart.builder()
+				.member_index(loginMember.getMember_index())
+				.product_id(product.getProduct_id())
+				.product_count(1)
+				.build();
+		for(Cart memcart : cartList) {
+			if (memcart.getProduct_id() == cart.getProduct_id()) {
+				return "fail";
+			}
 		}
+		cartService.register(cart);
+		return "success";
 	}
 	
+	@RequestMapping("/addtocartdetail")
+	@ResponseBody
+	public String addToCartDetail(HttpSession session, @RequestBody Cart newCart) throws Exception {
+		Member loginMember = (Member)session.getAttribute("loginmem");
+		List<Cart> cartList = cartService.getByMember(Integer.toString(loginMember.getMember_index()));
+		Cart cart = Cart.builder()
+				.member_index(loginMember.getMember_index())
+				.product_id(newCart.getProduct_id())
+				.product_count(newCart.getProduct_count())
+				.build();
+		for(Cart memcart : cartList) {
+			if (memcart.getProduct_id() == cart.getProduct_id()) {
+				return "fail";
+			}
+		}
+		cartService.register(cart);
+		return "success";
+	}
 	
 
 }
