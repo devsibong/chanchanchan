@@ -16,8 +16,8 @@
 						<img th:src="@{/images/products/}+${pr.product_thumbnail_imgpath}" alt="#">
 						<span class="sale-tag" th:text="|${pr.product_discount}%|" th:style="${pr.product_discount} == '0' ? 'display:none' : 'display:block'"></span>
 						<div class="button">
-							<a th:href="@{/productdetails(product_id=${pr.product_id})}" class="btn">
-							<i class="lni lni-cart"></i> Add to Cart</a>
+								<a class="btn" name="add_cart"> <i class="lni lni-cart"></i> 장바구니 추가
+								</a>
 						</div>
 					</div>
 					<div class="product-info">
@@ -38,6 +38,8 @@
 							<span th:text="|${#numbers.formatInteger(pr.product_price*(1-pr.product_discount/100.0),3,'COMMA')}원|"></span><span class="discount-price" th:text="|${#numbers.formatInteger(pr.product_price,3,'COMMA')}원|" th:style="${pr.product_discount} == '0' ? 'display:none' : 'display:inline-block'"></span>
 						</div>					
 					</div>
+					<!-- Hidden -->
+					<input th:value="${pr.product_id}" type="text"	name="product_id" hidden="true" />
 				</div>
 				<!-- End Single Product -->
 			</div>						

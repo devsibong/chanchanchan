@@ -1,9 +1,36 @@
-$(document).ready(function() {
+$(document).ready(function() {	  
 	totalPrice();
 	totalPayment();
 });
 
-//총 상품금액 합계
+
+// 일반 결제창 호출
+  function requestPay() {
+	let order_totalpayment= parseInt(priceNumFormatter($("#total_payment").text()));
+	let product_name = $("[name=product_name]").text();
+	IMP.init("imp72800335");
+    IMP.request_pay({
+      pg: "html5_inicis.INIpayTest",
+      pay_method: "card",
+      merchant_uid: "ORD20180131-0000011",   // 주문번호
+      name: product_name,
+      amount: order_totalpayment,                         // 숫자 타입
+      buyer_email: "gildong@gmail.com",
+      buyer_name: "홍길동",
+      buyer_tel: "010-4242-4242",
+      buyer_addr: "서울특별시 강남구 신사동",
+      buyer_postcode: "01181"
+    }, function (rsp) { // callback
+      if (rsp.success) {
+        location.replace("/ordercomplete");
+		order();
+      } else {
+      }
+    });
+  }
+
+
+// 총 상품금액 합계
 function totalPrice() {
 	let totalPrice = 0;
 	$("span[name=product_sumprice]").each(function() {
@@ -13,7 +40,7 @@ function totalPrice() {
 	$("#total_price").text(priceViewFormatter(String(totalPrice)));
 };
 
-//총 결제금액
+// 총 결제금액
 function totalPayment() {
 	var total_price = parseInt(priceNumFormatter($("#total_price").text()));
 	var shipping_fee = parseInt(priceNumFormatter($("#shipping_fee").text()));
@@ -24,7 +51,7 @@ function totalPayment() {
 	$("#total_payment").text(priceViewFormatter(String(total_payment)));
 }
 
-//금액 formatter
+// 금액 formatter
 function priceViewFormatter(value) {
 	value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	return value;
@@ -36,7 +63,7 @@ function priceNumFormatter(value) {
 }
 
 
-//주문자와 동일
+// 주문자와 동일
 $("input#reciever_equals_member").on("click", function() {
 	let member_index = $("#member_index").val();
 	var member = {
@@ -58,7 +85,7 @@ $("input#reciever_equals_member").on("click", function() {
 		});
 });
 
-//요청사항
+// 요청사항
 $("select#delivery_info_select").on("change", function() {
 	switch($(this).val()) {
 		case "0":
@@ -75,7 +102,13 @@ $("select#delivery_info_select").on("change", function() {
 	};
 });
 
-$("#payment").on("click", function(){
+$("#payment").click(function(){
+	checkInfo();
+	
+});
+
+// validation
+function checkInfo() {
 	if(
 		$("#receiver").val() != ""
 		&& $("#receiver_tel").val() != ""
@@ -83,15 +116,24 @@ $("#payment").on("click", function(){
 		&& $("#shipping_address").val() != ""
 		&& $("#shipping_address_detail").val() != ""
 		&& $("#delivery_info").val() != "") {
-		kakaopay();		
+			paymentCheck();	
 		} else{
 			alert("필수 정보를 입력하세요.");
 		};
-});
+}
+
+// payment check
+function paymentCheck(){
+	if ($("#payment_check1").is(':checked')){
+		kakaoPay();
+	} else{
+		requestPay();
+	};
+}
 
 
 //카카오페이
-function kakaopay() {
+function kakaoPay() {
 	$.ajax({
 			url: "/payment/ready",
 			type: "POST",
@@ -105,10 +147,10 @@ function kakaopay() {
 				var popup = window.open(data.next_redirect_pc_url,"카카오페이", "width=400, height=700, scrollbars=yes, resizable=no");
 				popup.focus();
 				order();
+				
 			})
 			.fail(function() {
 			});
-	
 }
 
 //결제완료

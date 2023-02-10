@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.site.chanchanchan.dto.Criteria;
 import com.site.chanchanchan.dto.Member;
 import com.site.chanchanchan.dto.OrderDetail;
-import com.site.chanchanchan.dto.OrderList;
 import com.site.chanchanchan.dto.Page;
 import com.site.chanchanchan.dto.Post;
 import com.site.chanchanchan.dto.RegularOrderDetail;
@@ -66,7 +65,7 @@ public class MyPageController {
 		} else {
 			List<OrderDetail> list = odservice.list(loginMember.getMember_index());
 		
-		
+		System.out.println(list);
 		model.addAttribute("list", list);
 		model.addAttribute("left", "mypageleft");
 		model.addAttribute("center", "/mypage/ordshipselupd");
@@ -76,8 +75,9 @@ public class MyPageController {
 	
 	//주문내역 삭제
 		@RequestMapping("/orderdel")  
-		public String  orderdel(Model model, Integer order_id) {
+		public String orderdel(Model model, Integer order_id) {
 			try {
+				odservice.remove(order_id);
 				olservice.remove(order_id);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -90,11 +90,11 @@ public class MyPageController {
 	
 	//주문내역 상세페이지
 	@RequestMapping("/orddetail")
-	public String orddetail(Model model,Integer order_id) {
+	public String orddetail(Model model,Integer orderdetail_id) {
 		OrderDetail orderdetail = null;
-		System.out.println(order_id);
+		
 		try {
-			orderdetail = odservice.orddetail(order_id);
+			orderdetail = odservice.orddetail(orderdetail_id);
 			model.addAttribute("orderdetail", orderdetail);
 			System.out.println(orderdetail);
 		} catch (Exception e) {
@@ -105,6 +105,7 @@ public class MyPageController {
 		return "mypage/mypagemain";
 	}
 	
+	//정기주문 내역
 	@RequestMapping("/regordshipselupd")
 	public String regordshipselupd(HttpSession session,Model model) throws Exception {
 		Member loginMember = (Member)session.getAttribute("loginmem");
@@ -121,13 +122,48 @@ public class MyPageController {
 		}
 	}
 	
+	//정기주문내역 삭제
+		@RequestMapping("/regorderdel")  
+		public String regorderdel(Model model, Integer order_id) {
+			try {
+				rodservice.remove(order_id);
+				olservice.remove(order_id);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			model.addAttribute("left", "mypageleft");
+			model.addAttribute("center", "/mypage/regorderdel");
+			return "redirect:/regordshipselupd";
+		}
+	
+	//정기 주문내역 상세페이지
+	@RequestMapping("/regorddetail")
+	public String regorddetail(Model model,Integer regular_orderdetail_id) {
+		RegularOrderDetail regorderdetail = null;
+		
+		try {
+			regorderdetail = rodservice.regorddetail(regular_orderdetail_id);
+			model.addAttribute("regorderdetail", regorderdetail);
+			System.out.println(regorderdetail);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("left", "mypageleft");
+		model.addAttribute("center", "/mypage/regorddetail");
+		return "mypage/mypagemain";
+	}
+			
+	
+	
+	// 리뷰 목록
 	@RequestMapping("/review")
 	public String review(HttpSession session,Model model) throws Exception {
 		Member loginMember = (Member)session.getAttribute("loginmem");
 		if (loginMember == null) {
 			return "redirect:/login";
 		} else {
-			List<OrderList> list = olservice.reviewlist(loginMember.getMember_index());
+			List<OrderDetail> list = odservice.list(loginMember.getMember_index());
 		
 		
 		model.addAttribute("list", list);
@@ -136,7 +172,7 @@ public class MyPageController {
 		return "mypage/mypagemain";
 		}
 	}
-	
+	//리뷰작성폼
 	@RequestMapping("/reviewdo")
 	public String reviewdo(HttpSession session,Model model,Integer order_id) throws Exception {
 		Member loginMember = (Member)session.getAttribute("loginmem");
@@ -154,6 +190,7 @@ public class MyPageController {
 		}
 	}
 	
+	//리뷰작성 ok
 	@RequestMapping("/reviewok")
 	public String reviewok(Model model,Review review) throws Exception {
 		rvservice.register(review);
@@ -302,18 +339,36 @@ public class MyPageController {
 	@RequestMapping("/memuploginok")
 	public String memuploginok(Model model,HttpSession session,String member_pw) throws Exception{
 		Member loginMember = (Member)session.getAttribute("loginmem");
-		System.out.println(loginMember);
+		String pw = loginMember.getMember_pw();
+		model.addAttribute("pw", pw);
 		if(member_pw.equals(loginMember.getMember_pw())) {
 			model.addAttribute("member", loginMember);
 			model.addAttribute("left", "mypageleft");
 			model.addAttribute("center", "/mypage/memberupdate");
 			
 			return "mypage/mypagemain";
-		}else {
-		
+		}else {	
 			model.addAttribute("left", "mypageleft");
+			model.addAttribute("center", "/mypage/memuploginfail");
+			return "mypage/mypagemain";
+		}
+	}
+	
+	@RequestMapping("/memuploginfail")
+	public String memuploginfail(Model model,HttpSession session,String member_pw) throws Exception{
+		Member loginMember = (Member)session.getAttribute("loginmem");
+		String pw = loginMember.getMember_pw();
+		model.addAttribute("pw", pw);
+		if(member_pw.equals(loginMember.getMember_pw())) {
+			model.addAttribute("member", loginMember);
+			model.addAttribute("left", "mypageleft");
+			model.addAttribute("center", "/mypage/memberupdate");
 			
-			return "redirect:/";
+			return "mypage/mypagemain";
+		}else {	
+			model.addAttribute("left", "mypageleft");
+			model.addAttribute("center", "/mypage/memuploginfail");
+			return "mypage/mypagemain";
 		}
 	}
 	

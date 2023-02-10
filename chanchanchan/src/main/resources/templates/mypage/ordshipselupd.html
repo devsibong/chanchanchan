@@ -6,19 +6,31 @@
     <tr>
       <th scope="col">주문번호</th>
       <th scope="col">상품</th>
+      <th scope="col"></th>
       <th scope="col">총결제금액</th>
       <th scope="col">결제일</th>
       <th scope="col">주문상태</th>
+      <th scope="col">주문상세</th>
       <th scope="col">주문취소</th>
     </tr>
   </thead>
   <tbody>
     <tr th:each="li:${list}">
         <td th:text="${li.order_id}"></td>
-        <td><a th:href="@{/orddetail(order_id=${li.order_id})}">상품상세보기</a></td>
+        <td>
+        	<a th:href="@{/productdetails(product_id=${li.product_id})}">
+        		<img th:src="|images/products/${li.product_thumbnail_imgpath}|" style="width: 100px;">
+        	</a>	
+        </td>
+        <td th:text="${li.product_name}"></td>
         <td th:text="${li.order_totalpayment}"></td>
         <td th:text="${#dates.format(li.order_date, 'yyyy-MM-dd')}"></td>
         <td><a th:text="${li.order_state}"></a></td>
+        <td>
+        	<a th:href="@{/orddetail(orderdetail_id=${li.orderdetail_id})}">
+        		<button type="button" class="btn btn-primary">상세보기</button>
+        	</a>
+        </td>
         <td id="orderdel">
         	<a th:href="@{/orderdel(order_id=${li.order_id})}">
         		<button type="button" class="btn btn-secondary">취소</button>

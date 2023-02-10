@@ -1,20 +1,9 @@
 
 $(document).ready(function() {
+	
 	normalTotalPrice();
 	regularTotalPrice();
-	if(cartCount == 0) {
-		$("#empty_cart").prop("hidden", false);
-		$("#see_more").prop("hidden", true);
-		$("#order").prop("hidden", true);
-		$("#go_main").prop("hidden", false);
-		selectNormalProduct();
-		
-	} else{
-		selectNormalProduct();
-		if(normalCartCount == 0) {
-			selectRegularProduct();
-		};		
-	}
+	checkCart();
 });
 
 //금액 formatter
@@ -71,6 +60,38 @@ function selectRegularProduct() {
 	$("#cart_list").prop("hidden", true);
 	$("#regular_cart_list").prop("hidden", false);
 }
+
+function checkCart() {
+		let cartCount = $("div[name=product_name]").size();
+		let normalCartCount = $("div[name=normal_product_img]").size();
+		let regularCartCount = $("div[name=regular_product_img]").size();
+	if(cartCount == 0) {
+		$("#normal_empty_cart").prop("hidden", false);
+		$("#see_more").prop("hidden", true);
+		$("#order").prop("hidden", true);
+		$("#go_main").prop("hidden", false);
+		$("#regular_product").attr("disabled", true);
+		selectNormalProduct();		
+	} else{
+		//정기배송 상품만 있을 때
+		if(normalCartCount == 0) {
+			selectRegularProduct();
+			$("#normal_product").attr("disabled", true);
+			$("#regular_empty_cart").prop("hidden", true);
+			$("#normal_empty_cart").prop("hidden", true);
+			};
+		//일반상품만 있을 때
+		if(regularCartCount == 0) {
+			$("#regular_product").attr("disabled", true);
+			$("#regular_empty_cart").prop("hidden", true);
+			$("#normal_empty_cart").prop("hidden", true);
+			selectNormalProduct();
+		};	
+	};
+			
+	}
+
+
 //상품 수량 조절 버튼
 $("button[name=plus_btn]").on("click", function() {
 	let id = $(this).parent().parent("div").find("input[name=cart_id]").val();
@@ -155,6 +176,7 @@ $("a[name=close]").on("click", function() {
 	normalTotalPrice();
 	regularTotalPrice();
 	cartCountRefresh();
+	checkCart()
 	
 });
 

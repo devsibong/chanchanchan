@@ -69,7 +69,7 @@ $(document).ready(function() {
 	
 	function dateObjView(obj) {
 		var year = obj.getFullYear();
-		var month = i[obj.getMonth()+1];
+		var month = i[obj.getMonth()];
 		var date = obj.getDate();
 			if(date < 10) {
 				date = "0" + obj.getDate();
