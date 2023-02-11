@@ -1,0 +1,55 @@
+<div class="container col-10 border">
+	<div class="fs-5 text-center">MY CHANCHANCHAN</div>
+	<div class="row justify-content-between">
+		<div class="col-3 border">
+			<ul class="navbar-nav">
+	            <div class="fs-5 text-dark mt-4">
+	                나의 쇼핑 정보
+	            </div>
+	            
+	            <li class="nav-item">
+	                <a class="nav-link collapsed" th:href="@{/ordshipselupd}">                 
+	                    <span>주문/배송 조회 및 변경</span>
+	                </a>
+	            </li>
+	            <li class="nav-item">
+	                <a class="nav-link collapsed" th:href="@{/regordshipselupd}">
+	                    <span>정기 주문/배송 조회 및 변경</span>
+	                </a>              
+	            </li>
+	            <li class="nav-item">
+	                <a class="nav-link collapsed" th:href="@{/review}">
+	                    <span>상품후기 작성</span>
+	                </a>              
+	            </li>
+	            <li class="nav-item">
+	                <a class="nav-link collapsed" th:href="@{/inquiry}">
+	                    <span>1:1 문의</span>
+	                </a>              
+	            </li>
+	
+	            <hr>
+	
+	            <div class="fs-5 text-dark mt-4">
+	                나의 계정
+	            </div>
+	
+	            <li class="nav-item">
+	                <a class="nav-link collapsed" th:href="@{/memuplogin}">
+	                    <span>회원정보 수정</span>
+	                </a>              
+	            </li>
+	
+	            <li class="nav-item">
+	                <a class="nav-link collapsed" th:href="@{/coupon}">
+	                    <span>쿠폰</span>
+	                </a>              
+	            </li>
+	           </ul>
+		</div>
+		<div class="col-9 border">
+			<div th:replace="${mypage} ? ${mypage} : left"></div>
+		</div>
+	
+	</div>
+</div>

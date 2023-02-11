@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="shortcut icon" type="image/x-icon" href="images/favicon.svg" />
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>	
     <!-- ========================= CSS here ========================= -->
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/LineIcons.3.0.css" />
@@ -157,7 +157,7 @@ $(document).ready(function() {
                             <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                                 <ul id="nav" class="navbar-nav ms-auto">
                                     <li class="nav-item">                                       
-                                        <a href="product?category_id=151" aria-label="Toggle navigation">할인특가</a>
+                                        <a href="/map" aria-label="Toggle navigation">할인특가</a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="product?category_id=150" aria-label="Toggle navigation">신상품</a>
@@ -188,6 +188,7 @@ $(document).ready(function() {
     </header>
     <!-- End Header Area -->
     <div th:insert="${center} ? ${center} : main"></div>
+    
     
     <!-- Start Footer Area -->
     <footer class="footer">
