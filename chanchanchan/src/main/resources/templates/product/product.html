@@ -13,7 +13,9 @@
 				<!-- Start Single Product -->
 				<div class="single-product">
 					<div class="product-image">
+						<a th:href="@{/productdetails(product_id=${pr.product_id})}">
 						<img th:src="@{/images/products/}+${pr.product_thumbnail_imgpath}" alt="#">
+						</a>
 						<span class="sale-tag" th:text="|${pr.product_discount}%|" th:style="${pr.product_discount} == '0' ? 'display:none' : 'display:block'"></span>
 						<div class="button">
 								<a class="btn" name="add_cart"> <i class="lni lni-cart"></i> 장바구니 추가
