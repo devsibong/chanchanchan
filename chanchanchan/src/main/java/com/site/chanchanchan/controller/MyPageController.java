@@ -28,6 +28,8 @@ import com.site.chanchanchan.service.ReviewService;
 @Controller
 public class MyPageController {
 	
+	String dir = "mypage/";
+	
 	@Autowired
 	PostService pservice;
 	
@@ -47,12 +49,13 @@ public class MyPageController {
 	RegularOrderDetailService rodservice;
 	
 	@RequestMapping("/mypage")
-	public String main(HttpSession session) {
+	public String main(HttpSession session, Model model) {
 		Member loginMember = (Member)session.getAttribute("loginmem");
 		if (loginMember == null) {
 			return "redirect:/login";
 		} else {
-			return "mypage/mypagemain";
+			model.addAttribute("center", dir + "mypagecenter");
+			return "index";
 		}
 	}
 	
@@ -67,9 +70,9 @@ public class MyPageController {
 		
 		System.out.println(list);
 		model.addAttribute("list", list);
-		model.addAttribute("left", "mypageleft");
-		model.addAttribute("center", "/mypage/ordshipselupd");
-		return "mypage/mypagemain";
+		model.addAttribute("center", dir + "mypagecenter");
+		model.addAttribute("mypage", "/mypage/ordshipselupd");
+		return "index";
 		}
 	}
 	
@@ -83,8 +86,8 @@ public class MyPageController {
 				e.printStackTrace();
 			}
 			
-			model.addAttribute("left", "mypageleft");
-			model.addAttribute("center", "/mypage/orderdel");
+			model.addAttribute("center", dir + "mypagecenter");
+			model.addAttribute("mypage", "/mypage/orderdel");
 			return "redirect:/ordshipselupd";
 		}
 	
@@ -100,9 +103,9 @@ public class MyPageController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		model.addAttribute("left", "mypageleft");
-		model.addAttribute("center", "/mypage/orddetail");
-		return "mypage/mypagemain";
+		model.addAttribute("center", dir + "mypagecenter");
+		model.addAttribute("mypage", "/mypage/orddetail");
+		return "index";
 	}
 	
 	//정기주문 내역
@@ -116,9 +119,9 @@ public class MyPageController {
 		
 		
 		model.addAttribute("list", list);
-		model.addAttribute("left", "mypageleft");
-		model.addAttribute("center", "/mypage/regordshipselupd");
-		return "mypage/mypagemain";
+		model.addAttribute("center", dir + "mypagecenter");
+		model.addAttribute("mypage", "/mypage/regordshipselupd");
+		return "index";
 		}
 	}
 	
@@ -132,8 +135,8 @@ public class MyPageController {
 				e.printStackTrace();
 			}
 			
-			model.addAttribute("left", "mypageleft");
-			model.addAttribute("center", "/mypage/regorderdel");
+			model.addAttribute("center", dir + "mypagecenter");
+			model.addAttribute("mypage", "/mypage/regorderdel");
 			return "redirect:/regordshipselupd";
 		}
 	
@@ -149,9 +152,9 @@ public class MyPageController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		model.addAttribute("left", "mypageleft");
-		model.addAttribute("center", "/mypage/regorddetail");
-		return "mypage/mypagemain";
+		model.addAttribute("center", dir + "mypagecenter");
+		model.addAttribute("mypage", "/mypage/regorddetail");
+		return "index";
 	}
 			
 	
@@ -167,9 +170,9 @@ public class MyPageController {
 		
 		
 		model.addAttribute("list", list);
-		model.addAttribute("left", "mypageleft");
-		model.addAttribute("center", "/mypage/review");
-		return "mypage/mypagemain";
+		model.addAttribute("center", dir + "mypagecenter");
+		model.addAttribute("mypage", "/mypage/review");
+		return "index";
 		}
 	}
 	//리뷰작성폼
@@ -184,9 +187,9 @@ public class MyPageController {
 			
 		model.addAttribute("od", od);
 		model.addAttribute("memdex", memdex);
-		model.addAttribute("left", "mypageleft");
-		model.addAttribute("center", "/mypage/reviewdo");
-		return "mypage/mypagemain";
+		model.addAttribute("center", dir + "mypagecenter");
+		model.addAttribute("mypage", "/mypage/reviewdo");
+		return "index";
 		}
 	}
 	
@@ -196,9 +199,9 @@ public class MyPageController {
 		rvservice.register(review);
 		
 		
-		model.addAttribute("left", "mypageleft");
-		model.addAttribute("center", "/mypage/reviewdetail");
-		return "mypage/mypagemain";
+		model.addAttribute("center", dir + "mypagecenter");
+		model.addAttribute("mypage", "/mypage/reviewdetail");
+		return "index";
 	}
 	
 	
@@ -241,18 +244,18 @@ public class MyPageController {
 		model.addAttribute("pageMaker", page);
 		session.removeAttribute("option");
 		session.removeAttribute("searchVal");
-		model.addAttribute("left", "mypageleft");
-		model.addAttribute("center","/mypage/inquiry");
+		model.addAttribute("center", dir + "mypagecenter");
+		model.addAttribute("mypage","/mypage/inquiry");
 		
-		return "mypage/mypagemain";
+		return "index";
 	}
 	
 	//문의글 작성폼
 	@RequestMapping("/inquiryQuestion")  
 	public String  inquiryQuestion(Model model) {	
-		model.addAttribute("left", "mypageleft");
-		model.addAttribute("center", "/mypage/inquiryQuestion");
-		return "mypage/mypagemain";
+		model.addAttribute("center", dir + "mypagecenter");
+		model.addAttribute("mypage", "/mypage/inquiryQuestion");
+		return "index";
 	}
 	
 	//문의글 작성폼OK
@@ -263,8 +266,8 @@ public class MyPageController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		model.addAttribute("left", "mypageleft");
-		model.addAttribute("center", "/mypage/inquiryQuestion");
+		model.addAttribute("center", dir + "mypagecenter");
+		model.addAttribute("mypage", "/mypage/inquiryQuestion");
 		return "redirect:/inquiry";
 	}
 	
@@ -280,9 +283,9 @@ public class MyPageController {
 			e.printStackTrace();
 		}
 		
-		model.addAttribute("left", "mypageleft");
-		model.addAttribute("center", "/mypage/inquiryview");
-		return "mypage/mypagemain";
+		model.addAttribute("center", dir + "mypagecenter");
+		model.addAttribute("mypage", "/mypage/inquiryview");
+		return "index";
 	}
 	
 	//문의글 수정
@@ -295,9 +298,9 @@ public class MyPageController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			model.addAttribute("left", "mypageleft");
-			model.addAttribute("center", "/mypage/inquiryupd");
-			return "mypage/mypagemain";
+			model.addAttribute("center", dir + "mypagecenter");
+			model.addAttribute("mypage", "/mypage/inquiryupd");
+			return "index";
 		}
 	
 	//문의글 수정 OK
@@ -309,8 +312,8 @@ public class MyPageController {
 					e.printStackTrace();
 				}
 				
-				model.addAttribute("left", "mypageleft");
-				model.addAttribute("center", "/mypage/inquiryupd");
+				model.addAttribute("center", dir + "mypagecenter");
+				model.addAttribute("mypage", "/mypage/inquiryupd");
 				return "redirect:/inquiry";
 			}
 		
@@ -323,17 +326,17 @@ public class MyPageController {
 			e.printStackTrace();
 		}
 		
-		model.addAttribute("left", "mypageleft");
-		model.addAttribute("center", "/mypage/inquirydel");
+		model.addAttribute("center", dir + "mypagecenter");
+		model.addAttribute("mypage", "/mypage/inquirydel");
 		return "redirect:/inquiry";
 	}
 	
 	@RequestMapping("/memuplogin")
 	public String memuplogin(Model model,HttpSession session) throws Exception{
 		
-		model.addAttribute("left", "mypageleft");
-		model.addAttribute("center", "/mypage/memuplogin");
-		return "mypage/mypagemain";
+		model.addAttribute("center", dir + "mypagecenter");
+		model.addAttribute("mypage", "/mypage/memuplogin");
+		return "index";
 	}
 	
 	@RequestMapping("/memuploginok")
@@ -343,14 +346,14 @@ public class MyPageController {
 		model.addAttribute("pw", pw);
 		if(member_pw.equals(loginMember.getMember_pw())) {
 			model.addAttribute("member", loginMember);
-			model.addAttribute("left", "mypageleft");
-			model.addAttribute("center", "/mypage/memberupdate");
+			model.addAttribute("center", dir + "mypagecenter");
+			model.addAttribute("mypage", "/mypage/memberupdate");
 			
-			return "mypage/mypagemain";
+			return "index";
 		}else {	
-			model.addAttribute("left", "mypageleft");
-			model.addAttribute("center", "/mypage/memuploginfail");
-			return "mypage/mypagemain";
+			model.addAttribute("center", dir + "mypagecenter");
+			model.addAttribute("mypage", "/mypage/memuploginfail");
+			return "index";
 		}
 	}
 	
@@ -361,14 +364,14 @@ public class MyPageController {
 		model.addAttribute("pw", pw);
 		if(member_pw.equals(loginMember.getMember_pw())) {
 			model.addAttribute("member", loginMember);
-			model.addAttribute("left", "mypageleft");
-			model.addAttribute("center", "/mypage/memberupdate");
+			model.addAttribute("center", dir + "mypagecenter");
+			model.addAttribute("mypage", "/mypage/memberupdate");
 			
-			return "mypage/mypagemain";
+			return "index";
 		}else {	
-			model.addAttribute("left", "mypageleft");
-			model.addAttribute("center", "/mypage/memuploginfail");
-			return "mypage/mypagemain";
+			model.addAttribute("center", dir + "mypagecenter");
+			model.addAttribute("mypage", "/mypage/memuploginfail");
+			return "index";
 		}
 	}
 	
@@ -384,9 +387,9 @@ public class MyPageController {
 		model.addAttribute("member", member);
 		}
 		
-		model.addAttribute("left", "mypageleft");
-		model.addAttribute("center", "/mypage/memberupdate");
-		return "mypage/mypagemain";
+		model.addAttribute("center", dir + "mypagecenter");
+		model.addAttribute("mypage", "/mypage/memberupdate");
+		return "index";
 		
 	}
 	
@@ -394,17 +397,17 @@ public class MyPageController {
 		@RequestMapping("/memberupdateok")
 		public String memberupdateok(Model model,Member member) throws Exception {
 			mservice.modify(member);
-			model.addAttribute("left", "mypageleft");
-			model.addAttribute("center", "/mypage/memberupdateok");
-			return "mypage/mypagemain";
+			model.addAttribute("center", dir + "mypagecenter");
+			model.addAttribute("mypage", "/mypage/memberupdateok");
+			return "index";
 			
 		}
 	
 	@RequestMapping("/coupon")
 	public String coupon(Model model) {
-		model.addAttribute("left", "mypageleft");
-		model.addAttribute("center", "/mypage/coupon");
-		return "mypage/mypagemain";
+		model.addAttribute("center", dir + "mypagecenter");
+		model.addAttribute("mypage", "/mypage/coupon");
+		return "index";
 	}
 	
 }

@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		SELECT *
 		FROM shipping WHERE shipping_id = #{shipping_id}
 	</select>
-	<select id="selectall">
+	<select id="selectall" resultType="Shipping">
 		SELECT * FROM shipping
 	</select>
 	<insert id="insert" parameterType="Shipping" useGeneratedKeys="true" keyProperty="shipping_id">
