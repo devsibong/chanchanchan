@@ -19,6 +19,7 @@ import com.site.chanchanchan.dto.Post;
 import com.site.chanchanchan.dto.Product;
 import com.site.chanchanchan.dto.RegularOrderDetail;
 import com.site.chanchanchan.dto.Review;
+import com.site.chanchanchan.service.AnswerService;
 import com.site.chanchanchan.service.MemberService;
 import com.site.chanchanchan.service.OrderDetailService;
 import com.site.chanchanchan.service.OrderListService;
@@ -52,13 +53,19 @@ public class MyPageController {
 	
 	@Autowired
 	ProductService prservice;
+
+	@Autowired
+	AnswerService aservice;
 	
 	@RequestMapping("/mypage")
-	public String main(HttpSession session, Model model) {
+	public String main(HttpSession session, Model model) throws Exception {
 		Member loginMember = (Member)session.getAttribute("loginmem");
 		if (loginMember == null) {
 			return "redirect:/login";
 		} else {
+			Member mem = mservice.getByIndex(Integer.toString(loginMember.getMember_index()));
+			
+			model.addAttribute("mem", mem);
 			model.addAttribute("center", dir + "mypagecenter");
 			return "index";
 		}
@@ -257,7 +264,11 @@ public class MyPageController {
 	
 	//문의글 작성폼
 	@RequestMapping("/inquiryQuestion")  
-	public String  inquiryQuestion(Model model) {	
+	public String  inquiryQuestion(Model model,HttpSession session) {
+		Member loginMember = (Member)session.getAttribute("loginmem");
+		int memdex = loginMember.getMember_index();
+		
+		model.addAttribute("memdex", memdex);
 		model.addAttribute("center", dir + "mypagecenter");
 		model.addAttribute("mypage", "/mypage/inquiryQuestion");
 		return "index";
@@ -326,7 +337,9 @@ public class MyPageController {
 	@RequestMapping("/inquirydel")  
 	public String  inquirydel(Model model, Integer post_id) {
 		try {
+			aservice.remove(post_id);
 			pservice.remove(post_id);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -31,6 +31,7 @@ function formCheck(){
 </style>
 <div class="layout">
 	<form th:action="@{/inquiryupdok(post_id=${post.post_id})}" method="post" onsubmit="return formCheck()">
+		회원번호<input name="member_index" type="text" th:value="${post.member_index}" id="member_index" readonly><br><br>
 		제목<input name="post_subject" type="text" th:value="${post.post_subject}" id="post_subject"><br><br>
 		글내용<textarea name="post_content" th:value="${post.post_content}" id="post_content"></textarea>  <!-- 내용 안들어옴!!! -->
 		<button type="submit">글수정</button>
