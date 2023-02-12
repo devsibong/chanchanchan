@@ -67,7 +67,7 @@ function formCheck(){
 <div class="layout">
 	<form th:action="@{/reviewok}" class="mb-3" name="myform" id="myform" method="post" onsubmit="return formCheck()">
 		회원번호<input name="member_index" type="text" id="member_index" th:value="${memdex}" readonly><br><br>
-		상품번호<input name="product_id" type="text" id="product_id" th:value="${od.product_id}" readonly><br><br>
+		상품번호<input name="product_name" type="text" id="product_name" th:value="${pr.product_name}" readonly><br><br>
 		<fieldset>
 		<span class="text-bold">별점을 선택해주세요</span>
 		<input type="radio" name="review_rank" value="5" id="rate1"><label

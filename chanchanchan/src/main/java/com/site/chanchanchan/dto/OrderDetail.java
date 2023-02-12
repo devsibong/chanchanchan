@@ -31,6 +31,7 @@ public class OrderDetail {
 	private int member_index;
 	private String product_thumbnail_imgpath;
 	private String product_detail_imgpath;
+	private String member_id;
 	
 	private Product product;
 	private OrderList orderlist;

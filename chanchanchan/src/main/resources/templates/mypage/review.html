@@ -1,6 +1,7 @@
 <script>
 
 </script>
+<h4>상품후기 작성</h4><br>
 <table class="table">
   <thead>
     <tr>
@@ -26,7 +27,7 @@
         <td th:text="${#dates.format(li.order_date, 'yyyy-MM-dd')}"></td>
         <td><a th:text="${li.order_state}" id="order_state"></a></td>
         <td id="orderdel">
-        	<a th:href="@{/reviewdo(order_id=${li.order_id})}">
+        	<a th:href="@{/reviewdo(product_id=${li.product_id})}">
         		<button type="button" class="btn btn-secondary" id="reviewbtn">리뷰작성</button>
         	</a>
         </td>   

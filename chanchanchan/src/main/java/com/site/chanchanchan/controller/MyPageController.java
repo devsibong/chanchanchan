@@ -16,12 +16,14 @@ import com.site.chanchanchan.dto.Member;
 import com.site.chanchanchan.dto.OrderDetail;
 import com.site.chanchanchan.dto.Page;
 import com.site.chanchanchan.dto.Post;
+import com.site.chanchanchan.dto.Product;
 import com.site.chanchanchan.dto.RegularOrderDetail;
 import com.site.chanchanchan.dto.Review;
 import com.site.chanchanchan.service.MemberService;
 import com.site.chanchanchan.service.OrderDetailService;
 import com.site.chanchanchan.service.OrderListService;
 import com.site.chanchanchan.service.PostService;
+import com.site.chanchanchan.service.ProductService;
 import com.site.chanchanchan.service.RegularOrderDetailService;
 import com.site.chanchanchan.service.ReviewService;
 
@@ -47,6 +49,9 @@ public class MyPageController {
 	
 	@Autowired
 	RegularOrderDetailService rodservice;
+	
+	@Autowired
+	ProductService prservice;
 	
 	@RequestMapping("/mypage")
 	public String main(HttpSession session, Model model) {
@@ -177,15 +182,15 @@ public class MyPageController {
 	}
 	//리뷰작성폼
 	@RequestMapping("/reviewdo")
-	public String reviewdo(HttpSession session,Model model,Integer order_id) throws Exception {
+	public String reviewdo(HttpSession session,Model model,Integer product_id) throws Exception {
 		Member loginMember = (Member)session.getAttribute("loginmem");
 		if (loginMember == null) {
 			return "redirect:/login";
 		} else {
 			int memdex = loginMember.getMember_index();
-			OrderDetail od = odservice.rvprid(order_id);
+			Product pr = prservice.get(product_id);
 			
-		model.addAttribute("od", od);
+		model.addAttribute("pr", pr);
 		model.addAttribute("memdex", memdex);
 		model.addAttribute("center", dir + "mypagecenter");
 		model.addAttribute("mypage", "/mypage/reviewdo");
