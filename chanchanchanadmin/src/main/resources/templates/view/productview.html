@@ -53,7 +53,7 @@ $(document).ready(function(){
 						</tr>
 						<tr>
 							<th>상품명</th>
-							<td th:text="${productView.product_name}" style="width:20%;"></td>
+							<td th:text="${productView.product_name}" style="width:40%;"></td>
 						</tr>
 						<tr>
 							<th>상품설명</th>
@@ -61,11 +61,11 @@ $(document).ready(function(){
 						</tr>
 						<tr>
 							<th>대표이미지</th>
-							<td th:text="${productView.product_thumbnail_imgpath}" style="width:90%;"></td>
+							<td><img th:src="@{/images/products/}+${productView.product_thumbnail_imgpath}" alt="#" style="width:20%;"></td>
 						</tr>
 						<tr>
 							<th>상세이미지</th>
-							<td th:text="${productView.product_detail_imgpath}" style="width:90%;"></td>
+							<td><img th:src="@{/images/products/}+${productView.product_detail_imgpath}" alt="#" style="width:20%;"></td>
 						</tr>
 						<tr>
 							<th>상품가격</th>
