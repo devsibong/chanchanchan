@@ -100,7 +100,6 @@
 						<div
 							class="row mb-4 d-flex justify-content-between align-items-center text-center text-dark">
 							<div class="col-5 ">상품정보</div>
-							<div class="col-3 ">수량</div>
 							<div class="col-4">주문금액</div>
 						</div>
 
@@ -124,22 +123,14 @@
 								<div class="col-7">
 									<div
 										class="row justify-content-center align-items-center text-center">
-										<div class="col-1 m-0 p-0">
-											<button class="btn btn-link p-0 m-0" name="minus_btn">
-												<i class="lni lni-circle-minus"></i>
-											</button>
-										</div>
+
 
 										<div class="col-1 p-0 m-0">
 											<input id="form1" name="count"
 												class="form-control bg-white text-center p-0 m-0"
-												th:value="${cart.product_count}" readonly />
+												th:value="${cart.product_count}" readonly hidden="true" />
 										</div>
-										<div class="col-1 p-0 m-0">
-											<button class="btn btn-link p-0 m-0" name="plus_btn">
-												<i class="lni lni-circle-plus"></i>
-											</button>
-										</div>
+
 										<div class="col-6 text-dark text-end">
 											<span class="mb-0 fs-5" name="regular_sumprice" id="regular_sumprice"
 												th:text="${#numbers.formatInteger(cart.product.product_price * cart.product_count, 3, 'COMMA')}" />
