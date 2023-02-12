@@ -28,13 +28,13 @@
 							<a th:href="@{/productdetails(product_id=${pr.product_id})}" th:text="${pr.product_name}"></a>
 						</h4>
 						<span class="category" th:text="${pr.product_description}"></span>
-						<ul class="review">
+						<ul class="review" >
 							<li><i class="lni lni-star-filled"></i></li>
 							<li><i class="lni lni-star-filled"></i></li>
 							<li><i class="lni lni-star-filled"></i></li>
 							<li><i class="lni lni-star-filled"></i></li>
 							<li><i class="lni lni-star"></i></li>
-							<li><span>4.0 Review(s)</span></li>
+							<li><span th:text="|(${pr.product_avgreview})|"/><span th:text="|${pr.product_reviewcount}개의 리뷰|"/></li>
 						</ul>			
 						<div class="price">
 							<span th:text="|${#numbers.formatInteger(pr.product_price*(1-pr.product_discount/100.0),3,'COMMA')}원|"></span><span class="discount-price" th:text="|${#numbers.formatInteger(pr.product_price,3,'COMMA')}원|" th:style="${pr.product_discount} == '0' ? 'display:none' : 'display:inline-block'"></span>
@@ -49,3 +49,5 @@
 	</div>
 </section>
 <!-- End Trending Product Area -->
+<script type="text/javascript" src="js/product.js">
+</script>

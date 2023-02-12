@@ -89,10 +89,9 @@ function checkCart() {
 		}
 		else {
 			selectNormalProduct();
+			};
 		}
-	};
-			
-	}
+}
 
 
 //상품 수량 조절 버튼
@@ -156,6 +155,7 @@ $("a[name=close]").on("click", function() {
 	let id = $(this).parent().parent("div").find("input[name=cart_id]").val();
 	let normal = $("#normal_cart").text();
 	let regular = $("#regular_cart").text();
+	
 	var cart = {
 		cart_id: id
 	};
@@ -179,7 +179,11 @@ $("a[name=close]").on("click", function() {
 	normalTotalPrice();
 	regularTotalPrice();
 	cartCountRefresh();
-	checkCart()
+	checkCart();
+	let regularCartCount = $("div[name=regular_product_img]").size();
+	if(regularCartCount > 0) {
+		selectRegularProduct();
+	}
 	
 });
 
