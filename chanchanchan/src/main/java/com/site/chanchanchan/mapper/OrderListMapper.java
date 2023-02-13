@@ -16,4 +16,7 @@ public interface OrderListMapper extends MyMapper<Integer, OrderList>{
 	public OrderList rvprid(Integer order_id) throws Exception;
 	public List<OrderList> ordlist(Integer k) throws Exception;
 	public List<OrderList> regordlist(Integer k) throws Exception;
+	public int precount(String k) throws Exception;
+	public int ingcount(String k) throws Exception;
+	public int comcount(String k) throws Exception;
 }

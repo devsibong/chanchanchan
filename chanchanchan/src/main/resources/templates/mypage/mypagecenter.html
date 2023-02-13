@@ -2,15 +2,17 @@
 
 </style>
 <script>
-function display(data){
-	$('#time').text(data);
+function display(time){
+	$('#time').text(time);
 };
 
 function getdata(){
 	$.ajax({
 		url:'[[@{/time}]]',
-		success:function(data){
-			display(data);
+		success:function(date,data){
+			var spdate = date.split(' ');
+			var time = spdate[5] + '\u00A0' + spdate[1] + '\u00A0' + spdate[2] + '\u00A0' + spdate[0] + '\u00A0' + spdate[3];
+			display(time);
 		},
 		error:function(){
 			alert('error');
@@ -28,12 +30,12 @@ $(document).ready(function(){
 <div class="container col-10 border">
 	<div class="fs-5 text-center">
 		<strong>
-		<span id="time" style="font-size: 20px; height:20px; color: #0E4478; margin-left: auto;"></span>
+		<span id="time" style="font-size: 20px; height:30px; color: #0E4478; "></span>
 		</strong>
 	</div>
 	<div class="row justify-content-between">
 		<div class="col-3 border">
-			<ul class="navbar-nav">
+			<ul class="navbar-nav">				
 				<strong class="fs-5 text-dark mt-4">
 					<a th:href="@{/mypage}">마이페이지</a>
 				</strong>
@@ -62,7 +64,7 @@ $(document).ready(function(){
 	            </li>
 	            <li class="nav-item">
 	                <a class="nav-link collapsed" th:href="@{/inquiry}">
-	                    <span>1:1 문의</span>
+	                    <span>문의</span>
 	                    <i class="bi bi-chevron-right"></i>
 	                </a>              
 	            </li>
@@ -88,7 +90,7 @@ $(document).ready(function(){
 	            </li>
 	           </ul>
 		</div>
-		<div class="col-9 border">
+		<div class="col-9 border" style="padding: 0;">
 			<div th:replace="${mypage} ? ${mypage} : left"></div>
 		</div>
 	

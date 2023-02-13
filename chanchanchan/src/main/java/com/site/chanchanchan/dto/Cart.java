@@ -20,4 +20,5 @@ public class Cart {
 	private int product_count;
 	
 	private Product product;
+	private int count;
 }

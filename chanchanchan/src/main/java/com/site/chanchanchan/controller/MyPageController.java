@@ -20,6 +20,7 @@ import com.site.chanchanchan.dto.Product;
 import com.site.chanchanchan.dto.RegularOrderDetail;
 import com.site.chanchanchan.dto.Review;
 import com.site.chanchanchan.service.AnswerService;
+import com.site.chanchanchan.service.CartService;
 import com.site.chanchanchan.service.MemberService;
 import com.site.chanchanchan.service.OrderDetailService;
 import com.site.chanchanchan.service.OrderListService;
@@ -57,6 +58,9 @@ public class MyPageController {
 	@Autowired
 	AnswerService aservice;
 	
+	@Autowired
+	CartService cservice;
+	
 	@RequestMapping("/mypage")
 	public String main(HttpSession session, Model model) throws Exception {
 		Member loginMember = (Member)session.getAttribute("loginmem");
@@ -64,8 +68,16 @@ public class MyPageController {
 			return "redirect:/login";
 		} else {
 			Member mem = mservice.getByIndex(Integer.toString(loginMember.getMember_index()));
+			int cart = cservice.count(Integer.toString(loginMember.getMember_index()));
+			int precount = olservice.precount(Integer.toString(loginMember.getMember_index()));
+			int ingcount = olservice.ingcount(Integer.toString(loginMember.getMember_index()));
+			int comcount = olservice.comcount(Integer.toString(loginMember.getMember_index()));
 			
 			model.addAttribute("mem", mem);
+			model.addAttribute("cart", cart);
+			model.addAttribute("precount", precount);
+			model.addAttribute("ingcount", ingcount);
+			model.addAttribute("comcount", comcount);
 			model.addAttribute("center", dir + "mypagecenter");
 			return "index";
 		}

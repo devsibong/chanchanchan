@@ -191,30 +191,6 @@ div{
 /*   background-color: #0E4478; */
 }
 </style>
-<script>
-function display(data){
-	$('#time').text(data);
-};
-
-function getdata(){
-	$.ajax({
-		url:'[[@{/time}]]',
-		success:function(data){
-			display(data);
-		},
-		error:function(){
-			alert('error');
-		}
-	});
-};
-
-$(document).ready(function(){
-	getdata();
-	setInterval(function(){
-		getdata();
-	},1000);
-});
-</script>
 <div class="wrap">
   <div class="greenContainer">
     <div>
@@ -222,7 +198,6 @@ $(document).ready(function(){
       <div  style="font-size: 20px; color: gray;">회원정보
       </div>
     </div>
-    <span id="time" style="font-size: 20px; height:20px; color: #ffffff; margin-left: auto;"></span>
   </div>
   <div class="summaryContainer">
     <div class="item">
@@ -247,29 +222,29 @@ $(document).ready(function(){
       
       <div class="item">
         <div>
-          <div class="green number"><a th:href="@{/cart}">1</a></div>
+          <div class="green number"><a th:href="@{/cart}" th:text="${cart}"></a></div>
           <div class="text">장바구니</div>
         </div>
         <div class="icon"> > </div>
       </div>     
       <div class="item">
         <div>
-          <div class="green number">0</div>
-          <div class="text">결제완료</div>
+          <div class="green number" th:text="${precount}"></div>
+          <div class="text">배송준비</div>
         </div>
         <div class="icon"> > </div>
       </div>     
       <div class="item">
         <div>
-          <div class="green number">0</div>
+          <div class="green number" th:text="${ingcount}"></div>
           <div class="text">배송중</div>
         </div>
         <div class="icon"> > </div>
       </div>     
       <div class="item">
         <div>
-          <div class="green number">3</div>
-          <div class="text">구매확정</div>
+          <div class="green number" th:text="${comcount}"></div>
+          <div class="text">배송완료</div>
         </div>
       </div>     
       
