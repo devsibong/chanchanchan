@@ -34,7 +34,7 @@ public class NaverAPI {
 			sb.append("grant_type=authorization_code");
 			sb.append("&client_id=OBNHNeQKA0hyyjGZdRrl");
 			sb.append("&client_secret=804urmDxJi");
-			sb.append("&redirect_uri=http://127.0.0.1/naverlogin");
+			sb.append("&redirect_uri=http://27.96.134.110/naverlogin");
 			sb.append("&code="+authorize_code);
 			sb.append("&state=STATE");
 			bw.write(sb.toString());

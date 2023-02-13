@@ -1,5 +1,7 @@
 package com.site.chanchanchan.dto;
 
+import java.util.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,12 +15,10 @@ import lombok.ToString;
 @Getter
 @ToString
 @Builder
-public class Cart {
-	private int cart_id;
-	private int member_index;
-	private int product_id;
-	private int product_count;
-	
-	private Product product;
-	private int count;
+public class Answer {
+	private int answer_id;
+	private int post_id;
+	private int admin_index;
+	private int answer_content;
+	private Date register_date;
 }

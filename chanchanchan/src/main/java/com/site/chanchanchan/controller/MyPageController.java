@@ -16,12 +16,16 @@ import com.site.chanchanchan.dto.Member;
 import com.site.chanchanchan.dto.OrderDetail;
 import com.site.chanchanchan.dto.Page;
 import com.site.chanchanchan.dto.Post;
+import com.site.chanchanchan.dto.Product;
 import com.site.chanchanchan.dto.RegularOrderDetail;
 import com.site.chanchanchan.dto.Review;
+import com.site.chanchanchan.service.AnswerService;
+import com.site.chanchanchan.service.CartService;
 import com.site.chanchanchan.service.MemberService;
 import com.site.chanchanchan.service.OrderDetailService;
 import com.site.chanchanchan.service.OrderListService;
 import com.site.chanchanchan.service.PostService;
+import com.site.chanchanchan.service.ProductService;
 import com.site.chanchanchan.service.RegularOrderDetailService;
 import com.site.chanchanchan.service.ReviewService;
 
@@ -48,12 +52,32 @@ public class MyPageController {
 	@Autowired
 	RegularOrderDetailService rodservice;
 	
+	@Autowired
+	ProductService prservice;
+
+	@Autowired
+	AnswerService aservice;
+	
+	@Autowired
+	CartService cservice;
+	
 	@RequestMapping("/mypage")
-	public String main(HttpSession session, Model model) {
+	public String main(HttpSession session, Model model) throws Exception {
 		Member loginMember = (Member)session.getAttribute("loginmem");
 		if (loginMember == null) {
 			return "redirect:/login";
 		} else {
+			Member mem = mservice.getByIndex(Integer.toString(loginMember.getMember_index()));
+			int cart = cservice.count(Integer.toString(loginMember.getMember_index()));
+			int precount = olservice.precount(Integer.toString(loginMember.getMember_index()));
+			int ingcount = olservice.ingcount(Integer.toString(loginMember.getMember_index()));
+			int comcount = olservice.comcount(Integer.toString(loginMember.getMember_index()));
+			
+			model.addAttribute("mem", mem);
+			model.addAttribute("cart", cart);
+			model.addAttribute("precount", precount);
+			model.addAttribute("ingcount", ingcount);
+			model.addAttribute("comcount", comcount);
 			model.addAttribute("center", dir + "mypagecenter");
 			return "index";
 		}
@@ -177,15 +201,15 @@ public class MyPageController {
 	}
 	//리뷰작성폼
 	@RequestMapping("/reviewdo")
-	public String reviewdo(HttpSession session,Model model,Integer order_id) throws Exception {
+	public String reviewdo(HttpSession session,Model model,Integer product_id) throws Exception {
 		Member loginMember = (Member)session.getAttribute("loginmem");
 		if (loginMember == null) {
 			return "redirect:/login";
 		} else {
 			int memdex = loginMember.getMember_index();
-			OrderDetail od = odservice.rvprid(order_id);
+			Product pr = prservice.get(product_id);
 			
-		model.addAttribute("od", od);
+		model.addAttribute("pr", pr);
 		model.addAttribute("memdex", memdex);
 		model.addAttribute("center", dir + "mypagecenter");
 		model.addAttribute("mypage", "/mypage/reviewdo");
@@ -201,7 +225,7 @@ public class MyPageController {
 		
 		model.addAttribute("center", dir + "mypagecenter");
 		model.addAttribute("mypage", "/mypage/reviewdetail");
-		return "index";
+		return "index"; 
 	}
 	
 	
@@ -252,7 +276,11 @@ public class MyPageController {
 	
 	//문의글 작성폼
 	@RequestMapping("/inquiryQuestion")  
-	public String  inquiryQuestion(Model model) {	
+	public String  inquiryQuestion(Model model,HttpSession session) {
+		Member loginMember = (Member)session.getAttribute("loginmem");
+		int memdex = loginMember.getMember_index();
+		
+		model.addAttribute("memdex", memdex);
 		model.addAttribute("center", dir + "mypagecenter");
 		model.addAttribute("mypage", "/mypage/inquiryQuestion");
 		return "index";
@@ -321,7 +349,9 @@ public class MyPageController {
 	@RequestMapping("/inquirydel")  
 	public String  inquirydel(Model model, Integer post_id) {
 		try {
+			aservice.remove(post_id);
 			pservice.remove(post_id);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
