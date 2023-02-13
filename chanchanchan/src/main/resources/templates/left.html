@@ -44,6 +44,7 @@ div{
 } 
 .greenContainer .modify{
   margin-left: auto;
+  text-align: right;
 }
 
 /* 단골상점 , 상품후기 , 적립금 박스 */
@@ -190,17 +191,42 @@ div{
 /*   background-color: #0E4478; */
 }
 </style>
+<script>
+function display(data){
+	$('#time').text(data);
+};
+
+function getdata(){
+	$.ajax({
+		url:'[[@{/time}]]',
+		success:function(data){
+			display(data);
+		},
+		error:function(){
+			alert('error');
+		}
+	});
+};
+
+$(document).ready(function(){
+	getdata();
+	setInterval(function(){
+		getdata();
+	},1000);
+});
+</script>
 <div class="wrap">
   <div class="greenContainer">
     <div>
-      <div class="name" th:text="${mem.member_id}"></div>
-      <div th:text="${mem.member_rank}" style="font-size: 20px; color: #ffffff;">
+      <div class="name" th:text="${mem.member_id}+님"></div>
+      <div  style="font-size: 20px; color: gray;">회원정보
       </div>
-    </div>    
+    </div>
+    <span id="time" style="font-size: 20px; height:20px; color: #ffffff; margin-left: auto;"></span>
   </div>
   <div class="summaryContainer">
     <div class="item">
-        <div class="number" th:text="${mem.member_rank}+_rank"></div>
+        <div class="number" th:text="${mem.member_rank}" style="margin-left: 20px;"></div>
         <div>회원등급</div>
       </div>
       <div class="item">
