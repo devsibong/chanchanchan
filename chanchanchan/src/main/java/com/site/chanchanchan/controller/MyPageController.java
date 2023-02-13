@@ -225,7 +225,7 @@ public class MyPageController {
 		
 		model.addAttribute("center", dir + "mypagecenter");
 		model.addAttribute("mypage", "/mypage/reviewdetail");
-		return "index";
+		return "index"; 
 	}
 	
 	
