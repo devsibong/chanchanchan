@@ -1,6 +1,7 @@
 package com.site.chanchanchan.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,6 +12,7 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
+@Builder
 public class Product {
 	private int product_id;
 	private int category_id;
@@ -21,4 +23,6 @@ public class Product {
 	private int product_price;
 	private String product_essential;
 	private int product_discount;
+	private float product_avgreview;
+	private int product_reviewcount;
 }

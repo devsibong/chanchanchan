@@ -5,10 +5,15 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 <mapper namespace="com.site.chanchanchan.mapper.ProductMapper">
 	
 	<select id="select" parameterType="Integer" resultType="Product">
-		SELECT * FROM product WHERE product_id=#{product_id}
+		SELECT product.product_id, category_id, product_name, product_description, product_thumbnail_imgpath, product_detail_imgpath, product_price, 
+		product_essential, product_discount, product_discount, ROUND(AVG(review.review_rank),2) as product_avgreview, COUNT(review.review_id) as product_reviewcount FROM product
+        LEFT JOIN review ON product.product_id = review.product_id
+        WHERE product.product_id=#{product_id}
 	</select>
 	<select id="selectall" resultType="Product">
-		SELECT * FROM product
+		SELECT product.product_id, category_id, product_name, product_description, product_thumbnail_imgpath, product_detail_imgpath, product_price, 
+		product_essential, product_discount, product_discount, ROUND(AVG(review.review_rank),2) as product_avgreview, COUNT(review.review_id) as product_reviewcount FROM product
+        LEFT JOIN review ON product.product_id = review.product_id
 	</select>
 	<insert id="insert" parameterType="Product">
 		INSERT INTO product VALUES ()
@@ -20,9 +25,12 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		DELETE FROM product WHERE product_id=#{product_id}
 	</delete>
 	<select id="getprod" parameterType="Integer" resultType="Product">
-		SELECT * FROM product pr
-		JOIN category ca ON ca.category_id = pr.category_id
-		WHERE ca.category_id=#{category_id}
+		SELECT product.product_id, category_id, product_name, product_description, product_thumbnail_imgpath, product_detail_imgpath, product_price,
+		product_essential, product_discount, product_discount, ROUND(AVG(review.review_rank),2) as product_avgreview, COUNT(review.review_id) as product_reviewcount FROM product
+	 	LEFT JOIN review ON product.product_id = review.product_id
+		WHERE category_id=#{category_id}
+  		GROUP BY product.product_id, category_id, product_name, product_description, product_thumbnail_imgpath, product_detail_imgpath, 
+		product_price, product_essential, product_discount, product_discount;
 	</select>
 	
 	<select id="searchprod" parameterType="String" resultType="Product">

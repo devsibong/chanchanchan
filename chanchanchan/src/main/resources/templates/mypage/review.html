@@ -1,11 +1,13 @@
 <script>
 
 </script>
+<h4>상품후기 작성</h4><br>
 <table class="table">
   <thead>
     <tr>
       <th scope="col">주문번호</th>
       <th scope="col">상품</th>
+      <th scope="col"></th>
       <th scope="col">총결제금액</th>
       <th scope="col">결제일</th>
       <th scope="col">주문상태</th>
@@ -15,12 +17,17 @@
   <tbody>
     <tr th:each="li:${list}">
         <td th:text="${li.order_id}"></td>
-        <td><a th:href="@{/orddetail(order_id=${li.order_id})}">상품상세보기</a></td>
+        <td>
+        	<a th:href="@{/productdetails(product_id=${li.product_id})}">
+        		<img th:src="|images/products/${li.product_thumbnail_imgpath}|" style="width: 100px;">
+        	</a>	
+        </td>
+        <td th:text="${li.product_name}"></td>
         <td th:text="${li.order_totalpayment}"></td>
         <td th:text="${#dates.format(li.order_date, 'yyyy-MM-dd')}"></td>
         <td><a th:text="${li.order_state}" id="order_state"></a></td>
         <td id="orderdel">
-        	<a th:href="@{/reviewdo(order_id=${li.order_id})}">
+        	<a th:href="@{/reviewdo(product_id=${li.product_id})}">
         		<button type="button" class="btn btn-secondary" id="reviewbtn">리뷰작성</button>
         	</a>
         </td>   

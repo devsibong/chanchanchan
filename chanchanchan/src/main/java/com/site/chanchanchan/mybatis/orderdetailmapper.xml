@@ -5,9 +5,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 <mapper namespace="com.site.chanchanchan.mapper.OrderDetailMapper">
 	
 	<select id="list" parameterType="Integer" resultType="OrderDetail">
-		SELECT od.order_id,od.product_id AS product_id,ol.order_totalpayment AS order_totalpayment,
-		ol.payment_method AS payment_method,ol.order_date AS order_date,pr.product_name AS product_name,
-		ol.order_state AS order_state,ol.receiver AS receiver
+		SELECT *
 		FROM order_detail od
 		INNER JOIN order_list ol ON od.order_id = ol.order_id 
 		INNER JOIN product pr ON od.product_id = pr.product_id
@@ -15,12 +13,8 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="orddetail" parameterType="Integer" resultType="OrderDetail">
-		SELECT pr.product_name AS
-		product_name,ol.order_totalpayment AS order_totalpayment,
-		ol.payment_method AS payment_method,ol.order_date AS order_date,
-		ol.order_state AS order_state,ol.receiver AS receiver
-		FROM order_detail
-		od
+		SELECT *
+		FROM order_detail od
 		INNER JOIN order_list ol ON od.order_id = ol.order_id
 		INNER JOIN product pr ON od.product_id = pr.product_id
 		WHERE od.orderdetail_id = #{orderdetail_id}
@@ -37,5 +31,8 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		INSERT INTO order_detail VALUES
 		(orderdetail_id,#{product_id},#{order_id},#{orderdetail_count},#{orderdetail_price})
 	</insert>
+	<delete id="delete" parameterType="Integer">
+		DELETE FROM order_detail WHERE order_id=#{order_id}
+	</delete>
 
 </mapper>

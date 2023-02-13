@@ -31,6 +31,7 @@ function formCheck(){
 </style>
 <div class="layout">
 	<form action="/inquiryQuestionOk" method="post" onsubmit="return formCheck()">
+		회원번호<input name="member_index" type="text" id="member_index" th:value="${memdex}" readonly><br><br>
 		제목<input name="post_subject" type="text" id="post_subject"><br><br>
 		글내용<textarea name="post_content" id="post_content"></textarea>
 		<button type="submit" class="btn btn-secondary">글등록</button>

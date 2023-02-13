@@ -29,6 +29,10 @@ public class RegularOrderDetail {
 	private String order_state;
 	private String receiver;
 	private int member_index;
+	private Product product;
+	private OrderList orderlist;
+	private String product_thumbnail_imgpath;
+	private String product_detail_imgpath;
 
 	private int regular_price;	
 	private RegularOrderSchedule regularOrderSchedule;

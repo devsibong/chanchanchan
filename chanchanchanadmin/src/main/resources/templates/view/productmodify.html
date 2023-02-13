@@ -33,7 +33,7 @@ th{width:16%}
 						</tr>
 						<tr>
 							<th>상품명</th>
-							<td><input type="text" th:value="${product.product_name}" style="width:20%;" name="product_name"></td>
+							<td><input type="text" th:value="${product.product_name}" style="width:40%;" name="product_name"></td>
 						</tr>
 						<tr>
 							<th>상품설명</th>
@@ -41,11 +41,21 @@ th{width:16%}
 						</tr>
 						<tr>
 							<th>대표이미지</th>
-							<td><input type="text" th:value="${product.product_thumbnail_imgpath}" style="width:90%;" name="product_thumbnail_imgpath"></td>
+							<th:block th:if="${product.product_thumbnail_imgpath != null}">
+							<td><img th:src="@{/images/products/}+${product.product_thumbnail_imgpath}" alt="#" style="width:10%;">					
+							</th:block>
+							<th:block th:if="${product.product_thumbnail_imgpath == null}">
+							<td><input type="file" th:value="${product.product_thumbnail_imgpath}" style="width:90%;" name="product_thumbnail_imgpath"></td>
+							</th:block>
 						</tr>
 						<tr>
 							<th>상세이미지</th>
-							<td><input type="text" th:value="${product.product_detail_imgpath}" style="width:90%;" name="product_detail_imgpath"></td>
+							<th:block th:if="${product.product_detail_imgpath != null}">
+							<td><img th:src="@{/images/products/}+${product.product_detail_imgpath}" alt="#" style="width:10%;">					
+							</th:block>
+							<th:block th:if="${product.product_detail_imgpath == null}">
+							<td><input type="file" th:value="${product.product_detail_imgpath}" style="width:90%;" name="product_detail_imgpath"></td>
+							</th:block>
 						</tr>
 						<tr>
 							<th>상품가격</th>

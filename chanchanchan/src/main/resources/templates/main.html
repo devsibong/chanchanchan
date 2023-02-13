@@ -47,46 +47,42 @@
 				<div th:each="pr:${prodlist}" class="col-lg-3 col-md-6 col-12">
 					<!-- Start Single Product -->
 					<div class="single-product">
-						<div class="product-image">
-							<img
-								th:src="@{/images/products/}+${pr.product_thumbnail_imgpath}"
-								alt="#"> <span class="sale-tag"
-								th:text="|${pr.product_discount}%|"
-								th:style="${pr.product_discount} == '0' ? 'display:none' : 'display:block'"></span>
-							<div class="button">
+					<div class="product-image">
+						<a th:href="@{/productdetails(product_id=${pr.product_id})}">
+						<img th:src="@{/images/products/}+${pr.product_thumbnail_imgpath}" alt="#">
+						</a>
+						<span class="sale-tag" th:text="|${pr.product_discount}%|" th:style="${pr.product_discount} == '0' ? 'display:none' : 'display:block'"></span>
+						<div class="button">
 								<a class="btn" name="add_cart"> <i class="lni lni-cart"></i> 장바구니 추가
 								</a>
-							</div>
 						</div>
-						<div class="product-info">
-							
-							<h4 class="title">
-								<a th:href="@{/productdetails(product_id=${pr.product_id})}"
-									th:text="${pr.product_name}"></a>
-							</h4>
-							<span class="category" th:text="${pr.product_description}"></span>
-							<ul class="review">
-								<li><i class="lni lni-star-filled"></i></li>
-								<li><i class="lni lni-star-filled"></i></li>
-								<li><i class="lni lni-star-filled"></i></li>
-								<li><i class="lni lni-star-filled"></i></li>
-								<li><i class="lni lni-star"></i></li>
-								<li><span>4.0 Review(s)</span></li>
-							</ul>
-							<div class="price">
-								<span
-									th:text="|${#numbers.formatInteger(pr.product_price*(1-pr.product_discount/100.0),3,'COMMA')}원|"></span><span
-									class="discount-price"
-									th:text="|${#numbers.formatInteger(pr.product_price,3,'COMMA')}원|"
-									th:style="${pr.product_discount} == '0' ? 'display:none' : 'display:inline-block'"></span>
-							</div>
-						</div>
-						<!-- Hidden -->
-						<input th:value="${pr.product_id}" type="text"	name="product_id" hidden="true" />
 					</div>
+					<div class="product-info" name="product_info">
+						
+						<h4 class="title">
+							<a th:href="@{/productdetails(product_id=${pr.product_id})}" th:text="${pr.product_name}"></a>
+						</h4>
+						<span class="category" th:text="${pr.product_description}"></span>
+						<span>
+						<ul class="review" >
+							<li name="star"></li>
+						</ul>
+						
+						</span>
+							<span>(</span><span name="product_review" th:text="${pr.product_avgreview}"/><span>)</span><span th:text="|ㅤ${pr.product_reviewcount}개의 리뷰|"/>
+									
+						<div class="price">
+							<span th:text="|${#numbers.formatInteger(pr.product_price*(1-pr.product_discount/100.0),3,'COMMA')}원|"></span><span class="discount-price" th:text="|${#numbers.formatInteger(pr.product_price,3,'COMMA')}원|" th:style="${pr.product_discount} == '0' ? 'display:none' : 'display:inline-block'"></span>
+						</div>					
+					</div>
+					<!-- Hidden -->
+					<input th:value="${pr.product_id}" type="text"	name="product_id" hidden="true" />
+				</div>
 					<!-- End Single Product -->
 				</div>
 </div>
 </div>
 </section>
 <!-- End Banner Area -->
+
+

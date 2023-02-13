@@ -23,8 +23,8 @@
 									<img th:src="|images/products/${cart.product.product_thumbnail_imgpath}|"
 										class="img-fluid rounded-3" alt="Cotton T-shirt">
 								</div>
-								<div class="col-3">
-									<h6 class="text-black mb-1"
+								<div class="col-3"> 
+									<h6 class="text-black mb-1" id="product_name" name="product_name"
 										th:text="${cart.product.product_name}"></h6>
 									<h6 class="text-muted"
 										th:text="${cart.product.product_description}"></h6>
@@ -195,7 +195,7 @@
 							<div class="form-check">
 								<input class="form-check-input" type="radio"
 									name="payment_check" id="payment_check1"> <label
-									class="form-check-label" for="payment_check1"> 카카오페이 </label>
+									class="form-check-label" for="payment_check1"> <img src="/images/logo/payment_icon_yellow_small.png" style="width:25%">ㅤ카카오페이 </label>
 							</div>
 						</div>
 						<div class="p-2">

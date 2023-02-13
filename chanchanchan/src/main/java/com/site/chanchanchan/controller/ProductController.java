@@ -49,6 +49,7 @@ public class ProductController {
 			cate = categoryservice.get(category_id);
 			
 			prodlist = productservice.getprod(category_id);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
