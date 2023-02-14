@@ -39,5 +39,9 @@ public class RegularOrderScheduleService implements MyService<Integer, RegularOr
 	public List<RegularOrderSchedule> get() throws Exception {
 		return mapper.selectall();
 	}
+	
+	public void schdelete(Integer k) throws Exception {
+		mapper.schdelete(k);
+	}
 
 }

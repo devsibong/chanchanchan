@@ -27,6 +27,7 @@ import com.site.chanchanchan.service.OrderListService;
 import com.site.chanchanchan.service.PostService;
 import com.site.chanchanchan.service.ProductService;
 import com.site.chanchanchan.service.RegularOrderDetailService;
+import com.site.chanchanchan.service.RegularOrderScheduleService;
 import com.site.chanchanchan.service.ReviewService;
 
 @Controller
@@ -60,6 +61,9 @@ public class MyPageController {
 	
 	@Autowired
 	CartService cservice;
+	
+	@Autowired
+	RegularOrderScheduleService rosservice;
 	
 	@RequestMapping("/mypage")
 	public String main(HttpSession session, Model model) throws Exception {
@@ -153,6 +157,7 @@ public class MyPageController {
 		@RequestMapping("/regorderdel")  
 		public String regorderdel(Model model, Integer order_id) {
 			try {
+				rosservice.schdelete(order_id);
 				rodservice.remove(order_id);
 				olservice.remove(order_id);
 			} catch (Exception e) {
