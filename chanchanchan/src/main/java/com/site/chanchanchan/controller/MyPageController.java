@@ -434,7 +434,7 @@ public class MyPageController {
 			mservice.modify(member);
 			model.addAttribute("center", dir + "mypagecenter");
 			model.addAttribute("mypage", "/mypage/memberupdateok");
-			return "index";
+			return "redirect:/mypage";
 			
 		}
 	
