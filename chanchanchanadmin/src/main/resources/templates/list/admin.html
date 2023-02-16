@@ -78,7 +78,7 @@ $(document).ready(function(){
 	});
 	
 	$('#delete').click(function(){
-		var result = confirm("정말 삭제하시겠습니까?");
+		var result = confirm("정말 탈퇴하시겠습니까?");
 		if(result){
 		$("input[name='checkbox']:checked").each(function(){
 			var chk =$(this).closest("th").next().text();

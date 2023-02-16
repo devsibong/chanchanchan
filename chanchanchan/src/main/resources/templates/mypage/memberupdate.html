@@ -52,7 +52,7 @@ function formCheck(){
 		alert("전화번호를 입력하세요.");
 		return false;
 	}
-	alert("글 수정이 완료되었습니다.");
+	alert("회원정보 수정이 완료되었습니다.");
 	return true;
 }
 </script>
@@ -93,11 +93,11 @@ function formCheck(){
               </div>
               
              <div class="form-outline mb-4">
-                이름<input type="text" id="member_name" name="member_name" class="form-control">
+                이름<input type="text" id="member_name" name="member_name" class="form-control" th:value="${member.member_name}" readonly>
                 <span id="name_span"></span>
              </div> 
              <div class="form-outline mb-4">
-                핸드폰 번호<input type="text" id="member_tel" name="member_tel" class="form-control">
+                핸드폰 번호 ex):010-1234-5678<input type="text" id="member_tel" name="member_tel" class="form-control">
                 <span id="tel_span"></span>
              </div> 
              

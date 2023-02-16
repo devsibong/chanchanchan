@@ -25,7 +25,7 @@ public class Criteria {
 		this.pageNum=pageNum;
 		this.amount=amount;
 		
-		this.pageStartNum=(pageNum-1)*amount;
+		this.pageStartNum=(pageNum-1)*amount+1;
 	}
 	
 	public Criteria(int pageNum, int amount, String option, String searchVal,boolean isSearchOk) {

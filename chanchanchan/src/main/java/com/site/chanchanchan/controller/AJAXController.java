@@ -1,5 +1,7 @@
 package com.site.chanchanchan.controller;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -84,6 +86,12 @@ public class AJAXController {
 			e.printStackTrace();
 		}
 		return result;
-	}			
+	}
+	
+	@RequestMapping("/time")
+	public Object time() {
+		Date date = new Date();
+		return date.toString();
+	}
 			
 }

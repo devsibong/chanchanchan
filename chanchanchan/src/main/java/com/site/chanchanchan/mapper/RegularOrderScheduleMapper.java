@@ -9,4 +9,5 @@ import com.site.chanchanchan.frame.MyMapper;
 @Mapper
 @Repository
 public interface RegularOrderScheduleMapper extends MyMapper<Integer, RegularOrderSchedule>{
+	public void schdelete(Integer k) throws Exception;
 }

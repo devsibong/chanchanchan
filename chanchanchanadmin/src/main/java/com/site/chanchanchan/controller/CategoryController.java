@@ -83,7 +83,6 @@ public class CategoryController {
 	@ResponseBody
 	@RequestMapping("/delete")
 	public String delete(int del) {
-		System.out.println(del);
 		try {
 			cateservice.remove(del);
 		} catch (Exception e) {

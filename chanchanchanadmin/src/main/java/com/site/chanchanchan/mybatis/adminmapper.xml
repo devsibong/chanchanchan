@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		SELECT * FROM admin
 	</select>
 	<insert id="insert" parameterType="Admin">
-		INSERT INTO admin VALUES (admin_index,#{admin_id},#{admin_pwd},#{admin_name},#{admin_class},admin_status,#{admin_email})
+		INSERT INTO admin VALUES (admin_index,#{admin_id},#{admin_pwd},#{admin_name},#{admin_class},#{admin_email},'N')
 	</insert>
 	<update id="update" parameterType="Admin">
 		UPDATE admin SET admin_id=#{admin_id},admin_pwd=#{admin_pwd},admin_name=#{admin_name},admin_class=#{admin_class},admin_status='Y',admin_email=#{admin_email} 
@@ -21,7 +21,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		WHERE admin_index=#{admin_index}
 	</update>
 	<delete id="delete" parameterType="Integer">
-		DELETE FROM admin WHERE admin_index=#{admin_index}
+		DELETE FROM admin WHERE admin_index=#{del}
 	</delete>
 	<select id="search" parameterType="String" resultType="Admin">
 		SELECT * FROM admin WHERE admin_id=#{id}

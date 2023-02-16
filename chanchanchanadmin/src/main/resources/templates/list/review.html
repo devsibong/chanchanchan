@@ -45,7 +45,7 @@ $(document).ready(function(){
 	});
 	
 	$('#delete').click(function(){
-		var result = confirm("선택한 상품을 정말 삭제처리하시겠습니까?");
+		var result = confirm("선택한 리뷰를 정말 삭제처리하시겠습니까?");
 		if(result){
 		$("input[name='checkbox']:checked").each(function(){
 			var chk =$(this).closest("th").next().text();
@@ -132,7 +132,6 @@ $(document).ready(function(){
 			<div class="d-grid gap-3 d-md-flex justify-content-md-end">
 				<button type="button" id="selectall" class="btn btn-secondary btn-sm ml-3">전체선택</button>
 				<button type="button" id="cancelall" class="btn btn-secondary btn-sm ml-3 mr-auto">전체해제</button>
-				<button type="button" id="salerate" class="btn btn-primary btn-sm float-right mr-3">할인율 수정</button>
 			</div>
 			<div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
 				<button type="button" id="delete" class="btn btn-danger btn-sm mr-3">삭제</button>

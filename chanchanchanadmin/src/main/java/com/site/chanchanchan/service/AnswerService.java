@@ -54,5 +54,8 @@ public class AnswerService implements MyService<Integer, Answer>{
 	public Answer select_post_id(Integer post_id) throws Exception{
 		return answermapper.select_post_id(post_id);
 	}
+	public void delete(Integer del) throws Exception{
+		answermapper.deleteid(del);
+	}
 	
 }

@@ -38,7 +38,6 @@ public class AdminController {
 		if(session.getAttribute("option")!=null && session.getAttribute("searchVal")!=null) {
 			option=(String)session.getAttribute("option");
 			searchVal=(String)session.getAttribute("searchVal");
-		
 		}
 		
 		boolean isSearchOk = false;
@@ -114,7 +113,7 @@ public class AdminController {
 		try {
 			admservice.remove(del);
 		} catch (Exception e) {
-//			e.printStackTrace();
+		e.printStackTrace();
 		}
 		return "main";
 	}

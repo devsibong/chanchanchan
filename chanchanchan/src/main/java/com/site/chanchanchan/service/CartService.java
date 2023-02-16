@@ -47,4 +47,8 @@ public class CartService implements MyService<String, Cart> {
 	public int modifyCount(Cart v) throws Exception {
 		return mapper.updateCount(v);
 	}
+	
+	public int count(String k) throws Exception {
+		return mapper.count(k);
+	}
 }

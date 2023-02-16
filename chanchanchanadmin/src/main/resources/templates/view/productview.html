@@ -22,7 +22,7 @@ $(document).ready(function(){
 	$('#delete').click(function(){
 		var result = confirm("선택한 상품을 정말 삭제처리하시겠습니까?");
 		if(result){
-			$("#product_id").text();
+			var chk =$("#product_id").text();
 	  	    checked_delete(chk);	
 		}else{ 
 			alert('취소!');
@@ -88,8 +88,8 @@ $(document).ready(function(){
 				<button type="button" id="list" class="btn btn-secondary btn-sm float-right mr-3">목록으로</button>
 				<a th:href="@{/product/register}"><button type="button" id="register" class="btn btn-primary btn-sm float-right mr-3">등록</button></a>
 				<a th:href="@{/product/modify(id=${productView.product_id})}"><button type="button" id="modify" class="btn btn-success btn-sm float-right mr-3">수정</button></a>
-				<button type="button" id="delete" class="btn btn-danger btn-sm mr-3">삭제</button>
-			</div>
+<!-- 				<button type="button" id="delete" class="btn btn-danger btn-sm mr-3">삭제</button>
+ -->			</div>
 		</div>
 	</div>
 	</body>
