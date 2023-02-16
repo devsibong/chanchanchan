@@ -123,7 +123,6 @@ public class MemberController {
 				member_index=mem.getMember_index();
 				x =memservice.getSumById(member_index);
 				sum =x.getSum();
-				System.out.println(sum);
 				if(sum>=rank_minprice && sum<=rank_maxprice) {
 					memservice.changeRank(new Member(member_index,member_rank));
 				}
