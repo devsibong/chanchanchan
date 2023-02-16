@@ -155,7 +155,7 @@ public class MemberController {
 			e.printStackTrace();
 		}
 		
-		return "index";
+		return "redirect:/";
 	}
 	
 	@RequestMapping("/naverlogin")
@@ -177,6 +177,6 @@ public class MemberController {
 			e.printStackTrace();
 		}
 		
-		return "index";
+		return "redirect:/";
 	}
 }
