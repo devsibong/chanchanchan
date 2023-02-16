@@ -28,7 +28,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		WHERE member_index=#{member_index}
 	</update>
 	<delete id="delete" parameterType="Integer">
-		DELETE FROM member WHERE member_index=#{member_index}
+		DELETE FROM member WHERE member_index=#{param1}
 	</delete>
 	<select id="search" parameterType="String" resultType="Member">
 		SELECT * FROM member WHERE member_rank=#{member_rank}

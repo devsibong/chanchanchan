@@ -23,7 +23,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		WHERE answer_id=#{answer_id}
 	</update>
 	<delete id="delete" parameterType="Integer">
-		DELETE FROM answer WHERE answer_id=#{answer_id}
+		DELETE FROM answer WHERE answer_id=#{param1}
 	</delete>
 	<select id="getTotal" parameterType="Criteria" resultType="Integer">
 		SELECT COUNT(*) FROM answer

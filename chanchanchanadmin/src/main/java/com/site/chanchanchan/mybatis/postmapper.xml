@@ -20,7 +20,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		WHERE post_id=#{post_id}
 	</update>
 	<delete id="delete" parameterType="Integer">
-		DELETE FROM post WHERE post_id=#{post_id}
+		DELETE FROM post WHERE post_id=#{param1}
 	</delete>
 	<select id="getTotal" parameterType="Criteria" resultType="Integer">
 		SELECT COUNT(*) FROM post

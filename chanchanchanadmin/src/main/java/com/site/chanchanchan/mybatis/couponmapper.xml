@@ -22,7 +22,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		WHERE coupon_id=#{coupon_id}
 	</update>
 	<delete id="delete" parameterType="Integer">
-		DELETE FROM coupon WHERE coupon_id=#{coupon_id}
+		DELETE FROM coupon WHERE coupon_id=#{param1}
 	</delete>
 	<select id="search" parameterType="String" resultType="Coupon">
 		SELECT * FROM coupon WHERE coupon_id=#{id}

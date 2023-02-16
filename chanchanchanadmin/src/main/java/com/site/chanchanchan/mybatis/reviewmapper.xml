@@ -19,7 +19,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		WHERE review_id=#{review_id}
 	</update>
 	<delete id="delete" parameterType="Integer">
-		DELETE FROM review WHERE review_id=#{review_id}
+		DELETE FROM review WHERE review_id=#{param1}
 	</delete>
 	<select id="getTotal" parameterType="Criteria" resultType="Integer">
 		SELECT COUNT(*) FROM review

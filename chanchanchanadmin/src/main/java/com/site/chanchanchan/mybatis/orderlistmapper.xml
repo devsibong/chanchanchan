@@ -24,7 +24,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		WHERE order_id=#{order_id}
 	</update>
 	<delete id="delete" parameterType="Integer">
-		DELETE FROM order_list WHERE order_id=#{order_id}
+		DELETE FROM order_list WHERE order_id=#{param1}
 	</delete>
 	<select id="getTotal" parameterType="Criteria" resultType="Integer">
 		SELECT COUNT(*) FROM order_list

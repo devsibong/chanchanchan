@@ -19,7 +19,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		WHERE category_id=#{category_id}
 	</update>
 	<delete id="delete" parameterType="Integer">
-		DELETE FROM category WHERE category_id=#{category_id}
+		DELETE FROM category WHERE category_id=#{param1}
 	</delete>
 	<select id="search" parameterType="String" resultType="Category">
 		SELECT * FROM category WHERE category_title=#{category_title}
