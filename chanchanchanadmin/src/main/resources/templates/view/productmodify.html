@@ -42,7 +42,8 @@ th{width:16%}
 						<tr>
 							<th>대표이미지</th>
 							<th:block th:if="${product.product_thumbnail_imgpath != null}">
-							<td><img th:src="@{/images/products/}+${product.product_thumbnail_imgpath}" alt="#" style="width:10%;">					
+							<td><img th:src="@{/images/products/}+${product.product_thumbnail_imgpath}" alt="#" style="width:10%;">	
+							<button type="button" id="deletethumb" class="btn btn-danger btn-sm float-right mr-3">삭제</button></td>				
 							</th:block>
 							<th:block th:if="${product.product_thumbnail_imgpath == null}">
 							<td><input type="file" th:value="${product.product_thumbnail_imgpath}" style="width:90%;" name="product_thumbnail_imgpath"></td>
@@ -52,6 +53,7 @@ th{width:16%}
 							<th>상세이미지</th>
 							<th:block th:if="${product.product_detail_imgpath != null}">
 							<td><img th:src="@{/images/products/}+${product.product_detail_imgpath}" alt="#" style="width:10%;">					
+							<button type="button" id="deletedetail" class="btn btn-danger btn-sm float-right mr-3">삭제</button></td>				
 							</th:block>
 							<th:block th:if="${product.product_detail_imgpath == null}">
 							<td><input type="file" th:value="${product.product_detail_imgpath}" style="width:90%;" name="product_detail_imgpath"></td>
