@@ -59,4 +59,13 @@ public class OrderListService implements MyService<Integer, OrderList>{
 	public List<OrderList> regordlist(Integer k) throws Exception{
 		return mapper.list(k);
 	}
+	public int precount(String k) throws Exception {
+		return mapper.precount(k);
+	}
+	public int ingcount(String k) throws Exception {
+		return mapper.ingcount(k);
+	}
+	public int comcount(String k) throws Exception {
+		return mapper.comcount(k);
+	}
 }

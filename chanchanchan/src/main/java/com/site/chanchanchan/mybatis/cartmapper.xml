@@ -56,7 +56,10 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<delete id="delete" parameterType="String">
 		DELETE FROM cart WHERE cart_id
 		= #{cart_id}
-	</delete>	
+	</delete>
+	<select id="count" parameterType="String" resultType="int">
+		SELECT count(cart_id) AS count FROM cart WHERE member_index = #{member_index}
+	</select>
 </mapper>
 
 

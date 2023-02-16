@@ -29,5 +29,14 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		(order_id,#{member_index},#{product_totalprice},#{shippingfee}
 		,#{order_totalpayment},#{payment_method},NOW(),#{order_state},#{receiver},#{receiver_tel},#{delivery_info})
 	</insert>
+	<select id="precount" parameterType="String" resultType="int">
+		select count(order_id) from order_list where member_index = #{member_index} and order_state = '배송준비'
+	</select>
+	<select id="ingcount" parameterType="String" resultType="int">
+		select count(order_id) from order_list where member_index = #{member_index} and order_state = '배송중'
+	</select>
+	<select id="comcount" parameterType="String" resultType="int">
+		select count(order_id) from order_list where member_index = #{member_index} and order_state = '배송완료'
+	</select>
 
 </mapper>

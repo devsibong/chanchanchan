@@ -27,5 +27,13 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		DELETE FROM regular_orderschedule WHERE regular_orderschedule_id
 		= #{regular_orderschedule_id}
 	</delete>
+	
+	<delete id="schdelete" parameterType="Integer">
+		DELETE FROM ros
+		USING regular_orderschedule AS ros
+		LEFT JOIN regular_orderdetail AS rod 
+		ON ros.regular_orderdetail_id = rod.regular_orderdetail_id
+		WHERE rod.order_id = #{order_id}
+	</delete>
 
 </mapper>

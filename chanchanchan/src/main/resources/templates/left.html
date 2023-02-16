@@ -44,6 +44,7 @@ div{
 } 
 .greenContainer .modify{
   margin-left: auto;
+  text-align: right;
 }
 
 /* 단골상점 , 상품후기 , 적립금 박스 */
@@ -193,14 +194,14 @@ div{
 <div class="wrap">
   <div class="greenContainer">
     <div>
-      <div class="name" th:text="${mem.member_id}"></div>
-      <div th:text="${mem.member_rank}" style="font-size: 20px; color: #ffffff;">
+      <div class="name" th:text="${mem.member_id}+님"></div>
+      <div  style="font-size: 20px; color: gray;">회원정보
       </div>
-    </div>    
+    </div>
   </div>
   <div class="summaryContainer">
     <div class="item">
-        <div class="number" th:text="${mem.member_rank}+_rank"></div>
+        <div class="number" th:text="${mem.member_rank}" style="margin-left: 20px;"></div>
         <div>회원등급</div>
       </div>
       <div class="item">
@@ -221,29 +222,29 @@ div{
       
       <div class="item">
         <div>
-          <div class="green number"><a th:href="@{/cart}">1</a></div>
+          <div class="green number"><a th:href="@{/cart}" th:text="${cart}"></a></div>
           <div class="text">장바구니</div>
         </div>
         <div class="icon"> > </div>
       </div>     
       <div class="item">
         <div>
-          <div class="green number">0</div>
-          <div class="text">결제완료</div>
+          <div class="green number" th:text="${precount}"></div>
+          <div class="text">배송준비</div>
         </div>
         <div class="icon"> > </div>
       </div>     
       <div class="item">
         <div>
-          <div class="green number">0</div>
+          <div class="green number" th:text="${ingcount}"></div>
           <div class="text">배송중</div>
         </div>
         <div class="icon"> > </div>
       </div>     
       <div class="item">
         <div>
-          <div class="green number">3</div>
-          <div class="text">구매확정</div>
+          <div class="green number" th:text="${comcount}"></div>
+          <div class="text">배송완료</div>
         </div>
       </div>     
       

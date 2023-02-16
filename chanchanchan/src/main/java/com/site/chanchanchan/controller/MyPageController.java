@@ -20,12 +20,14 @@ import com.site.chanchanchan.dto.Product;
 import com.site.chanchanchan.dto.RegularOrderDetail;
 import com.site.chanchanchan.dto.Review;
 import com.site.chanchanchan.service.AnswerService;
+import com.site.chanchanchan.service.CartService;
 import com.site.chanchanchan.service.MemberService;
 import com.site.chanchanchan.service.OrderDetailService;
 import com.site.chanchanchan.service.OrderListService;
 import com.site.chanchanchan.service.PostService;
 import com.site.chanchanchan.service.ProductService;
 import com.site.chanchanchan.service.RegularOrderDetailService;
+import com.site.chanchanchan.service.RegularOrderScheduleService;
 import com.site.chanchanchan.service.ReviewService;
 
 @Controller
@@ -57,6 +59,12 @@ public class MyPageController {
 	@Autowired
 	AnswerService aservice;
 	
+	@Autowired
+	CartService cservice;
+	
+	@Autowired
+	RegularOrderScheduleService rosservice;
+	
 	@RequestMapping("/mypage")
 	public String main(HttpSession session, Model model) throws Exception {
 		Member loginMember = (Member)session.getAttribute("loginmem");
@@ -64,8 +72,16 @@ public class MyPageController {
 			return "redirect:/login";
 		} else {
 			Member mem = mservice.getByIndex(Integer.toString(loginMember.getMember_index()));
+			int cart = cservice.count(Integer.toString(loginMember.getMember_index()));
+			int precount = olservice.precount(Integer.toString(loginMember.getMember_index()));
+			int ingcount = olservice.ingcount(Integer.toString(loginMember.getMember_index()));
+			int comcount = olservice.comcount(Integer.toString(loginMember.getMember_index()));
 			
 			model.addAttribute("mem", mem);
+			model.addAttribute("cart", cart);
+			model.addAttribute("precount", precount);
+			model.addAttribute("ingcount", ingcount);
+			model.addAttribute("comcount", comcount);
 			model.addAttribute("center", dir + "mypagecenter");
 			return "index";
 		}
@@ -141,6 +157,7 @@ public class MyPageController {
 		@RequestMapping("/regorderdel")  
 		public String regorderdel(Model model, Integer order_id) {
 			try {
+				rosservice.schdelete(order_id);
 				rodservice.remove(order_id);
 				olservice.remove(order_id);
 			} catch (Exception e) {
@@ -213,7 +230,7 @@ public class MyPageController {
 		
 		model.addAttribute("center", dir + "mypagecenter");
 		model.addAttribute("mypage", "/mypage/reviewdetail");
-		return "index";
+		return "index"; 
 	}
 	
 	
@@ -417,7 +434,7 @@ public class MyPageController {
 			mservice.modify(member);
 			model.addAttribute("center", dir + "mypagecenter");
 			model.addAttribute("mypage", "/mypage/memberupdateok");
-			return "index";
+			return "redirect:/mypage";
 			
 		}
 	

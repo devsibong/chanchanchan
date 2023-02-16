@@ -1,9 +1,12 @@
 <ul class="list-group">
   <li class="list-group-item active" aria-current="true">주문 상세내역</li>
   상품명:<li class="list-group-item" th:text="${orderdetail.product_name}"></li>
+  배송비:<li class="list-group-item" th:text="${orderdetail.shippingfee}"></li>
   총결제금액:<li class="list-group-item" th:text="${orderdetail.order_totalpayment}"></li>
   결제방법:<li class="list-group-item" th:text="${orderdetail.payment_method}"></li>
   주문일자:<li class="list-group-item" th:text="${#dates.format(orderdetail.order_date, 'yyyy-MM-dd')}"></li>
   배송상태:<li class="list-group-item" th:text="${orderdetail.order_state}"></li>
   받는사람:<li class="list-group-item" th:text="${orderdetail.receiver}"></li>
+  받는사람 연락처:<li class="list-group-item" th:text="${orderdetail.receiver_tel}"></li>
+  요청사항:<li class="list-group-item" th:text="${orderdetail.delivery_info}"></li>
 </ul>

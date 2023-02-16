@@ -28,29 +28,29 @@ function formCheck(){
 		margin-top:10px;
 		min-height:300px;
 	}
-	#myform fieldset{
+	#contactForm fieldset{
     display: inline-block;
     direction: rtl;
     border:0;
 	}
-	#myform fieldset legend{
+	#contactForm fieldset legend{
 	    text-align: right;
 	}
-	#myform input[type=radio]{
+	#contactForm input[type=radio]{
 	    display: none;
 	}
-	#myform label{
+	#contactForm label{
 	    font-size: 3em;
 	    color: transparent;
 	    text-shadow: 0 0 0 #f0f0f0;
 	}
-	#myform label:hover{
+	#contactForm label:hover{
 	    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
 	}
-	#myform label:hover ~ label{
+	#contactForm label:hover ~ label{
 	    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
 	}
-	#myform input[type=radio]:checked ~ label{
+	#contactForm input[type=radio]:checked ~ label{
 	    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
 	}
 	#reviewContents {
@@ -64,24 +64,88 @@ function formCheck(){
 	    resize: none;
 	}
 </style>
-<div class="layout">
-	<form th:action="@{/reviewok}" class="mb-3" name="myform" id="myform" method="post" onsubmit="return formCheck()">
-		회원번호<input name="member_index" type="text" id="member_index" th:value="${memdex}" readonly><br><br>
-		상품명<input name="product_name" type="text" id="product_name" th:value="${pr.product_name}" readonly><br><br>
-		<fieldset>
-		<span class="text-bold">별점을 선택해주세요</span>
-		<input type="radio" name="review_rank" value="5" id="rate1"><label
-			for="rate1">★</label>
-		<input type="radio" name="review_rank" value="4" id="rate2"><label
-			for="rate2">★</label>
-		<input type="radio" name="review_rank" value="3" id="rate3"><label
-			for="rate3">★</label>
-		<input type="radio" name="review_rank" value="2" id="rate4"><label
-			for="rate4">★</label>
-		<input type="radio" name="review_rank" value="1" id="rate5"><label
-			for="rate5">★</label>
-	</fieldset><br>
-		글내용<textarea name="review_content" id="review_content"></textarea>
-		<button type="submit" class="btn btn-secondary">글등록</button>
-	</form>
+
+<div class="container px-5 my-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="card border-0 rounded-3 shadow-lg">
+        <div class="card-body p-4">
+          <div class="text-center">
+            <h3  style="color: #0E4478; font-weight: bold; text-align: left;">리뷰</h3>
+            
+          </div><br>
+
+          <!-- * * * * * * * * * * * * * *
+          // * * SB Forms Contact Form * *
+          // * * * * * * * * * * * * * * *
+
+          // This form is pre-integrated with SB Forms.
+          // To make this form functional, sign up at
+          // https://startbootstrap.com/solution/contact-forms
+          // to get an API token!
+          -->
+
+          <form id="contactForm"  th:action="@{/reviewok}" method="post" onsubmit="return formCheck()"> 
+
+            <!-- Name Input -->
+            <div class="form-floating mb-3">
+              회원번호<input class="form-control" type="text" name="member_index" th:value="${memdex}" readonly/>                  
+            </div>
+
+            <!-- Email Input -->
+            <div class="form-floating mb-3">
+              상품명<input class="form-control" type="text" name="product_name" id="product_name" th:value="${pr.product_name}" readonly />
+              상품번호<input name="product_id" type="hidden" class="form-control" id="product_id" th:value="${pr.product_id}" readonly>
+              
+            </div>
+            <fieldset>
+				<span class="text-bold">별점을 선택해주세요</span>
+				<input type="radio" name="review_rank" value="5" id="rate1"><label
+					for="rate1">★</label>
+				<input type="radio" name="review_rank" value="4" id="rate2"><label
+					for="rate2">★</label>
+				<input type="radio" name="review_rank" value="3" id="rate3"><label
+					for="rate3">★</label>
+				<input type="radio" name="review_rank" value="2" id="rate4"><label
+					for="rate4">★</label>
+				<input type="radio" name="review_rank" value="1" id="rate5"><label
+					for="rate5">★</label>
+			</fieldset><br>
+
+            <!-- Message Input -->
+            <div class="form-floating mb-3">
+              글내용<textarea class="form-control" type="text" name="review_content" id="review_content" style="height: 10rem;" data-sb-validations="required" >
+              </textarea>
+              
+              <div class="invalid-feedback" data-sb-feedback="message:required">Message is required.</div>
+            </div>
+
+            <!-- Submit success message -->
+            <div class="d-none" id="submitSuccessMessage">
+              <div class="text-center mb-3">
+                <div class="fw-bolder">Form submission successful!</div>
+                <p>To activate this form, sign up at</p>
+                <a href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
+              </div>
+            </div>
+
+            <!-- Submit error message -->
+            <div class="d-none" id="submitErrorMessage">
+              <div class="text-center text-danger mb-3">Error sending message!</div>
+            </div>
+
+            <!-- Submit button -->
+            
+              <button type="submit" class="btn btn-primary" style="margin-left: 445px;">리뷰등록</button>
+            
+          </form>
+          <!-- End of contact form -->
+
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+<!-- CDN Link to SB Forms Scripts -->
+<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
