@@ -21,7 +21,7 @@ $(document).ready(function(){
 	$('#delete').click(function(){
 		var result = confirm("선택한 글을 정말 삭제처리하시겠습니까?");
 		if(result){
-			$("#post_id").text();
+			var chk=$("#post_id").text();
 	  	    checked_delete(chk);	
 			alert('삭제완료!');
 		}else{ 
@@ -83,7 +83,6 @@ $(document).ready(function(){
 				<th:block th:if="${#strings.equals(postView.answer_existence, 'N')}"> 
 				<a th:href="@{/post/register(post_id=${postView.post_id})}"><button type="button" id="register" class="btn btn-primary btn-sm float-right mr-3">답변등록</button></a>
 				</th:block>
-				<button type="button" id="delete" class="btn btn-danger btn-sm mr-3">삭제</button>
 			</div>	
 		</div>
 	</div>

@@ -22,7 +22,8 @@ $(document).ready(function(){
 	$('#delete').click(function(){
 		var result = confirm("선택한 상품을 정말 삭제처리하시겠습니까?");
 		if(result){
-			$("#review_id").text();
+			var chk=$('#review_id').text();
+			console.log(chk);
 	  	    checked_delete(chk);	
 		}else{ 
 			alert('취소!');
@@ -45,7 +46,7 @@ $(document).ready(function(){
 						<tbody>
 						<tr>
 							<th>리뷰번호</th>
-							<td id="review_id" th:text="${reviewView.review_id}" style="width:20%; border:none;"></td>
+							<td id="review_id" name="review_id" th:text="${reviewView.review_id}" style="width:20%; border:none;"></td>
 						</tr>
 						<tr>
 							<th>등록일</th>
@@ -74,7 +75,6 @@ $(document).ready(function(){
 			
 			<div class="d-grid gap-3 d-md-flex justify-content-md-end mt-3">
 				<button type="button" id="list" class="btn btn-secondary btn-sm float-right mr-3">목록으로</button>
-				<button type="button" id="delete" class="btn btn-danger btn-sm mr-3">삭제</button>
 			</div>
 		</div>
 	</div>

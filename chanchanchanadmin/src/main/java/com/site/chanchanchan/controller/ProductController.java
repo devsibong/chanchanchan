@@ -92,7 +92,7 @@ public class ProductController {
 		try {
 			productservice.remove(del);
 		} catch (Exception e) {
-//			e.printStackTrace();
+			e.printStackTrace();
 		}
 		return "main";
 	}

@@ -25,6 +25,9 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<delete id="delete" parameterType="Integer">
 		DELETE FROM answer WHERE answer_id=#{param1}
 	</delete>
+	<delete id="deleteid" parameterType="Integer">
+		DELETE FROM answer WHERE post_id=#{param1}
+	</delete>
 	<select id="getTotal" parameterType="Criteria" resultType="Integer">
 		SELECT COUNT(*) FROM answer
 		<if test='!isSearchOk'>

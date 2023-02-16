@@ -94,20 +94,21 @@ public class PostController {
 		try {
 			answerservice.remove(del);
 		} catch (Exception e) {
-//			e.printStackTrace();
+			e.printStackTrace();
 		}
-		return "main";
+		return "rediret:/post/list";
 	}
 	//삭제버튼
 	@ResponseBody
 	@RequestMapping("/delete")
 	public String postdelete(int del) {
 		try {
+			answerservice.delete(del);
 			postservice.remove(del);
 		} catch (Exception e) {
-//			e.printStackTrace();
+			e.printStackTrace();
 		}
-		return "main";
+		return "rediret:/post/list";
 	}
 	
 	//게시글 뷰페이지

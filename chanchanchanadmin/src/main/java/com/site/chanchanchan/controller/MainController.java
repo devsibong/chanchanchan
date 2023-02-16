@@ -106,7 +106,10 @@ public class MainController {
 	public String registeradm(Admin adm) {
 		try {
 			admservice.register(adm);
+			System.out.println(adm.toString());
+
 		} catch (Exception e) {
+			e.printStackTrace();
 			return "login/registerfail";
 		}
 		return "login/registerok";

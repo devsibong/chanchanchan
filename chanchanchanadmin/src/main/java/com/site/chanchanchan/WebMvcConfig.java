@@ -18,6 +18,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     			.excludePathPatterns("/**/**/*.js")
     			.excludePathPatterns("/**/**/**/*.css")
     			.excludePathPatterns("/**/**/**/*.js")
-    			.excludePathPatterns("/register");
+    			.excludePathPatterns("/register")
+    			.excludePathPatterns("/registeradm");
     }
 }

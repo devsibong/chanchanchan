@@ -113,7 +113,7 @@ public class AdminController {
 		try {
 			admservice.remove(del);
 		} catch (Exception e) {
-//			e.printStackTrace();
+		e.printStackTrace();
 		}
 		return "main";
 	}

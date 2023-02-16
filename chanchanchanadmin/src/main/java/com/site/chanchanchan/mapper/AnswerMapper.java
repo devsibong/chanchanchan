@@ -16,4 +16,5 @@ public interface AnswerMapper extends MyMapper<Integer, Answer>{
 	public int getTotal(Criteria cri) throws Exception;
 	public int answer_existence(Integer id) throws Exception;
 	public Answer select_post_id(Integer post_id) throws Exception;
+	public void deleteid(Integer del) throws Exception;
 }
