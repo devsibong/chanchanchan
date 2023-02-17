@@ -15,7 +15,7 @@ https://youtu.be/EkAxuu0lvSg
 ## 팀원
 * 최현동(팀장) seohae7785@gmail.com
 * 박경태 gtwelove0811@gmail.com
-* 박윤상
+* 박윤상 sangepy@gmail.com
 * 정슬기 zhem925@gmail.com
 
 <br>
